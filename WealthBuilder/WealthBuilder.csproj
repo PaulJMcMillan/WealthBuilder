@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C45D0F3A-5E5E-40D3-8F3F-6245F79E8FB8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>WealthBuilder</RootNamespace>
+    <AssemblyName>WealthBuilder</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Word.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Word.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="RestSharp, Version=106.2.2.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.106.2.2\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="1099ContractorsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="1099ContractorsForm.Designer.cs">
+      <DependentUpon>1099ContractorsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Account.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AccountsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AccountsForm.designer.cs">
+      <DependentUpon>AccountsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Affordability.cs" />
+    <Compile Include="AggregateEntry.cs" />
+    <Compile Include="AppExecution.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="Asset.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AssetsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssetsForm.Designer.cs">
+      <DependentUpon>AssetsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Budget.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BudgetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BudgetForm.designer.cs">
+      <DependentUpon>BudgetForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="C1099Contractors.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CalendarCell.cs" />
+    <Compile Include="CalendarColumn.cs" />
+    <Compile Include="CalendarEditingControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Cash.cs" />
+    <Compile Include="CashFlowChartCriteriaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CashFlowChartCriteriaForm.Designer.cs">
+      <DependentUpon>CashFlowChartCriteriaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CashFlowChartForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CashFlowForecast.cs" />
+    <Compile Include="CashFlowForecastData.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CashFlowForecastEntry.cs" />
+    <Compile Include="CategoriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CategoriesForm.Designer.cs">
+      <DependentUpon>CategoriesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Category.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Entities.cs" />
+    <Compile Include="Code\Entity.cs" />
+    <Compile Include="Code\Form.cs" />
+    <Compile Include="DataGridViewHelper.cs" />
+    <Compile Include="QuickCashAppTransForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuickCashAppTransForm.Designer.cs">
+      <DependentUpon>QuickCashAppTransForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReconciliationReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReconciliationReportForm.Designer.cs">
+      <DependentUpon>ReconciliationReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportsForm.Designer.cs">
+      <DependentUpon>ReportsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SupportFile.cs" />
+    <Compile Include="TaxCategoriesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaxCategoriesForm.Designer.cs">
+      <DependentUpon>TaxCategoriesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaxCategory.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaxForm.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TaxFormsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaxFormsForm.Designer.cs">
+      <DependentUpon>TaxFormsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TaxReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TaxReportForm.Designer.cs">
+      <DependentUpon>TaxReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Ten99MiscReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ten99MiscReportForm.Designer.cs">
+      <DependentUpon>Ten99MiscReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextFile.cs" />
+    <Compile Include="ToDoList.cs" />
+    <Compile Include="ToolsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToolsForm.designer.cs">
+      <DependentUpon>ToolsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Transaction.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransactionsForm.Designer.cs">
+      <DependentUpon>TransactionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrequencyCode.cs" />
+    <Compile Include="Code\Transaction.cs" />
+    <Compile Include="Code\Transactions.cs" />
+    <Compile Include="Common.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="CurrentEntity.cs" />
+    <Compile Include="Data.cs" />
+    <Compile Include="DataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Date.cs" />
+    <Compile Include="DB.cs" />
+    <Compile Include="EntitiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EntitiesForm.designer.cs">
+      <DependentUpon>EntitiesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Entity.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Error.cs" />
+    <Compile Include="FirstTimeRun.cs" />
+    <Compile Include="Frequency.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="HelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HelpForm.designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inflow.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InflowsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InflowsForm.designer.cs">
+      <DependentUpon>InflowsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="KeyGen.cs" />
+    <Compile Include="LowestBalancesNotificationsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LowestBalancesNotificationsForm.designer.cs">
+      <DependentUpon>LowestBalancesNotificationsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ObtainLicenseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ObtainLicenseForm.designer.cs">
+      <DependentUpon>ObtainLicenseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreApplicationStart.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="ProjectedCashBalance.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DailyBalancesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DailyBalancesForm.designer.cs">
+      <DependentUpon>DailyBalancesForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reconciliation.cs" />
+    <Compile Include="Reminder.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Reminders.cs" />
+    <Compile Include="RemindersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RemindersForm.designer.cs">
+      <DependentUpon>RemindersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreenApplication.cs" />
+    <Compile Include="SplashScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreenForm.designer.cs">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs" />
+    <Compile Include="WBResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WBResource.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="1099ContractorsForm.resx">
+      <DependentUpon>1099ContractorsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AccountsForm.resx">
+      <DependentUpon>AccountsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssetsForm.resx">
+      <DependentUpon>AssetsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BudgetForm.resx">
+      <DependentUpon>BudgetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashFlowChartCriteriaForm.resx">
+      <DependentUpon>CashFlowChartCriteriaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CashFlowChartForm.resx">
+      <DependentUpon>CashFlowChartForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CategoriesForm.resx">
+      <DependentUpon>CategoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EntitiesForm.resx">
+      <DependentUpon>EntitiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickCashAppTransForm.resx">
+      <DependentUpon>QuickCashAppTransForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReconciliationReportForm.resx">
+      <DependentUpon>ReconciliationReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsForm.resx">
+      <DependentUpon>ReportsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaxCategoriesForm.resx">
+      <DependentUpon>TaxCategoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaxFormsForm.resx">
+      <DependentUpon>TaxFormsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TaxReportForm.resx">
+      <DependentUpon>TaxReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Ten99MiscReportForm.resx">
+      <DependentUpon>Ten99MiscReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToolsForm.resx">
+      <DependentUpon>ToolsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TransactionsForm.resx">
+      <DependentUpon>TransactionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InflowsForm.resx">
+      <DependentUpon>InflowsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LowestBalancesNotificationsForm.resx">
+      <DependentUpon>LowestBalancesNotificationsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ObtainLicenseForm.resx">
+      <DependentUpon>ObtainLicenseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DailyBalancesForm.resx">
+      <DependentUpon>DailyBalancesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="RemindersForm.resx">
+      <DependentUpon>RemindersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreenForm.resx">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WBResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>WBResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="DataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="1099 Summary Report.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="DataModel.edmx.diagram">
+      <DependentUpon>DataModel.edmx</DependentUpon>
+    </None>
+    <None Include="DataSet.xsc">
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSet.xss">
+      <DependentUpon>DataSet.xsd</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="SqlLocalDB.msi">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Tax Summary Report.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="WorkingFile.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="coins.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DataModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModel.edmx</DependentUpon>
+      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DataModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DataModel.edmx</DependentUpon>
+      <LastGenOutput>DataModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="WealthBuilder.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>WealthBuilder.mdf</DependentUpon>
+    </Content>
+    <Content Include="WealthBuilder.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.SqlServer.SqlLocalDB.11.1">
+      <Visible>False</Visible>
+      <ProductName>SQL Server 2012 Express LocalDB</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
