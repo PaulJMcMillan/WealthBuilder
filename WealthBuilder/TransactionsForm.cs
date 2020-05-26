@@ -161,8 +161,8 @@ namespace WealthBuilder
 
                 using (var db = new WBEntities())
                 {
-                    var deposit = decimal.Parse(DepositTextBox.Text);
-                    var wd = decimal.Parse(WithdrawalTextBox.Text);
+                    decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
+                    decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
 
                     var trans = new Transaction()
                     {
@@ -180,7 +180,7 @@ namespace WealthBuilder
 
                     db.Transactions.Add(trans);
                     db.SaveChanges();
-                    MessageBox.Show("Added");
+                   
                 }
 
                 return;
@@ -226,52 +226,34 @@ namespace WealthBuilder
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            ClearFormFields();
-            mode = 1; //Add
-            addButton.Enabled = false;
-            saveButton.Enabled = true;
-            deleteButton.Enabled = false;
+            AddNew();
+            FilterAndSortDgv();
+            UpdateCurrentBalance();
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            if (mode == 1)
-            {
-                AddNew();
-            }
-            else
-            {
-                var row = dgv.CurrentRow;
-                var transId = (int)row.Cells["Id"].Value;
-                Save(transId);
-                MessageBox.Show("Saved");
-            }
-            
+            var row = dgv.CurrentRow;
+            var transId = (int)row.Cells["Id"].Value;
+            Save(transId);
             FilterAndSortDgv();
             UpdateCurrentBalance();
-            addButton.Enabled = true;
-            saveButton.Enabled = false;
-            deleteButton.Enabled = false;
-            mode = 0;
             return;
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if (DataGridViewHelper.DeleteRows(dgv))
+            var row = dgv.CurrentRow;
+            int transId = (int)row.Cells["Id"].Value;
+
+            using (var db = new WBEntities())
             {
-                MessageBox.Show("Deleted");
-            }
-            else
-            {
-                MessageBox.Show(WBResource.GenericErrorMessage);
+                var trans = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
+                db.Transactions.Remove(trans);
+                db.SaveChanges();
             }
 
-            mode = 0;
-            addButton.Enabled = true;
             ClearFormFields();
-            saveButton.Enabled = false;
-            deleteButton.Enabled = false;
             FilterAndSortDgv();
             UpdateCurrentBalance();
             return;
@@ -293,7 +275,7 @@ namespace WealthBuilder
 
             if (!decimal.TryParse(availableBankBalanceTextBox.Text, out decimal availableBankBalance))
             {
-                MessageBox.Show("Invalid amount", Text);
+                MessageBox.Show("Invalid Avail. Bank Balance", Text);
                 return;
             }
 
@@ -329,7 +311,6 @@ namespace WealthBuilder
         }
 
         private StringBuilder reconciliationReport;
-        private int mode;
 
         private void BalancedProcessing()
         {
@@ -338,10 +319,10 @@ namespace WealthBuilder
                 using (var db = new WBEntities())
                 {
                     string sql = "Update Transactions Set Reconciled = 1 "+
-                        "Where (reconciled is null or reconciled = 0) And Cleared = 1 And AccountId = " + 
+                        "Where reconciled = 0 And Cleared = 1 And AccountId = " + 
                         accountId.ToString() + " and EntityId = " + CurrentEntity.Id.ToString();
                     db.Database.ExecuteSqlCommand(sql);
-                    transactionsTableAdapter.Fill(dataSet.Transactions);
+                    FilterAndSortDgv();
                     MessageBox.Show("You balanced!  Cleared Transactions have been marked Reconciled.", Text);
                 }
             }
@@ -351,8 +332,6 @@ namespace WealthBuilder
                 Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
             }
         }
-
-       
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
@@ -394,10 +373,6 @@ namespace WealthBuilder
             ReconciledCheckBox.Checked = (bool)currentRow.Cells["Reconciled"].Value;
             NotesRichTextBox.Text = (string)currentRow.Cells["Notes"].Value;
             CheckNumberTextBox.Text = (string)currentRow.Cells["CheckNumber"].Value;
-            mode = 2;//edit or delete
-            addButton.Enabled = false;
-            saveButton.Enabled = true;
-            deleteButton.Enabled = true;
         }
 
         private void ClearFormFields()

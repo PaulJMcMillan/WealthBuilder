@@ -31,13 +31,26 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TransactionsForm));
             this.dgv = new System.Windows.Forms.DataGridView();
+            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.deposit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.withdrawal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cleared = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.reconciled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.checkNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TaxFormId = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.TaxCategoryId = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accountIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.entityId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.transactionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet = new WealthBuilder.DataSet();
             this.label2 = new System.Windows.Forms.Label();
@@ -83,19 +96,6 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.deposit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.withdrawal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cleared = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.reconciled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.checkNumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TaxFormId = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.TaxCategoryId = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accountIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.entityId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
@@ -149,6 +149,134 @@
             this.dgv.TabIndex = 0;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellContentClick);
             this.dgv.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.Dgv_DataError);
+            // 
+            // Date
+            // 
+            this.Date.DataPropertyName = "Date";
+            this.Date.HeaderText = "Date";
+            this.Date.Name = "Date";
+            this.Date.ReadOnly = true;
+            this.Date.Width = 55;
+            // 
+            // description
+            // 
+            this.description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.description.DataPropertyName = "Description";
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.description.DefaultCellStyle = dataGridViewCellStyle2;
+            this.description.HeaderText = "Description";
+            this.description.Name = "description";
+            this.description.ReadOnly = true;
+            this.description.Width = 85;
+            // 
+            // deposit
+            // 
+            this.deposit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.deposit.DataPropertyName = "Deposit";
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "C2";
+            this.deposit.DefaultCellStyle = dataGridViewCellStyle3;
+            this.deposit.HeaderText = "Deposit";
+            this.deposit.Name = "deposit";
+            this.deposit.ReadOnly = true;
+            this.deposit.Width = 68;
+            // 
+            // withdrawal
+            // 
+            this.withdrawal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.withdrawal.DataPropertyName = "Withdrawal";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "C2";
+            this.withdrawal.DefaultCellStyle = dataGridViewCellStyle4;
+            this.withdrawal.HeaderText = "Withdrawal";
+            this.withdrawal.Name = "withdrawal";
+            this.withdrawal.ReadOnly = true;
+            this.withdrawal.Width = 85;
+            // 
+            // cleared
+            // 
+            this.cleared.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.cleared.DataPropertyName = "Cleared";
+            this.cleared.HeaderText = "Cleared";
+            this.cleared.Name = "cleared";
+            this.cleared.ReadOnly = true;
+            this.cleared.Width = 49;
+            // 
+            // reconciled
+            // 
+            this.reconciled.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.reconciled.DataPropertyName = "Reconciled";
+            this.reconciled.HeaderText = "Reconciled";
+            this.reconciled.Name = "reconciled";
+            this.reconciled.ReadOnly = true;
+            this.reconciled.Width = 67;
+            // 
+            // notes
+            // 
+            this.notes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.notes.DataPropertyName = "Notes";
+            this.notes.HeaderText = "Notes";
+            this.notes.Name = "notes";
+            this.notes.ReadOnly = true;
+            this.notes.Width = 60;
+            // 
+            // checkNumber
+            // 
+            this.checkNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.checkNumber.DataPropertyName = "CheckNumber";
+            this.checkNumber.HeaderText = "Check #";
+            this.checkNumber.Name = "checkNumber";
+            this.checkNumber.ReadOnly = true;
+            this.checkNumber.Width = 73;
+            // 
+            // TaxFormId
+            // 
+            this.TaxFormId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.TaxFormId.DataPropertyName = "TaxFormId";
+            this.TaxFormId.HeaderText = "Tax Form";
+            this.TaxFormId.Name = "TaxFormId";
+            this.TaxFormId.ReadOnly = true;
+            this.TaxFormId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TaxFormId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TaxFormId.Visible = false;
+            // 
+            // TaxCategoryId
+            // 
+            this.TaxCategoryId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.TaxCategoryId.DataPropertyName = "TaxCategoryId";
+            this.TaxCategoryId.HeaderText = "Tax Category";
+            this.TaxCategoryId.Name = "TaxCategoryId";
+            this.TaxCategoryId.ReadOnly = true;
+            this.TaxCategoryId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.TaxCategoryId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.TaxCategoryId.Visible = false;
+            // 
+            // id
+            // 
+            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.id.DataPropertyName = "Id";
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.Visible = false;
+            // 
+            // accountIdDataGridViewTextBoxColumn
+            // 
+            this.accountIdDataGridViewTextBoxColumn.DataPropertyName = "AccountId";
+            this.accountIdDataGridViewTextBoxColumn.HeaderText = "AccountId";
+            this.accountIdDataGridViewTextBoxColumn.Name = "accountIdDataGridViewTextBoxColumn";
+            this.accountIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.accountIdDataGridViewTextBoxColumn.Visible = false;
+            this.accountIdDataGridViewTextBoxColumn.Width = 81;
+            // 
+            // entityId
+            // 
+            this.entityId.DataPropertyName = "EntityId";
+            this.entityId.HeaderText = "EntityId";
+            this.entityId.Name = "entityId";
+            this.entityId.ReadOnly = true;
+            this.entityId.Visible = false;
+            this.entityId.Width = 67;
             // 
             // transactionsBindingSource
             // 
@@ -239,7 +367,6 @@
             // saveButton
             // 
             this.saveButton.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.saveButton.Enabled = false;
             this.saveButton.FlatAppearance.BorderSize = 0;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.ForeColor = System.Drawing.SystemColors.Control;
@@ -255,7 +382,6 @@
             // deleteButton
             // 
             this.deleteButton.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.deleteButton.Enabled = false;
             this.deleteButton.FlatAppearance.BorderSize = 0;
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteButton.ForeColor = System.Drawing.SystemColors.Control;
@@ -626,137 +752,6 @@
             this.dataGridViewTextBoxColumn9.HeaderText = "EntityId";
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Visible = false;
-            // 
-            // Date
-            // 
-            this.Date.DataPropertyName = "Date";
-            this.Date.HeaderText = "Date";
-            this.Date.Name = "Date";
-            this.Date.ReadOnly = true;
-            this.Date.Width = 55;
-            // 
-            // description
-            // 
-            this.description.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.description.DataPropertyName = "Description";
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.description.DefaultCellStyle = dataGridViewCellStyle2;
-            this.description.HeaderText = "Description";
-            this.description.Name = "description";
-            this.description.ReadOnly = true;
-            this.description.Width = 85;
-            // 
-            // deposit
-            // 
-            this.deposit.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.deposit.DataPropertyName = "Deposit";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "C2";
-            this.deposit.DefaultCellStyle = dataGridViewCellStyle3;
-            this.deposit.HeaderText = "Deposit";
-            this.deposit.Name = "deposit";
-            this.deposit.ReadOnly = true;
-            this.deposit.Width = 68;
-            // 
-            // withdrawal
-            // 
-            this.withdrawal.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.withdrawal.DataPropertyName = "Withdrawal";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "C2";
-            this.withdrawal.DefaultCellStyle = dataGridViewCellStyle4;
-            this.withdrawal.HeaderText = "Withdrawal";
-            this.withdrawal.Name = "withdrawal";
-            this.withdrawal.ReadOnly = true;
-            this.withdrawal.Width = 85;
-            // 
-            // cleared
-            // 
-            this.cleared.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.cleared.DataPropertyName = "Cleared";
-            this.cleared.HeaderText = "Cleared";
-            this.cleared.Name = "cleared";
-            this.cleared.ReadOnly = true;
-            this.cleared.Width = 49;
-            // 
-            // reconciled
-            // 
-            this.reconciled.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.reconciled.DataPropertyName = "Reconciled";
-            this.reconciled.HeaderText = "Reconciled";
-            this.reconciled.Name = "reconciled";
-            this.reconciled.ReadOnly = true;
-            this.reconciled.Width = 67;
-            // 
-            // notes
-            // 
-            this.notes.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.notes.DataPropertyName = "Notes";
-            this.notes.HeaderText = "Notes";
-            this.notes.Name = "notes";
-            this.notes.ReadOnly = true;
-            this.notes.Width = 60;
-            // 
-            // checkNumber
-            // 
-            this.checkNumber.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.checkNumber.DataPropertyName = "CheckNumber";
-            this.checkNumber.HeaderText = "Check #";
-            this.checkNumber.Name = "checkNumber";
-            this.checkNumber.ReadOnly = true;
-            this.checkNumber.Width = 73;
-            // 
-            // TaxFormId
-            // 
-            this.TaxFormId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.TaxFormId.DataPropertyName = "TaxFormId";
-            this.TaxFormId.HeaderText = "Tax Form";
-            this.TaxFormId.Name = "TaxFormId";
-            this.TaxFormId.ReadOnly = true;
-            this.TaxFormId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TaxFormId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TaxFormId.Visible = false;
-            this.TaxFormId.Width = 76;
-            // 
-            // TaxCategoryId
-            // 
-            this.TaxCategoryId.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.TaxCategoryId.DataPropertyName = "TaxCategoryId";
-            this.TaxCategoryId.HeaderText = "Tax Category";
-            this.TaxCategoryId.Name = "TaxCategoryId";
-            this.TaxCategoryId.ReadOnly = true;
-            this.TaxCategoryId.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.TaxCategoryId.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.TaxCategoryId.Visible = false;
-            this.TaxCategoryId.Width = 95;
-            // 
-            // id
-            // 
-            this.id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.id.DataPropertyName = "Id";
-            this.id.HeaderText = "Id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Visible = false;
-            this.id.Width = 41;
-            // 
-            // accountIdDataGridViewTextBoxColumn
-            // 
-            this.accountIdDataGridViewTextBoxColumn.DataPropertyName = "AccountId";
-            this.accountIdDataGridViewTextBoxColumn.HeaderText = "AccountId";
-            this.accountIdDataGridViewTextBoxColumn.Name = "accountIdDataGridViewTextBoxColumn";
-            this.accountIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.accountIdDataGridViewTextBoxColumn.Visible = false;
-            this.accountIdDataGridViewTextBoxColumn.Width = 81;
-            // 
-            // entityId
-            // 
-            this.entityId.DataPropertyName = "EntityId";
-            this.entityId.HeaderText = "EntityId";
-            this.entityId.Name = "entityId";
-            this.entityId.ReadOnly = true;
-            this.entityId.Visible = false;
-            this.entityId.Width = 67;
             // 
             // TransactionsForm
             // 
