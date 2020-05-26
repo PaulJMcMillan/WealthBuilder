@@ -163,7 +163,6 @@
     <Compile Include="Code\Entities.cs" />
     <Compile Include="Code\Entity.cs" />
     <Compile Include="Code\Form.cs" />
-    <Compile Include="DataGridViewHelper.cs" />
     <Compile Include="CashAppTransForm.cs">
       <SubType>Form</SubType>
     </Compile>
