@@ -359,7 +359,7 @@
             this.quickCashAppTransButton.Name = "quickCashAppTransButton";
             this.quickCashAppTransButton.Size = new System.Drawing.Size(117, 43);
             this.quickCashAppTransButton.TabIndex = 34;
-            this.quickCashAppTransButton.Text = "Quick $ App Trans";
+            this.quickCashAppTransButton.Text = "Cash App Trans";
             this.quickCashAppTransButton.UseVisualStyleBackColor = false;
             this.quickCashAppTransButton.Click += new System.EventHandler(this.QuickCashAppTransButton_Click);
             // 

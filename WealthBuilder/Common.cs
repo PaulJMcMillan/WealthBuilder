@@ -1,4 +1,6 @@
-﻿namespace WealthBuilder
+﻿using System;
+
+namespace WealthBuilder
 {
     class Common
     {
@@ -18,5 +20,11 @@
         {
             return text + " (" + CurrentEntity.Name + ")";
         }
+
+       
+
+       
     }
+
+
 }

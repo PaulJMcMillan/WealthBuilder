@@ -15,20 +15,20 @@ namespace WealthBuilder
     public partial class Transaction
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public System.DateTime Date { get; set; }
         public string Description { get; set; }
-        public Nullable<decimal> Deposit { get; set; }
-        public Nullable<decimal> Withdrawal { get; set; }
-        public Nullable<bool> Cleared { get; set; }
-        public Nullable<int> CheckNumber { get; set; }
-        public Nullable<bool> Reconciled { get; set; }
+        public decimal Deposit { get; set; }
+        public decimal Withdrawal { get; set; }
+        public bool Cleared { get; set; }
+        public string CheckNumber { get; set; }
+        public bool Reconciled { get; set; }
         public string Notes { get; set; }
-        public Nullable<int> AccountId { get; set; }
-        public Nullable<int> EntityId { get; set; }
-        public Nullable<int> TaxFormId { get; set; }
-        public Nullable<int> TaxCategoryId { get; set; }
-        public Nullable<int> CategoryId { get; set; }
-        public Nullable<int> AssetId { get; set; }
-        public Nullable<int> ContractorId { get; set; }
+        public int AccountId { get; set; }
+        public int EntityId { get; set; }
+        public int TaxFormId { get; set; }
+        public int TaxCategoryId { get; set; }
+        public int CategoryId { get; set; }
+        public int AssetId { get; set; }
+        public int ContractorId { get; set; }
     }
 }

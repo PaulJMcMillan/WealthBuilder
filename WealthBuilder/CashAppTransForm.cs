@@ -5,7 +5,7 @@ namespace WealthBuilder
 {
    
 
-    public partial class QuickCashAppTransForm : Form
+    public partial class CashAppTransForm : Form
     {
         private enum TransType
         {
@@ -17,7 +17,7 @@ namespace WealthBuilder
         private int standardAccountId=0;
         private WBEntities db = new WBEntities();
 
-        public QuickCashAppTransForm()
+        public CashAppTransForm()
         {
             InitializeComponent();
         }
@@ -88,7 +88,6 @@ namespace WealthBuilder
         private void QuickCashAppTransForm_Load(object sender, EventArgs e)
         {
             transDateTimePicker.Value = DateTime.Today;
-            amountTextBox.Text = "100.00";
         }
 
         private void QuickCashAppTransForm_FormClosing(object sender, FormClosingEventArgs e)

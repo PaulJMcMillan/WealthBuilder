@@ -1,10 +1,7 @@
 ﻿//Copyright 2017 McMillan Financial Solutions, LLC.  All rights reserved.
 using System;
 using System.Data.SqlClient;
-using System.IO;
 using System.Reflection;
-using System.Configuration;
-using System.Windows.Forms;
 
 namespace WealthBuilder
 {
@@ -16,7 +13,13 @@ namespace WealthBuilder
 
             try
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["WealthBuilder.Properties.Settings.WealthBuilderConnectionString"].ConnectionString;
+                string connectionString = string.Empty;
+
+               using (var db = new WBEntities())
+                {
+                    connectionString = db.Database.Connection.ConnectionString;
+                }
+
                 var connection = new SqlConnection { ConnectionString = connectionString};
                 connection.Open();
                 var s = $@"BACKUP DATABASE WealthBuilder TO DISK='{targetFile}'";

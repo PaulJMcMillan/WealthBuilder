@@ -16,9 +16,9 @@ namespace WealthBuilder
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<bool> Active { get; set; }
+        public bool Active { get; set; }
         public string Notes { get; set; }
-        public Nullable<decimal> LowestBalance { get; set; }
-        public Nullable<bool> DefaultEntity { get; set; }
+        public decimal LowestBalance { get; set; }
+        public bool DefaultEntity { get; set; }
     }
 }

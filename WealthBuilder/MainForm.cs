@@ -88,7 +88,7 @@ namespace WealthBuilder
                 var r = db.Entities.Where(x => x.Id == id).FirstOrDefault();
                 CurrentEntity.Id = r.Id;
                 CurrentEntity.Name = r.Name;
-                CurrentEntity.LowestBalanceThreshold = r.LowestBalance == null ? 0 : (long)r.LowestBalance;
+                CurrentEntity.LowestBalanceThreshold = r.LowestBalance == null ? 0 : r.LowestBalance;
             }
         }
 

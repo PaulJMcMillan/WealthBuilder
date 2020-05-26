@@ -164,12 +164,13 @@
     <Compile Include="Code\Entity.cs" />
     <Compile Include="Code\Form.cs" />
     <Compile Include="DataGridViewHelper.cs" />
-    <Compile Include="QuickCashAppTransForm.cs">
+    <Compile Include="CashAppTransForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="QuickCashAppTransForm.Designer.cs">
-      <DependentUpon>QuickCashAppTransForm.cs</DependentUpon>
+    <Compile Include="CashAppTransForm.Designer.cs">
+      <DependentUpon>CashAppTransForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="ReconciliationReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -370,8 +371,8 @@
     <EmbeddedResource Include="EntitiesForm.resx">
       <DependentUpon>EntitiesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="QuickCashAppTransForm.resx">
-      <DependentUpon>QuickCashAppTransForm.cs</DependentUpon>
+    <EmbeddedResource Include="CashAppTransForm.resx">
+      <DependentUpon>CashAppTransForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReconciliationReportForm.resx">
       <DependentUpon>ReconciliationReportForm.cs</DependentUpon>

@@ -37,19 +37,19 @@ namespace WealthBuilder
             string dataPropertyName = "InflowDate";
             string columnName = "inflowDateDataGridViewCalendarColumn";
             int columnPosition = 1;
-            DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
+            //todo: DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
 
             headerText = "Start Date";
             dataPropertyName = "StartDate";
             columnName = "startDateDataGridViewCalendarColumn";
             columnPosition = 6;
-            DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
+            //todo: DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
 
             headerText = "End Date";
             dataPropertyName = "EndDate";
             columnName = "endDateDataGridViewCalendarColumn";
             columnPosition = 7;
-            DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
+            //todo: DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
         }
 
         private bool Save()

@@ -47,7 +47,7 @@ namespace WealthBuilder
                 var result = from t in transactions
                              join tc in db.C1099Contractors on t.ContractorId equals tc.id
                              group t by t.ContractorId into a
-                             select new { ContractorId = a.Key, PaidYTD = a.Sum(p => p.Withdrawal ?? 0) };
+                             select new { ContractorId = a.Key, PaidYTD = a.Sum(p => p.Withdrawal) };
                 var tcs = result.ToList();
 
                 var rs = from b in tcs

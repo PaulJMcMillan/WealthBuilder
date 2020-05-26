@@ -58,8 +58,8 @@ namespace WealthBuilder
                     if (transaction.Date == null) continue;
                     date = (DateTime)transaction.Date;
                     if (date <= DateTime.Today) continue;
-                    double deposit = (double)(transaction.Deposit ?? 0);
-                    double withdrawal = (double)(transaction.Withdrawal ?? 0);
+                    double deposit = (double)transaction.Deposit;
+                    double withdrawal = (double)transaction.Withdrawal;
                     double amount = deposit != 0 ? deposit : -withdrawal;
                     CreateForecastEntry(date, amount);
                 }

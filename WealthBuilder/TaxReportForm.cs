@@ -65,7 +65,7 @@ namespace WealthBuilder
                 var result =     from t in transactions
                                   join tc in db.TaxCategories on t.TaxCategoryId equals tc.Id
                                   group t by t.TaxCategoryId into a
-                                  select new {TaxCategoryId = a.Key, TaxCategoryTotal = a.Sum(p => p.Deposit ?? 0 + p.Withdrawal ?? 0)};
+                                  select new {TaxCategoryId = a.Key, TaxCategoryTotal = a.Sum(p => p.Deposit + p.Withdrawal)};
                 var tcs = result.ToList();
 
                 var rs = from b in tcs

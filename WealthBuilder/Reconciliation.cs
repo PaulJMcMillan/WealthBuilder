@@ -72,22 +72,22 @@ namespace WealthBuilder
 
             foreach(var unclearedTransaction in unclearedTransactions)
             {
-                if (type == "deposits" && (!unclearedTransaction.Deposit.HasValue || unclearedTransaction.Deposit==0)) continue;
-                if (type != "deposits" && (!unclearedTransaction.Withdrawal.HasValue || unclearedTransaction.Withdrawal==0)) continue;
+                if (type == "deposits" && unclearedTransaction.Deposit==0) continue;
+                if (type != "deposits" && unclearedTransaction.Withdrawal==0) continue;
 
-                DateTime date = (DateTime)unclearedTransaction.Date;
+                DateTime date = unclearedTransaction.Date;
                 reconciliationReport.Append(date.ToShortDateString());
                 reconciliationReport.Append(" " + unclearedTransaction.Description ?? string.Empty);
 
                 if (type=="deposits")
                 {
-                        decimal deposit = (decimal)unclearedTransaction.Deposit;
+                        decimal deposit = unclearedTransaction.Deposit;
                         reconciliationReport.Append(" " + deposit.ToString("C") + Environment.NewLine + Environment.NewLine);
                         total += deposit;
                 }
                 else
                 {
-                        decimal wd = (decimal)unclearedTransaction.Withdrawal;
+                        decimal wd = unclearedTransaction.Withdrawal;
                         reconciliationReport.Append(" " + wd.ToString("C") + Environment.NewLine + Environment.NewLine);
                         total += wd;
                 }

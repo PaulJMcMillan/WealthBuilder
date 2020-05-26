@@ -21,7 +21,11 @@ namespace WealthBuilder
             budgetBindingSource.Filter = "EntityId = " + CurrentEntity.Id;
             budgetTableAdapter.Fill(dataSet.Budget);
             InsertDateColumns();
-            //    row.Cells[10].Value = DateTime.Now;
+
+            foreach (DataGridViewColumn column in dgv.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
         }
 
         private void InsertDateColumns()
@@ -30,25 +34,25 @@ namespace WealthBuilder
             string dataPropertyName = "DueDate";
             string columnName = "dueDateDataGridViewCalendarColumn";
             int columnPosition = 4;
-            DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
+            //todo: DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
 
             headerText = "Pay Date";
             dataPropertyName = "PayDate";
             columnName = "payDateDataGridViewCalendarColumn";
             columnPosition = 5;
-            DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
+            //todo: DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
 
             headerText = "Start Date";
             dataPropertyName = "StartDate";
             columnName = "startDateDataGridViewCalendarColumn";
             columnPosition = 6;
-            DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
+            //todo: DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
 
             headerText = "End Date";
             dataPropertyName = "EndDate";
             columnName = "endDateDataGridViewCalendarColumn";
             columnPosition = 7;
-            DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
+            //todo: DataGridViewHelper.InsertCalendarColumn(dgv, headerText, dataPropertyName, columnName, columnPosition);
         }
 
         private bool Save()

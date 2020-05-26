@@ -44,15 +44,5 @@ namespace WealthBuilder
             }
 
         }
-
-        public static void InsertCalendarColumn(DataGridView dgv, string headerText, string dataPropertyName, string columnName, int columnPosition)
-        {
-            CalendarColumn col = new CalendarColumn();
-            col.HeaderText = headerText;
-            col.DataPropertyName = dataPropertyName;
-            col.Name = columnName;
-            col.Width = 90;
-            dgv.Columns.Insert(columnPosition, col);
-        }
     }
 }

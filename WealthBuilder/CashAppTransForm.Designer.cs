@@ -1,6 +1,6 @@
 ﻿namespace WealthBuilder
 {
-    partial class QuickCashAppTransForm
+    partial class CashAppTransForm
     {
         /// <summary>
         /// Required designer variable.
