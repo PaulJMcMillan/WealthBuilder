@@ -1,5 +1,6 @@
 ﻿//Copyright 2017 McMillan Financial Solutions, LLC.  All rights reserved.
 using System;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
@@ -109,7 +110,16 @@ namespace WealthBuilder
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if (!DataGridViewHelper.DeleteRows(dgv)) MessageBox.Show(WBResource.GenericErrorMessage);
+            var row = dgv.CurrentRow;
+            int id = (int)row.Cells["Id"].Value;
+
+            using (var db = new WBEntities())
+            {
+                var table = db.Budgets;
+                var entity = table.Where(x => x.Id == id).FirstOrDefault();
+                table.Remove(entity);
+                db.SaveChanges();
+            }
         }
     }
 }

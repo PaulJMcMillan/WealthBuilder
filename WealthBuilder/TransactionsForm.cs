@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -28,7 +27,9 @@ namespace WealthBuilder
             dgv.ReadOnly = true;
             LoadAccountsComboBox();
             SelectDefaultAccount();
-            FilterAndSortDgv();
+            FilterDgv();
+            SortDgv();
+            PopulateForm();
             UpdateCurrentBalance();
 
             foreach (DataGridViewColumn column in dgv.Columns)
@@ -52,7 +53,7 @@ namespace WealthBuilder
             long accountId;
             if (accountComboBox.SelectedIndex == -1) return;
             if (!long.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
-            currentBalanceTextBox.Text = Cash.GetBalanceForOneAccount(accountId, (long)CurrentEntity.Id).ToString("C");
+            currentBalanceTextBox.Text = Cash.GetBalanceForOneAccount(accountId, CurrentEntity.Id).ToString("C");
         }
 
         private void LoadAccountsComboBox()
@@ -68,11 +69,54 @@ namespace WealthBuilder
 
         private void includeReconciledTransactionsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            FilterAndSortDgv();
+            FilterDgv();
             UpdateCurrentBalance();
         }
 
-        public void FilterAndSortDgv()
+        public void SortDgv()
+        {
+            //Gets a fresh data source.
+            if (accountComboBox.SelectedIndex == -1) return;
+            if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
+            dataSet.Transactions.Columns["AccountId"].DefaultValue = accountId;
+            DateTime displayTransactionsBackTo = DateTime.Now;
+
+            switch (displayTransBackTo.Text)
+            {
+                case "1 Month":
+                    displayTransactionsBackTo = DateTime.Now.AddMonths(-1).Date;
+                    break;
+                case "1 Quarter":
+                    displayTransactionsBackTo = DateTime.Now.AddMonths(-3).Date;
+                    break;
+                case "6 Months":
+                    displayTransactionsBackTo = DateTime.Now.AddMonths(-6).Date;
+                    break;
+                case "1 Year":
+                    displayTransactionsBackTo = DateTime.Now.AddYears(-1).Date;
+                    break;
+                default:
+                    displayTransactionsBackTo = DateTime.Now.AddMonths(-1).Date;
+                    break;
+            }
+
+            using (var db = new WBEntities())
+            {
+                var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == accountId &&
+                    x.Date >= displayTransactionsBackTo);
+
+                if (excludeReconciledTransactionsCheckBox.Checked)
+                    transactions = transactions.Where(x => x.Reconciled == false);
+
+                if (excludeClearedTransactionsCheckBox.Checked)
+                    transactions = transactions.Where(x => x.Cleared == false);
+
+                transactions = transactions.OrderByDescending(x => x.Date);
+                dgv.DataSource = transactions.ToList();
+            }
+        }
+
+        public void FilterDgv()
         {
             if (accountComboBox.SelectedIndex == -1) return;
             if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
@@ -100,16 +144,22 @@ namespace WealthBuilder
 
             using (var db = new WBEntities())
             {
-                var rs = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == accountId &&
-                    x.Date >= displayTransactionsBackTo && x.Reconciled== includeReconciledTransactionsCheckBox.Checked && 
-                    x.Cleared==includeClearedTransactions.Checked).OrderByDescending(x=>x.Date).ToList();
-                Debug.Print(db.Database.Connection.ConnectionString);
-                dgv.DataSource = rs;
+                var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == accountId &&
+                    x.Date >= displayTransactionsBackTo);
+
+                if (excludeReconciledTransactionsCheckBox.Checked)
+                    transactions = transactions.Where(x => x.Reconciled == false);
+
+                if (excludeClearedTransactionsCheckBox.Checked)
+                    transactions = transactions.Where(x => x.Cleared == false);
+
+                //transactions = transactions.OrderByDescending(x => x.Date);
+                dgv.DataSource = transactions.ToList();
             }
 
         }
 
-        private void Save(int transId)
+        private Transaction Save(int transId)
         {
             AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
@@ -118,7 +168,7 @@ namespace WealthBuilder
                 if (!ValidateData()) 
                 {
                     MessageBox.Show("Invalid data");
-                    return;
+                    return null;
                 }
 
                 using (var db = new WBEntities())
@@ -135,19 +185,18 @@ namespace WealthBuilder
                     trans.CheckNumber = CheckNumberTextBox.Text;
                     trans.Notes = NotesRichTextBox.Text;
                     db.SaveChanges();
+                    return trans;
                 }
-
-                return;
             }
             catch (Exception ex)
             {
                 Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
                 MessageBox.Show(WBResource.GenericErrorMessage, WBResource.GenericErrorTitle);
-                return ;
+                return null;
             }
         }
 
-        private void AddNew()
+        private int AddNewRecord()
         {
             AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
 
@@ -156,7 +205,7 @@ namespace WealthBuilder
                 if (!ValidateData())
                 {
                     MessageBox.Show("Invalid data");
-                    return;
+                    return -1;
                 }
 
                 using (var db = new WBEntities())
@@ -180,16 +229,16 @@ namespace WealthBuilder
 
                     db.Transactions.Add(trans);
                     db.SaveChanges();
+                    return trans.Id;
                    
                 }
 
-                return;
             }
             catch (Exception ex)
             {
                 Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
                 MessageBox.Show(WBResource.GenericErrorMessage, WBResource.GenericErrorTitle);
-                return ;
+                return -1;
             }
         }
 
@@ -215,28 +264,80 @@ namespace WealthBuilder
             return true;
         }
 
-        
-
         private void accountComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FilterAndSortDgv();
+            FilterDgv();
             UpdateCurrentBalance();
             availableBankBalanceTextBox.Text = string.Empty;
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            AddNew();
-            FilterAndSortDgv();
+            int transId = AddNewRecord();
+            if (transId == -1) return;
+            AddNewRowToDgv(transId);
+            //FilterDgv();
             UpdateCurrentBalance();
+        }
+
+        private void AddNewRowToDgv(int transId)
+        {
+            FilterDgv();
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if((int)row.Cells["Id"].Value == transId)
+                {
+                    row.Selected = true;
+                    break;
+                }
+            }
+
+            dgv.FirstDisplayedScrollingRowIndex = dgv.SelectedRows[0].Index;
+            //using (var db = new WBEntities())
+            //{
+            //    var transaction = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
+            //    if (transaction == null) return;
+
+            //}
+            //int rowIndex = dgv.Rows.Add();
+            //DataGridViewRow row = dgv.Rows[rowIndex];
+            //row.Cells["Date"].Value = dateTimePicker.Value;
+            //row.Cells["Description"].Value = DescriptionTextBox.Text;
+            //row.Cells["deposit"].Value = string.IsNullOrWhiteSpace(DepositTextBox.Text) ? 0 : Convert.ToDecimal(DepositTextBox.Text);
+            //row.Cells["Withdrawal"].Value = string.IsNullOrWhiteSpace(WithdrawalTextBox.Text) ? 0 : Convert.ToDecimal(WithdrawalTextBox.Text);
+            //row.Cells["Cleared"].Value = ClearedCheckBox.Checked;
+            //row.Cells["Reconciled"].Value = ReconciledCheckBox.Checked;
+            //row.Cells["CheckNumber"].Value = CheckNumberTextBox.Text;
+            //row.Cells["Notes"].Value = NotesRichTextBox.Text;
+            //dgv.Rows.Add(row);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
         {
             var row = dgv.CurrentRow;
+            if (row == null) return;
             var transId = (int)row.Cells["Id"].Value;
-            Save(transId);
-            FilterAndSortDgv();
+            Transaction transaction = Save(transId);
+            if (transaction == null) return;
+            dateTimePicker.Value = transaction.Date;
+            DescriptionTextBox.Text = transaction.Description;
+            DepositTextBox.Text = transaction.Deposit.ToString("C");
+            WithdrawalTextBox.Text = transaction.Withdrawal.ToString("C");
+            ClearedCheckBox.Checked = transaction.Cleared;
+            ReconciledCheckBox.Checked = transaction.Reconciled;
+            CheckNumberTextBox.Text = transaction.CheckNumber;
+            NotesRichTextBox.Text = transaction.Notes;
+
+            row.Cells["Date"].Value = transaction.Date;
+            row.Cells["Description"].Value = transaction.Description;
+            row.Cells["deposit"].Value = transaction.Deposit;
+            row.Cells["Withdrawal"].Value = transaction.Withdrawal;
+            row.Cells["Cleared"].Value = transaction.Cleared;
+            row.Cells["Reconciled"].Value = transaction.Reconciled;
+            row.Cells["CheckNumber"].Value = transaction.CheckNumber;
+            row.Cells["Notes"].Value = transaction.Notes;
+
             UpdateCurrentBalance();
             return;
         }
@@ -244,7 +345,9 @@ namespace WealthBuilder
         private void deleteButton_Click(object sender, EventArgs e)
         {
             var row = dgv.CurrentRow;
+            if (row == null) return;
             int transId = (int)row.Cells["Id"].Value;
+            int rowIndex = row.Index;
 
             using (var db = new WBEntities())
             {
@@ -254,14 +357,22 @@ namespace WealthBuilder
             }
 
             ClearFormFields();
-            FilterAndSortDgv();
+            FilterDgv();
+            
+            if(rowIndex > -1 && rowIndex < dgv.Rows.Count)
+            {
+                dgv.Rows[rowIndex].Selected = true;
+                dgv.FirstDisplayedScrollingRowIndex = rowIndex;
+            }
+
+            
             UpdateCurrentBalance();
             return;
         }
 
         private void includeClearedTransactions_CheckedChanged(object sender, EventArgs e)
         {
-            FilterAndSortDgv();
+            FilterDgv();
             UpdateCurrentBalance();
         }
 
@@ -322,7 +433,7 @@ namespace WealthBuilder
                         "Where reconciled = 0 And Cleared = 1 And AccountId = " + 
                         accountId.ToString() + " and EntityId = " + CurrentEntity.Id.ToString();
                     db.Database.ExecuteSqlCommand(sql);
-                    FilterAndSortDgv();
+                    //FilterAndSortDgv();
                     MessageBox.Show("You balanced!  Cleared Transactions have been marked Reconciled.", Text);
                 }
             }
@@ -356,23 +467,7 @@ namespace WealthBuilder
         private void DisplayTransBackTo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (displayTransBackTo.SelectedIndex == -1) return;
-            FilterAndSortDgv();
-        }
-
-        private void Dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            ClearFormFields();
-            var currentRow = dgv.CurrentRow;
-            dateTimePicker.Value = (DateTime)currentRow.Cells["Date"].Value;
-            DescriptionTextBox.Text = (string)currentRow.Cells["Description"].Value;
-            decimal deposit = (decimal)currentRow.Cells["Deposit"].Value;
-            DepositTextBox.Text = deposit==0 ? string.Empty : deposit.ToString("C");
-            decimal wd = (decimal)currentRow.Cells["Withdrawal"].Value;
-            WithdrawalTextBox.Text = wd == 0 ? string.Empty : wd.ToString("C");
-            ClearedCheckBox.Checked = (bool)currentRow.Cells["Cleared"].Value;
-            ReconciledCheckBox.Checked = (bool)currentRow.Cells["Reconciled"].Value;
-            NotesRichTextBox.Text = (string)currentRow.Cells["Notes"].Value;
-            CheckNumberTextBox.Text = (string)currentRow.Cells["CheckNumber"].Value;
+            FilterDgv();
         }
 
         private void ClearFormFields()
@@ -385,6 +480,27 @@ namespace WealthBuilder
             ReconciledCheckBox.Checked = false;
             NotesRichTextBox.Text = string.Empty;
             CheckNumberTextBox.Text = string.Empty;
+        }
+
+        private void dgv_MouseClick(object sender, MouseEventArgs e)
+        {
+            ClearFormFields();
+            PopulateForm();
+        }
+
+        private void PopulateForm()
+        {
+            var currentRow = dgv.CurrentRow;
+            dateTimePicker.Value = (DateTime)currentRow.Cells["Date"].Value;
+            DescriptionTextBox.Text = (string)currentRow.Cells["Description"].Value;
+            decimal deposit = (decimal)currentRow.Cells["Deposit"].Value;
+            DepositTextBox.Text = deposit == 0 ? string.Empty : deposit.ToString("C");
+            decimal wd = (decimal)currentRow.Cells["Withdrawal"].Value;
+            WithdrawalTextBox.Text = wd == 0 ? string.Empty : wd.ToString("C");
+            ClearedCheckBox.Checked = (bool)currentRow.Cells["Cleared"].Value;
+            ReconciledCheckBox.Checked = (bool)currentRow.Cells["Reconciled"].Value;
+            NotesRichTextBox.Text = (string)currentRow.Cells["Notes"].Value;
+            CheckNumberTextBox.Text = (string)currentRow.Cells["CheckNumber"].Value;
         }
     }
 }

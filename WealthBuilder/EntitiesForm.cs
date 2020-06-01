@@ -129,8 +129,17 @@ namespace WealthBuilder
                 MessageBox.Show("One or more Entities have Account(s) associated with them.  You must delete the Account(s) first.", Text);
                 return;
             }
-           
-            if (!DataGridViewHelper.DeleteRows(dgv)) MessageBox.Show(WBResource.GenericErrorMessage);
+
+            var row = dgv.CurrentRow;
+            int id = (int)row.Cells["Id"].Value;
+
+            using (var db = new WBEntities())
+            {
+                var table = db.Entities;
+                var entity = table.Where(x => x.Id == id).FirstOrDefault();
+                table.Remove(entity);
+                db.SaveChanges();
+            }
         }
 
         private bool UserIsTryingToDeleteTheCurrentEntity()

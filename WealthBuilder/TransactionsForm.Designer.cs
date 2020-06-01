@@ -56,12 +56,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.accountComboBox = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.includeReconciledTransactionsCheckBox = new System.Windows.Forms.CheckBox();
+            this.excludeReconciledTransactionsCheckBox = new System.Windows.Forms.CheckBox();
             this.currentBalanceTextBox = new System.Windows.Forms.TextBox();
             this.addButton = new System.Windows.Forms.Button();
             this.saveButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
-            this.includeClearedTransactions = new System.Windows.Forms.CheckBox();
+            this.excludeClearedTransactionsCheckBox = new System.Windows.Forms.CheckBox();
             this.availableBankBalanceTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.reconcileButton = new System.Windows.Forms.Button();
@@ -142,13 +142,14 @@
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgv.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgv.Location = new System.Drawing.Point(296, 54);
+            this.dgv.MultiSelect = false;
             this.dgv.Name = "dgv";
             this.dgv.ReadOnly = true;
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(1044, 423);
             this.dgv.TabIndex = 0;
-            this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellContentClick);
             this.dgv.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.Dgv_DataError);
+            this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
             // 
             // Date
             // 
@@ -325,18 +326,20 @@
             this.label1.Text = "Balance:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // includeReconciledTransactionsCheckBox
+            // excludeReconciledTransactionsCheckBox
             // 
-            this.includeReconciledTransactionsCheckBox.AutoSize = true;
-            this.includeReconciledTransactionsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.includeReconciledTransactionsCheckBox.Location = new System.Drawing.Point(542, 32);
-            this.includeReconciledTransactionsCheckBox.Margin = new System.Windows.Forms.Padding(2);
-            this.includeReconciledTransactionsCheckBox.Name = "includeReconciledTransactionsCheckBox";
-            this.includeReconciledTransactionsCheckBox.Size = new System.Drawing.Size(182, 17);
-            this.includeReconciledTransactionsCheckBox.TabIndex = 24;
-            this.includeReconciledTransactionsCheckBox.Text = "Include Reconciled Transactions";
-            this.includeReconciledTransactionsCheckBox.UseVisualStyleBackColor = true;
-            this.includeReconciledTransactionsCheckBox.CheckedChanged += new System.EventHandler(this.includeReconciledTransactionsCheckBox_CheckedChanged);
+            this.excludeReconciledTransactionsCheckBox.AutoSize = true;
+            this.excludeReconciledTransactionsCheckBox.Checked = true;
+            this.excludeReconciledTransactionsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.excludeReconciledTransactionsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.excludeReconciledTransactionsCheckBox.Location = new System.Drawing.Point(542, 32);
+            this.excludeReconciledTransactionsCheckBox.Margin = new System.Windows.Forms.Padding(2);
+            this.excludeReconciledTransactionsCheckBox.Name = "excludeReconciledTransactionsCheckBox";
+            this.excludeReconciledTransactionsCheckBox.Size = new System.Drawing.Size(185, 17);
+            this.excludeReconciledTransactionsCheckBox.TabIndex = 24;
+            this.excludeReconciledTransactionsCheckBox.Text = "Exclude Reconciled Transactions";
+            this.excludeReconciledTransactionsCheckBox.UseVisualStyleBackColor = true;
+            this.excludeReconciledTransactionsCheckBox.CheckedChanged += new System.EventHandler(this.includeReconciledTransactionsCheckBox_CheckedChanged);
             // 
             // currentBalanceTextBox
             // 
@@ -394,18 +397,20 @@
             this.deleteButton.UseVisualStyleBackColor = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
-            // includeClearedTransactions
+            // excludeClearedTransactionsCheckBox
             // 
-            this.includeClearedTransactions.AutoSize = true;
-            this.includeClearedTransactions.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.includeClearedTransactions.Location = new System.Drawing.Point(320, 33);
-            this.includeClearedTransactions.Margin = new System.Windows.Forms.Padding(2);
-            this.includeClearedTransactions.Name = "includeClearedTransactions";
-            this.includeClearedTransactions.Size = new System.Drawing.Size(164, 17);
-            this.includeClearedTransactions.TabIndex = 32;
-            this.includeClearedTransactions.Text = "Include Cleared Transactions";
-            this.includeClearedTransactions.UseVisualStyleBackColor = true;
-            this.includeClearedTransactions.CheckedChanged += new System.EventHandler(this.includeClearedTransactions_CheckedChanged);
+            this.excludeClearedTransactionsCheckBox.AutoSize = true;
+            this.excludeClearedTransactionsCheckBox.Checked = true;
+            this.excludeClearedTransactionsCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.excludeClearedTransactionsCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.excludeClearedTransactionsCheckBox.Location = new System.Drawing.Point(320, 33);
+            this.excludeClearedTransactionsCheckBox.Margin = new System.Windows.Forms.Padding(2);
+            this.excludeClearedTransactionsCheckBox.Name = "excludeClearedTransactionsCheckBox";
+            this.excludeClearedTransactionsCheckBox.Size = new System.Drawing.Size(167, 17);
+            this.excludeClearedTransactionsCheckBox.TabIndex = 32;
+            this.excludeClearedTransactionsCheckBox.Text = "Exclude Cleared Transactions";
+            this.excludeClearedTransactionsCheckBox.UseVisualStyleBackColor = true;
+            this.excludeClearedTransactionsCheckBox.CheckedChanged += new System.EventHandler(this.includeClearedTransactions_CheckedChanged);
             // 
             // availableBankBalanceTextBox
             // 
@@ -766,7 +771,7 @@
             this.Controls.Add(this.reconcileButton);
             this.Controls.Add(this.availableBankBalanceTextBox);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.includeClearedTransactions);
+            this.Controls.Add(this.excludeClearedTransactionsCheckBox);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.addButton);
@@ -774,7 +779,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.accountComboBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.includeReconciledTransactionsCheckBox);
+            this.Controls.Add(this.excludeReconciledTransactionsCheckBox);
             this.Controls.Add(this.dgv);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -801,12 +806,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox accountComboBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.CheckBox includeReconciledTransactionsCheckBox;
+        private System.Windows.Forms.CheckBox excludeReconciledTransactionsCheckBox;
         private System.Windows.Forms.TextBox currentBalanceTextBox;
         private System.Windows.Forms.Button addButton;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button deleteButton;
-        private System.Windows.Forms.CheckBox includeClearedTransactions;
+        private System.Windows.Forms.CheckBox excludeClearedTransactionsCheckBox;
         private System.Windows.Forms.TextBox availableBankBalanceTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button reconcileButton;

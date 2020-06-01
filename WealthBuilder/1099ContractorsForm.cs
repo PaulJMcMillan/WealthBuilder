@@ -69,7 +69,15 @@ namespace WealthBuilder
                 return;
             }
 
-            if (!DataGridViewHelper.DeleteRows(dgv)) MessageBox.Show(WBResource.GenericErrorMessage);
+            var row = dgv.CurrentRow;
+            int id = (int)row.Cells["Id"].Value;
+
+            using (var db = new WBEntities())
+            {
+                var entity = db.C1099Contractors.Where(x => x.id == id).FirstOrDefault();
+                db.C1099Contractors.Remove(entity);
+                db.SaveChanges();
+            }
         }
 
         private bool DependanciesExist()

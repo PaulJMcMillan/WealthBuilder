@@ -104,7 +104,16 @@ namespace WealthBuilder
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if (!DataGridViewHelper.DeleteRows(dgv)) MessageBox.Show(WBResource.GenericErrorMessage);
+            var row = dgv.CurrentRow;
+            int id = (int)row.Cells["Id"].Value;
+
+            using (var db = new WBEntities())
+            {
+                var table = db.Inflows;
+                var entity = table.Where(x => x.Id == id).FirstOrDefault();
+                table.Remove(entity);
+                db.SaveChanges();
+            }
         }
     }
 }
