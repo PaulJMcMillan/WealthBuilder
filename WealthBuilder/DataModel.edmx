@@ -121,6 +121,14 @@
           <Property Name="DueDate" Type="date" />
           <Property Name="EntityId" Type="int" />
         </EntityType>
+        <EntityType Name="Stores">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
         <EntityType Name="TaxCategories">
           <Key>
             <PropertyRef Name="Id" />
@@ -170,6 +178,7 @@
           <EntitySet Name="Inflows" EntityType="Self.Inflows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProjectedCashBalances" EntityType="Self.ProjectedCashBalances" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reminders" EntityType="Self.Reminders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stores" EntityType="Self.Stores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaxCategories" EntityType="Self.TaxCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaxForms" EntityType="Self.TaxForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
@@ -178,6 +187,31 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WealthBuilderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C1099Contractors" EntityType="WealthBuilderModel.C1099Contractors" />
+          <EntitySet Name="Accounts" EntityType="WealthBuilderModel.Account" />
+          <EntitySet Name="Assets" EntityType="WealthBuilderModel.Asset" />
+          <EntitySet Name="Budgets" EntityType="WealthBuilderModel.Budget" />
+          <EntitySet Name="CashFlowForecastDatas" EntityType="WealthBuilderModel.CashFlowForecastData" />
+          <EntitySet Name="Categories" EntityType="WealthBuilderModel.Category" />
+          <EntitySet Name="Entities" EntityType="WealthBuilderModel.Entity" />
+          <EntitySet Name="Frequencies" EntityType="WealthBuilderModel.Frequency" />
+          <EntitySet Name="Inflows" EntityType="WealthBuilderModel.Inflow" />
+          <EntitySet Name="ProjectedCashBalances" EntityType="WealthBuilderModel.ProjectedCashBalance" />
+          <EntitySet Name="Reminders" EntityType="WealthBuilderModel.Reminder" />
+          <EntitySet Name="Stores" EntityType="WealthBuilderModel.Store" />
+          <EntitySet Name="TaxCategories" EntityType="WealthBuilderModel.TaxCategory" />
+          <EntitySet Name="TaxForms" EntityType="WealthBuilderModel.TaxForm" />
+          <EntitySet Name="Transactions" EntityType="WealthBuilderModel.Transaction" />
+        </EntityContainer>
+        <EntityType Name="C1099Contractors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="Id" />
@@ -189,6 +223,14 @@
           <Property Name="EntityId" Type="Int32" />
           <Property Name="CashFlowForeCast" Type="Boolean" />
           <Property Name="DefaultAccount" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Asset">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
         </EntityType>
         <EntityType Name="Budget">
           <Key>
@@ -215,15 +257,24 @@
           <Property Name="Balance" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="EntityId" Type="Int32" />
         </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="Entity">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LowestBalance" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Notes" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LowestBalance" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="DefaultEntity" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Frequency">
@@ -240,13 +291,13 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="InflowDate" Type="DateTime" Precision="0" />
           <Property Name="FrequencyId" Type="Int32" />
           <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="StartDate" Type="DateTime" Precision="0" />
           <Property Name="EndDate" Type="DateTime" Precision="0" />
           <Property Name="EntityId" Type="Int32" />
-          <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="ProjectedCashBalance">
           <Key>
@@ -269,29 +320,13 @@
           <Property Name="DueDate" Type="DateTime" Precision="0" />
           <Property Name="EntityId" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="WBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Accounts" EntityType="Self.Account" />
-          <EntitySet Name="Budgets" EntityType="Self.Budget" />
-          <EntitySet Name="CashFlowForecastDatas" EntityType="Self.CashFlowForecastData" />
-          <EntitySet Name="Entities" EntityType="Self.Entity" />
-          <EntitySet Name="Frequencies" EntityType="Self.Frequency" />
-          <EntitySet Name="Inflows" EntityType="Self.Inflow" />
-          <EntitySet Name="ProjectedCashBalances" EntityType="Self.ProjectedCashBalance" />
-          <EntitySet Name="Reminders" EntityType="Self.Reminder" />
-          <EntitySet Name="TaxForms" EntityType="WealthBuilderModel.TaxForm" />
-          <EntitySet Name="TaxCategories" EntityType="WealthBuilderModel.TaxCategory" />
-          <EntitySet Name="Categories" EntityType="WealthBuilderModel.Category" />
-          <EntitySet Name="C1099Contractors" EntityType="WealthBuilderModel.C1099Contractors" />
-          <EntitySet Name="Assets" EntityType="WealthBuilderModel.Asset" />
-          <EntitySet Name="Transactions" EntityType="WealthBuilderModel.Transaction" />
-        </EntityContainer>
-        <EntityType Name="TaxForm">
+        <EntityType Name="Store">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaxFormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="Boolean" />
         </EntityType>
         <EntityType Name="TaxCategory">
           <Key>
@@ -301,44 +336,27 @@
           <Property Name="TaxCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" />
         </EntityType>
-        <EntityType Name="Category">
+        <EntityType Name="TaxForm">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TaxFormName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="C1099Contractors">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="Asset">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Active" Type="Boolean" />
         </EntityType>
         <EntityType Name="Transaction">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="0" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="Withdrawal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Deposit" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Withdrawal" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Cleared" Type="Boolean" Nullable="false" />
-          <Property Name="CheckNumber" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="false" />
+          <Property Name="CheckNumber" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="Reconciled" Type="Boolean" Nullable="false" />
-          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Notes" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="AccountId" Type="Int32" Nullable="false" />
           <Property Name="EntityId" Type="Int32" Nullable="false" />
           <Property Name="TaxFormId" Type="Int32" Nullable="false" />
@@ -347,125 +365,66 @@
           <Property Name="AssetId" Type="Int32" Nullable="false" />
           <Property Name="ContractorId" Type="Int32" Nullable="false" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="WealthBuilderModelStoreContainer" CdmEntityContainer="WBEntities">
+          <EntitySetMapping Name="C1099Contractors">
+            <EntityTypeMapping TypeName="WealthBuilderModel.C1099Contractors">
+              <MappingFragment StoreEntitySet="1099Contractors">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="WealthBuilderModel.Account">
               <MappingFragment StoreEntitySet="Accounts">
                 <ScalarProperty Name="DefaultAccount" ColumnName="DefaultAccount" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
                 <ScalarProperty Name="CashFlowForeCast" ColumnName="CashFlowForeCast" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Assets">
+            <EntityTypeMapping TypeName="WealthBuilderModel.Asset">
+              <MappingFragment StoreEntitySet="Assets">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Budgets">
             <EntityTypeMapping TypeName="WealthBuilderModel.Budget">
               <MappingFragment StoreEntitySet="Budget">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
-                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
-                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
                 <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CashFlowForecastDatas">
             <EntityTypeMapping TypeName="WealthBuilderModel.CashFlowForecastData">
               <MappingFragment StoreEntitySet="CashFlowForecastData">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="DateString" ColumnName="DateString" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Entities">
-            <EntityTypeMapping TypeName="WealthBuilderModel.Entity">
-              <MappingFragment StoreEntitySet="Entities">
-                <ScalarProperty Name="DefaultEntity" ColumnName="DefaultEntity" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="LowestBalance" ColumnName="LowestBalance" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Frequencies">
-            <EntityTypeMapping TypeName="WealthBuilderModel.Frequency">
-              <MappingFragment StoreEntitySet="Frequencies">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Inflows">
-            <EntityTypeMapping TypeName="WealthBuilderModel.Inflow">
-              <MappingFragment StoreEntitySet="Inflows">
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="InflowDate" ColumnName="InflowDate" />
-                <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectedCashBalances">
-            <EntityTypeMapping TypeName="WealthBuilderModel.ProjectedCashBalance">
-              <MappingFragment StoreEntitySet="ProjectedCashBalances">
-                <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Reminders">
-            <EntityTypeMapping TypeName="WealthBuilderModel.Reminder">
-              <MappingFragment StoreEntitySet="Reminders">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="PayAmount" ColumnName="PayAmount" />
-                <ScalarProperty Name="InflowAmount" ColumnName="InflowAmount" />
-                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
-                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TaxForms">
-            <EntityTypeMapping TypeName="WealthBuilderModel.TaxForm">
-              <MappingFragment StoreEntitySet="TaxForms">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="TaxFormName" ColumnName="TaxFormName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="TaxCategories">
-            <EntityTypeMapping TypeName="WealthBuilderModel.TaxCategory">
-              <MappingFragment StoreEntitySet="TaxCategories">
-                <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="TaxCategoryName" ColumnName="TaxCategoryName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -480,21 +439,89 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="C1099Contractors">
-            <EntityTypeMapping TypeName="WealthBuilderModel.C1099Contractors">
-              <MappingFragment StoreEntitySet="1099Contractors">
+          <EntitySetMapping Name="Entities">
+            <EntityTypeMapping TypeName="WealthBuilderModel.Entity">
+              <MappingFragment StoreEntitySet="Entities">
+                <ScalarProperty Name="DefaultEntity" ColumnName="DefaultEntity" />
+                <ScalarProperty Name="LowestBalance" ColumnName="LowestBalance" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Frequencies">
+            <EntityTypeMapping TypeName="WealthBuilderModel.Frequency">
+              <MappingFragment StoreEntitySet="Frequencies">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inflows">
+            <EntityTypeMapping TypeName="WealthBuilderModel.Inflow">
+              <MappingFragment StoreEntitySet="Inflows">
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="FrequencyId" ColumnName="FrequencyId" />
+                <ScalarProperty Name="InflowDate" ColumnName="InflowDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectedCashBalances">
+            <EntityTypeMapping TypeName="WealthBuilderModel.ProjectedCashBalance">
+              <MappingFragment StoreEntitySet="ProjectedCashBalances">
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reminders">
+            <EntityTypeMapping TypeName="WealthBuilderModel.Reminder">
+              <MappingFragment StoreEntitySet="Reminders">
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="InflowAmount" ColumnName="InflowAmount" />
+                <ScalarProperty Name="PayAmount" ColumnName="PayAmount" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="WealthBuilderModel.Store">
+              <MappingFragment StoreEntitySet="Stores">
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Assets">
-            <EntityTypeMapping TypeName="WealthBuilderModel.Asset">
-              <MappingFragment StoreEntitySet="Assets">
+          <EntitySetMapping Name="TaxCategories">
+            <EntityTypeMapping TypeName="WealthBuilderModel.TaxCategory">
+              <MappingFragment StoreEntitySet="TaxCategories">
                 <ScalarProperty Name="Active" ColumnName="Active" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="TaxCategoryName" ColumnName="TaxCategoryName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TaxForms">
+            <EntityTypeMapping TypeName="WealthBuilderModel.TaxForm">
+              <MappingFragment StoreEntitySet="TaxForms">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="TaxFormName" ColumnName="TaxFormName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

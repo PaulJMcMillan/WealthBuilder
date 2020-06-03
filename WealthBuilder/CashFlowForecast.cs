@@ -312,7 +312,7 @@ namespace WealthBuilder
                 if (entity == null) return;
                 double cashBalance = Cash.GetStartingBalanceForCashFlow(entityId);
                 Compute(cashBalance, entityId);
-                MinimumBalanceThreshold = entity.LowestBalance == null ? 0 : (double)entity.LowestBalance;
+                MinimumBalanceThreshold = (double)entity.LowestBalance;
                 var rs = dailyAmounts.Where(x => x.Value < MinimumBalanceThreshold).FirstOrDefault();
                 BalanceBelowThreshold = rs.Value;
                 BalanceBelowThresholdDate = rs.Key;

@@ -5,20 +5,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a9b4ce0590774eeb9647248faa4862ad" Name="Diagram1">
-        <EntityTypeShape EntityType="WealthBuilderModel.Account" Width="1.5" PointX="7.125" PointY="1.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.Budget" Width="1.5" PointX="0.5" PointY="1" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.CashFlowForecastData" Width="2.25" PointX="3" PointY="1.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.Entity" Width="1.5" PointX="0.5" PointY="3.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.Frequency" Width="1.5" PointX="2.875" PointY="2.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.Inflow" Width="1.5" PointX="0.5" PointY="2" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.ProjectedCashBalance" Width="2" PointX="0.5" PointY="2.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.Reminder" Width="1.5" PointX="0.5" PointY="3" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.TaxForm" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.TaxCategory" Width="1.5" PointX="9.125" PointY="1.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.Category" Width="1.5" PointX="3.375" PointY="3.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.C1099Contractors" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.Asset" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="WealthBuilderModel.Transaction" Width="1.5" PointX="3.375" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WealthBuilderModel.C1099Contractors" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Account" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Asset" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Budget" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.CashFlowForecastData" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Category" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Entity" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Frequency" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Inflow" Width="1.5" PointX="4.75" PointY="6.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.ProjectedCashBalance" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Reminder" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Store" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.TaxCategory" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.TaxForm" Width="1.5" PointX="8.75" PointY="7.75" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Transaction" Width="1.5" PointX="10.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

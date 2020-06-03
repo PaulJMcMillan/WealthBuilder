@@ -27,7 +27,7 @@ namespace WealthBuilder
                 {
                     var entity = db.Entities.Where(x => x.Active == true && CurrentEntity.Id == x.Id).FirstOrDefault();
                     if (entity == null) return;
-                    lowestBalanceThreshold = entity.LowestBalance == null ? 0 : (long)entity.LowestBalance;
+                    lowestBalanceThreshold = (long)entity.LowestBalance;
                 }
 
                 string t = lowestBalanceThreshold.ToString("C");
