@@ -17,9 +17,9 @@ namespace WealthBuilder
         public int Id { get; set; }
         public string Name { get; set; }
         public string Notes { get; set; }
-        public Nullable<bool> Active { get; set; }
-        public Nullable<int> EntityId { get; set; }
-        public Nullable<bool> CashFlowForeCast { get; set; }
-        public Nullable<bool> DefaultAccount { get; set; }
+        public bool Active { get; set; }
+        public int EntityId { get; set; }
+        public bool CashFlowForeCast { get; set; }
+        public bool DefaultAccount { get; set; }
     }
 }

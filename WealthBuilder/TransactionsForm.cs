@@ -490,6 +490,7 @@ namespace WealthBuilder
 
         private void PopulateForm()
         {
+            if (dgv.CurrentRow == null) return;
             var currentRow = dgv.CurrentRow;
             dateTimePicker.Value = (DateTime)currentRow.Cells["Date"].Value;
             DescriptionTextBox.Text = (string)currentRow.Cells["Description"].Value;

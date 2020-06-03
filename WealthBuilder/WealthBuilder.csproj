@@ -99,12 +99,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="1099ContractorsForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="1099ContractorsForm.Designer.cs">
-      <DependentUpon>1099ContractorsForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -112,7 +106,7 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Account.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="AccountsForm.cs">
       <SubType>Form</SubType>
@@ -126,7 +120,7 @@
     <Compile Include="App.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="Asset.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="AssetsForm.cs">
       <SubType>Form</SubType>
@@ -135,7 +129,7 @@
       <DependentUpon>AssetsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Budget.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BudgetForm.cs">
       <SubType>Form</SubType>
@@ -144,12 +138,7 @@
       <DependentUpon>BudgetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="C1099Contractors.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CalendarCell.cs" />
-    <Compile Include="CalendarColumn.cs" />
-    <Compile Include="CalendarEditingControl.cs">
-      <SubType>Component</SubType>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Cash.cs" />
     <Compile Include="CashFlowChartCriteriaForm.cs">
@@ -163,7 +152,7 @@
     </Compile>
     <Compile Include="CashFlowForecast.cs" />
     <Compile Include="CashFlowForecastData.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="CashFlowForecastEntry.cs" />
     <Compile Include="CategoriesForm.cs">
@@ -173,7 +162,7 @@
       <DependentUpon>CategoriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Code\Entities.cs" />
     <Compile Include="Code\Entity.cs" />
@@ -184,18 +173,38 @@
     <Compile Include="CashAppTransForm.Designer.cs">
       <DependentUpon>CashAppTransForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataSet.Designer.cs">
+      <DependentUpon>DataSet.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Entity.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Frequency.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Inflow.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="ProjectedCashBalance.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ReconciliationReportForm.cs">
       <SubType>Form</SubType>
@@ -204,7 +213,7 @@
       <DependentUpon>ReconciliationReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Reminder.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ReportsForm.cs">
       <SubType>Form</SubType>
@@ -213,7 +222,7 @@
       <DependentUpon>ReportsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Store.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="SupportFile.cs" />
     <Compile Include="TaxCategoriesForm.cs">
@@ -223,10 +232,10 @@
       <DependentUpon>TaxCategoriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TaxCategory.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TaxForm.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TaxFormsForm.cs">
       <SubType>Form</SubType>
@@ -247,7 +256,6 @@
       <DependentUpon>Ten99MiscReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TextFile.cs" />
-    <Compile Include="ToDoList.cs" />
     <Compile Include="ToolsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,7 +263,7 @@
       <DependentUpon>ToolsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Transaction.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TransactionsForm.cs">
       <SubType>Form</SubType>
@@ -270,26 +278,6 @@
     <Compile Include="Constants.cs" />
     <Compile Include="CurrentEntity.cs" />
     <Compile Include="Data.cs" />
-    <Compile Include="DataModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="DataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Date.cs" />
     <Compile Include="DB.cs" />
     <Compile Include="EntitiesForm.cs">
@@ -356,14 +344,12 @@
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
+    <Compile Include="WBEntities.cs" />
     <Compile Include="WBResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WBResource.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="1099ContractorsForm.resx">
-      <DependentUpon>1099ContractorsForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -453,15 +439,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>WBResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="DataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="1099 Summary Report.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="DataModel.edmx.diagram">
-      <DependentUpon>DataModel.edmx</DependentUpon>
     </None>
     <None Include="DataSet.xsc">
       <DependentUpon>DataSet.xsd</DependentUpon>
@@ -473,6 +452,13 @@
     </None>
     <None Include="DataSet.xss">
       <DependentUpon>DataSet.xsd</DependentUpon>
+    </None>
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -507,15 +493,15 @@
     <Content Include="coins.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="DataModel.Context.tt">
+    <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DataModel.tt">
+    <Content Include="Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="WealthBuilder.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

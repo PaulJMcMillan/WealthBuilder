@@ -15,9 +15,9 @@ namespace WealthBuilder
     public partial class CashFlowForecastData
     {
         public int Id { get; set; }
-        public Nullable<int> Date { get; set; }
+        public int Date { get; set; }
         public string DateString { get; set; }
-        public Nullable<decimal> Balance { get; set; }
-        public Nullable<int> EntityId { get; set; }
+        public decimal Balance { get; set; }
+        public int EntityId { get; set; }
     }
 }

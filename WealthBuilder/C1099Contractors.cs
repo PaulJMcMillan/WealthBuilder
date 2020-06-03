@@ -16,6 +16,6 @@ namespace WealthBuilder
     {
         public int id { get; set; }
         public string Name { get; set; }
-        public Nullable<bool> Active { get; set; }
+        public bool Active { get; set; }
     }
 }

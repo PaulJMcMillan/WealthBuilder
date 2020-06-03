@@ -30,7 +30,8 @@ namespace WealthBuilder
         public static readonly string ApplicationUserFriendlyName = "Wealth Builder";
         public static readonly string WealthBuilderPolicyId = "564c70d3-28d9-4766-b76c-8697596c8796";
         public static readonly string PennyPincherPolicyId = "a5e7e5ba-67b8-4ef8-8a83-3d20b5eae4c1";
-        public static readonly string DataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\McMillan Financial Solutions\" + ApplicationUserFriendlyName + @"\";
+        public static readonly string DataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + 
+               @"\McMillan Financial Solutions\" + ApplicationUserFriendlyName + @"\";
         public static string CopyrightMessage = "Copyright \u00A9 2017-" + DateTime.Today.Year.ToString() + " McMillan Financial Solutions, LLC.  All rights reserved.";
         public static readonly string UserFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         public static readonly string ReconciliationReportFileName = UserFolder + @"\ReconciliationReport.txt";

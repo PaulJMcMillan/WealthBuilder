@@ -34,7 +34,7 @@ namespace WealthBuilder
         private void MainForm_Load(object sender, EventArgs e)
         {
             Text = App.Title;
-            entitiesTableAdapter.Fill(dataSet.Entities);
+            PopulateEntityComboBox();
             Width = 413;
             Height = 450;
             entityComboBox.TabIndex = 0;
@@ -78,10 +78,27 @@ namespace WealthBuilder
             SetCurrentEntityData();
         }
 
+        private void PopulateEntityComboBox()
+        {
+            using (var db = new WBEntities())
+            {
+                var entities = db.Entities.Where(x => x.Active == true).ToList();
+
+                //foreach(var entity in entities)
+                //{
+                this.entityComboBox.DisplayMember = "Name";
+                this.entityComboBox.ValueMember = "Id";
+                entityComboBox.DataSource = entities;
+                //Setup data binding
+              
+                //}
+            }
+        }
+
         private void SetCurrentEntityData()
         {
             if (entityComboBox.SelectedIndex == -1) return;
-            long id = long.Parse(entityComboBox.SelectedValue.ToString());
+            int id = (int)entityComboBox.SelectedValue;
 
             using (var db = new WBEntities())
             {

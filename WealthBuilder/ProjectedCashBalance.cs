@@ -15,8 +15,8 @@ namespace WealthBuilder
     public partial class ProjectedCashBalance
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public Nullable<decimal> Balance { get; set; }
-        public Nullable<int> EntityId { get; set; }
+        public System.DateTime Date { get; set; }
+        public decimal Balance { get; set; }
+        public int EntityId { get; set; }
     }
 }

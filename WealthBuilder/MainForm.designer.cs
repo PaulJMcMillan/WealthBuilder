@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.inflowsButton = new System.Windows.Forms.Button();
             this.budgetButton = new System.Windows.Forms.Button();
@@ -43,10 +42,7 @@
             this.accountsButton = new System.Windows.Forms.Button();
             this.entitiesButton = new System.Windows.Forms.Button();
             this.entityComboBox = new System.Windows.Forms.ComboBox();
-            this.entitiesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet = new WealthBuilder.DataSet();
             this.label1 = new System.Windows.Forms.Label();
-            this.entitiesTableAdapter = new WealthBuilder.DataSetTableAdapters.EntitiesTableAdapter();
             this.taxFormsButton = new System.Windows.Forms.Button();
             this.taxCategoriesButton = new System.Windows.Forms.Button();
             this.categoriesButton = new System.Windows.Forms.Button();
@@ -54,8 +50,6 @@
             this.reportsButton = new System.Windows.Forms.Button();
             this.ten99ContractorsButton = new System.Windows.Forms.Button();
             this.quickCashAppTransButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.entitiesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // inflowsButton
@@ -216,6 +210,7 @@
             // entitiesButton
             // 
             this.entitiesButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.entitiesButton.Enabled = false;
             this.entitiesButton.FlatAppearance.BorderSize = 0;
             this.entitiesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.entitiesButton.ForeColor = System.Drawing.SystemColors.Control;
@@ -229,27 +224,12 @@
             // 
             // entityComboBox
             // 
-            this.entityComboBox.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.entitiesBindingSource, "Id", true));
-            this.entityComboBox.DataSource = this.entitiesBindingSource;
-            this.entityComboBox.DisplayMember = "Name";
             this.entityComboBox.FormattingEnabled = true;
             this.entityComboBox.Location = new System.Drawing.Point(102, 12);
             this.entityComboBox.Name = "entityComboBox";
             this.entityComboBox.Size = new System.Drawing.Size(276, 24);
             this.entityComboBox.TabIndex = 26;
-            this.entityComboBox.ValueMember = "Id";
             this.entityComboBox.SelectedIndexChanged += new System.EventHandler(this.entityComboBox_SelectedIndexChanged);
-            // 
-            // entitiesBindingSource
-            // 
-            this.entitiesBindingSource.DataMember = "Entities";
-            this.entitiesBindingSource.DataSource = this.dataSet;
-            this.entitiesBindingSource.Filter = "Active = True";
-            // 
-            // dataSet
-            // 
-            this.dataSet.DataSetName = "DataSet";
-            this.dataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // label1
             // 
@@ -260,10 +240,6 @@
             this.label1.Size = new System.Drawing.Size(88, 16);
             this.label1.TabIndex = 27;
             this.label1.Text = "Current Entity:";
-            // 
-            // entitiesTableAdapter
-            // 
-            this.entitiesTableAdapter.ClearBeforeFill = true;
             // 
             // taxFormsButton
             // 
@@ -347,6 +323,7 @@
             this.ten99ContractorsButton.TabIndex = 33;
             this.ten99ContractorsButton.Text = "1099 Contractors";
             this.ten99ContractorsButton.UseVisualStyleBackColor = false;
+            this.ten99ContractorsButton.Visible = false;
             this.ten99ContractorsButton.Click += new System.EventHandler(this.ten99ContractorsButton_Click);
             // 
             // quickCashAppTransButton
@@ -398,8 +375,6 @@
             this.Text = "Wealth Builder";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Shown += new System.EventHandler(this.MainForm_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.entitiesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -421,9 +396,6 @@
         private System.Windows.Forms.Button entitiesButton;
         private System.Windows.Forms.ComboBox entityComboBox;
         private System.Windows.Forms.Label label1;
-        private DataSet dataSet;
-        private System.Windows.Forms.BindingSource entitiesBindingSource;
-        private DataSetTableAdapters.EntitiesTableAdapter entitiesTableAdapter;
         private System.Windows.Forms.Button taxFormsButton;
         private System.Windows.Forms.Button taxCategoriesButton;
         private System.Windows.Forms.Button categoriesButton;

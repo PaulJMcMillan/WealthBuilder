@@ -79,8 +79,8 @@ namespace WealthBuilder
                     if (reminder.Date == null) continue;
                     DateTime date = (DateTime)reminder.Date;
                     date = date.Date;
-                    double payAmount = (double)(reminder.PayAmount ?? 0);
-                    double inflowAmount = (double)(reminder.InflowAmount ?? 0);
+                    double payAmount = (double)reminder.PayAmount;
+                    double inflowAmount = (double)reminder.InflowAmount;
                     double amount = inflowAmount - payAmount;
                     CreateForecastEntry(date, amount);
                 }
@@ -203,10 +203,10 @@ namespace WealthBuilder
                     double balance;
                     if (!dailyAmounts.TryGetValue(dt, out balance)) throw new Exception("Error occurred in cash flow calculator.  Please call technical support.");
                     var cashFlowForecastData = new CashFlowForecastData();
-                    int? oaDate = (int?)dt.ToOADate();
+                    int oaDate = (int)dt.ToOADate();
                     cashFlowForecastData.Date = oaDate;
                     cashFlowForecastData.DateString = dt.ToString("M/d/y");
-                    cashFlowForecastData.Balance = (long?)balance;
+                    cashFlowForecastData.Balance = (decimal)balance;
                     rs.Add(cashFlowForecastData);
                     Console.WriteLine("Balance: " + cashFlowForecastData.Balance.ToString());
                 }

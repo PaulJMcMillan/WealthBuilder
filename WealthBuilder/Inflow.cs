@@ -16,12 +16,12 @@ namespace WealthBuilder
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Nullable<decimal> Amount { get; set; }
-        public Nullable<System.DateTime> InflowDate { get; set; }
-        public Nullable<int> FrequencyId { get; set; }
+        public decimal Amount { get; set; }
+        public System.DateTime InflowDate { get; set; }
+        public int FrequencyId { get; set; }
         public string Notes { get; set; }
-        public Nullable<System.DateTime> StartDate { get; set; }
-        public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<int> EntityId { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime EndDate { get; set; }
+        public int EntityId { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace WealthBuilder
                     if (inflowDate < startDate || inflowDate > endDate) continue;
                     var reminder = new Reminder();
                     reminder.Date = inflowDate;
-                    string inflowAmountString = (inflow.Amount ?? 0).ToString("C");
+                    string inflowAmountString = inflow.Amount.ToString("C");
                     string inflowAmountPhrase = " in the amount of " + inflowAmountString;
                     string dateString = reminder.Date == null ?  string.Empty : ((DateTime)reminder.Date).Date.ToShortDateString();
                     reminder.Description = "Inflow for " + entityName + ": " + inflow.Name + inflowAmountPhrase + " to be received on " + dateString + ".";
@@ -110,7 +110,7 @@ namespace WealthBuilder
                     var reminder = new Reminder();
                     reminder.Date = nextPayDate;
                     string payDateString = nextPayDate.ToShortDateString();
-                    string budgetAmountString = (budget.Amount ?? 0).ToString("C");
+                    string budgetAmountString = budget.Amount.ToString("C");
                     string budgetAmountMsg = " in the amount of " + budgetAmountString;
                     DateTime dueDate = DateTime.MinValue;
 

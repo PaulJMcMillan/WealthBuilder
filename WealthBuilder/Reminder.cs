@@ -15,11 +15,11 @@ namespace WealthBuilder
     public partial class Reminder
     {
         public int Id { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+        public System.DateTime Date { get; set; }
         public string Description { get; set; }
-        public Nullable<decimal> PayAmount { get; set; }
-        public Nullable<decimal> InflowAmount { get; set; }
-        public Nullable<System.DateTime> DueDate { get; set; }
-        public Nullable<int> EntityId { get; set; }
+        public decimal PayAmount { get; set; }
+        public decimal InflowAmount { get; set; }
+        public System.DateTime DueDate { get; set; }
+        public int EntityId { get; set; }
     }
 }
