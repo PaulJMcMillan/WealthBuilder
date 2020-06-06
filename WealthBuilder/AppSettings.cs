@@ -10,7 +10,7 @@ namespace WealthBuilder
         public static DateTime BackupReminderDate { get; set; }
         public static string License { get; set; }
         public static string LicenseType { get; set; }
-        public static double MinimumCashBalance { get; set; }
+        public static decimal MinimumCashBalance { get; set; }
         private static readonly string settingsFile = "AppSettings.txt";
         public static DateTime DemoExpirationDate { get; set; }
 
@@ -96,8 +96,8 @@ namespace WealthBuilder
                     LicenseType = value;
                     break;
                 case "MinimumCashBalance":
-                    double d = Double.MinValue;
-                    Double.TryParse(value, out d);
+                    decimal d = decimal.MinValue;
+                    decimal.TryParse(value, out d);
                     MinimumCashBalance = d;
                     break;
                 case "DemoExpirationDate":

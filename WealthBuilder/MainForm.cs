@@ -135,7 +135,7 @@ namespace WealthBuilder
             DateTime endDate = DateTime.Today.AddYears(1).AddDays(-1);
             int interval = 6;
             var cashFlowForecast = new CashFlowForecast(endDate, interval);
-            cashFlowForecast.CalculateAllEntities();
+            cashFlowForecast.CalculateForDefaultEntity();
             Reminders.Load();
             if (Reminders.Exist()) Code.Form.Open("RemindersForm");
 

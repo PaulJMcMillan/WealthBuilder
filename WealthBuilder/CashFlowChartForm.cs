@@ -84,7 +84,7 @@ namespace WealthBuilder
             //    var rs = db.CashFlowForecastDatas;
             //    long? maxBalance = (long?)(from b in rs select b.Balance).Max();
             //    long? minBalance = (long?)(from b in rs select b.Balance).Min();
-            //    double yAxisInterval = DetermineYAxisInterval(maxBalance);
+            //    decimal yAxisInterval = DetermineYAxisInterval(maxBalance);
             //    if (yAxisInterval != 0) return true;
             //    return false;
             //}
@@ -124,11 +124,12 @@ namespace WealthBuilder
 
                 if (yAxisInterval == 0)
                 {
-                    MessageBox.Show("The chart cannot be displayed because an interval could not be determined for the cash balance axis.  Please check Inflows, Buget, and Transactions data for accuracy.", "Chart Cannot Be Rendered");
+                    MessageBox.Show("The chart cannot be displayed because an interval could not be determined for the cash balance axis."+
+                        "  Please check Inflows, Buget, and Transactions data for accuracy.", "Chart Cannot Be Rendered");
                     return;
                 }
                 c.ChartAreas[0].AxisY.Interval = yAxisInterval;
-                c.ChartAreas[0].AxisY.Minimum = (double)minBalance;  // - 100;
+                c.ChartAreas[0].AxisY.Minimum = (double)minBalance;
                 c.ChartAreas[0].AxisY.Maximum = (double)maxBalance;
                 foreach (var r in rs) c.Series[0].Points.AddXY(r.Date, r.Balance);
             }

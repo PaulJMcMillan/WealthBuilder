@@ -25,17 +25,10 @@ namespace WealthBuilder
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                dataSet.Assets.Rows.Add();
-                assetsBindingSource.ResetBindings(false);
-                int rowCount = dgv.RowCount;
-                if (rowCount > 0) dgv.CurrentCell = dgv.Rows[rowCount - 1].Cells[1];
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
+            dataSet.Assets.Rows.Add();
+            assetsBindingSource.ResetBindings(false);
+            int rowCount = dgv.RowCount;
+            if (rowCount > 0) dgv.CurrentCell = dgv.Rows[rowCount - 1].Cells[1];
         }
 
         private void saveButton_Click(object sender, EventArgs e)

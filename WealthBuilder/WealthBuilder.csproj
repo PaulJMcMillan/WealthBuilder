@@ -108,6 +108,7 @@
     <Compile Include="Account.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="AccountRepository.cs" />
     <Compile Include="AccountsForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -4,7 +4,7 @@ namespace WealthBuilder.Code
 {
     internal class Entity
     {
-        internal static double GetLowestBalance()
+        internal static decimal GetLowestBalance()
         {
             using (var db = new WBEntities())
             {

@@ -29,12 +29,12 @@ namespace WealthBuilder
             DateTime endDate = DateTime.Today.AddYears(1).AddDays(-1);
             int interval = 6;
             var cashFlowForecast = new CashFlowForecast(endDate, interval);
-            cashFlowForecast.CalculateForOneEntity(CurrentEntity.Id);
+            cashFlowForecast.Calculate();
 
-            foreach (var r in cashFlowForecast.DailyBalances)
+            foreach (var dailyBalance in cashFlowForecast.DailyBalances)
             {
-                string date = r.Key.ToShortDateString();
-                string balance = r.Value.ToString("C");
+                string date = dailyBalance.Key.ToShortDateString();
+                string balance = dailyBalance.Value.ToString("C");
                 dgv.Rows.Add(date, balance);
             }
         }

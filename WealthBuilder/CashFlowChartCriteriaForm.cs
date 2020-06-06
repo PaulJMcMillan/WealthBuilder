@@ -41,13 +41,9 @@ namespace WealthBuilder
 
             myTable.DefaultView.Sort = "Sort" ;
             myTable = myTable.DefaultView.ToTable();
-            entityComboBox.DisplayMember = "StringCol";
-            entityComboBox.ValueMember = "Int32Col";
-            entityComboBox.DataSource = myTable;
             startDateTimePicker.Value = DateTime.Today;
             endDateTimePicker.Value = DateTime.Today.AddYears(1);
             intervalTextBox.Text = "14";
-            entityComboBox.SelectedValue = CurrentEntity.Id;
         }
 
         public DataTable MakeDataTable()
@@ -79,31 +75,19 @@ namespace WealthBuilder
                 return;
             }
 
-            //todo: add a progress bar for 30 year calcs.
-
             Cursor.Current = Cursors.WaitCursor;
-            DateTime startDate = startDateTimePicker.Value;
             DateTime endDate = endDateTimePicker.Value;
-            int interval;
 
-            if (!int.TryParse(intervalTextBox.Text, out interval))
+            if (!int.TryParse(intervalTextBox.Text, out int interval))
             {
                 MessageBox.Show("Interval is invalid.", Text);
                 return;
             }
 
-            if (entityComboBox.SelectedIndex == -1) 
-            {
-                MessageBox.Show("Please select an entity.", Text);
-                return;
-            }
-
-            int entityId = int.Parse(entityComboBox.SelectedValue.ToString());
-            double beginningBalance = Cash.GetStartingBalanceForCashFlow(entityId);
+            decimal beginningBalance = Cash.GetStartingBalanceForCashFlow();
             var cashFlowForecast = new CashFlowForecast(endDate, interval);
-            cashFlowForecast.Compute(beginningBalance, entityId);
-            string formText = "Cash Flow Chart (" + entityComboBox.Text + ")";
-            var f = new CashFlowChartForm(interval, formText);
+            cashFlowForecast.Compute(beginningBalance);
+            var f = new CashFlowChartForm(interval, "Cash Flow Chart");
             Cursor.Current = Cursors.Default;
             f.Show();
         }

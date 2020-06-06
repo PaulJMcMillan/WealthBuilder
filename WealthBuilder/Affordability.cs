@@ -7,14 +7,14 @@ namespace WealthBuilder
 {
     public class Affordability
     {
-        private static double amountToCheck;
+        private static decimal amountToCheck;
 
         public static void Determine()
         {
             DateTime endDate = DateTime.Today.AddYears(1).AddDays(-1);
             int interval = 6;
             var cashFlowForecast = new CashFlowForecast(endDate, interval);
-            cashFlowForecast.CalculateForOneEntity((long)CurrentEntity.Id);
+            cashFlowForecast.Calculate();
 
             if (cashFlowForecast.BalanceBelowThresholdDate != DateTime.MinValue)
             {
@@ -37,7 +37,7 @@ namespace WealthBuilder
             }
 
             if (!GetTheAmountFromTheUsers()) return;
-            double cushion = Code.Entity.GetLowestBalance();
+            decimal cushion = Code.Entity.GetLowestBalance();
             var record = cashFlowForecast.DailyBalances.Where(x => x.Value < amountToCheck + cushion).FirstOrDefault();
 
             if (record.Key != DateTime.MinValue)
@@ -58,9 +58,9 @@ namespace WealthBuilder
             string enterAmountMessage = "Enter the amount you wish to fit into your budet:";
             string response = Interaction.InputBox(enterAmountMessage, "Affordability", string.Empty);
             if (string.IsNullOrWhiteSpace(response)) return false;
-            double amount;
+            decimal amount;
 
-            if (!double.TryParse(response, out amount))
+            if (!decimal.TryParse(response, out amount))
             {
                 MessageBox.Show("Please enter a valid amount.", "Invalid Amount");
                 return false;

@@ -6,16 +6,16 @@ namespace WealthBuilder
     public class CashFlowForecastEntry
     {
         private DateTime nextPayDate;
-        private double amount;
+        private decimal amount;
 
-        public CashFlowForecastEntry(DateTime nextPayDate, double amount)
+        public CashFlowForecastEntry(DateTime nextPayDate, decimal amount)
         {
             this.nextPayDate = nextPayDate;
             this.amount = amount;
         }
 
         public DateTime Date { get { return nextPayDate; } set { nextPayDate = value; } }
-        public double Amount { get { return amount; } set { amount = value; } }
+        public decimal Amount { get { return amount; } set { amount = value; } }
 
     }
 }
