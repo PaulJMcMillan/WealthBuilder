@@ -59,6 +59,7 @@
             this.inflowsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.inflowsButton.ForeColor = System.Drawing.SystemColors.Control;
             this.inflowsButton.Location = new System.Drawing.Point(15, 52);
+            this.inflowsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.inflowsButton.Name = "inflowsButton";
             this.inflowsButton.Size = new System.Drawing.Size(117, 43);
             this.inflowsButton.TabIndex = 7;
@@ -72,7 +73,8 @@
             this.budgetButton.FlatAppearance.BorderSize = 0;
             this.budgetButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.budgetButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.budgetButton.Location = new System.Drawing.Point(138, 52);
+            this.budgetButton.Location = new System.Drawing.Point(139, 52);
+            this.budgetButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.budgetButton.Name = "budgetButton";
             this.budgetButton.Size = new System.Drawing.Size(117, 43);
             this.budgetButton.TabIndex = 6;
@@ -83,10 +85,12 @@
             // cashFlowChartButton
             // 
             this.cashFlowChartButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.cashFlowChartButton.Enabled = false;
             this.cashFlowChartButton.FlatAppearance.BorderSize = 0;
             this.cashFlowChartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cashFlowChartButton.ForeColor = System.Drawing.SystemColors.Control;
             this.cashFlowChartButton.Location = new System.Drawing.Point(261, 52);
+            this.cashFlowChartButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cashFlowChartButton.Name = "cashFlowChartButton";
             this.cashFlowChartButton.Size = new System.Drawing.Size(117, 43);
             this.cashFlowChartButton.TabIndex = 8;
@@ -101,6 +105,7 @@
             this.transactionsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.transactionsButton.ForeColor = System.Drawing.SystemColors.Control;
             this.transactionsButton.Location = new System.Drawing.Point(15, 150);
+            this.transactionsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.transactionsButton.Name = "transactionsButton";
             this.transactionsButton.Size = new System.Drawing.Size(117, 43);
             this.transactionsButton.TabIndex = 14;
@@ -111,10 +116,12 @@
             // whenCanIAffordButton
             // 
             this.whenCanIAffordButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.whenCanIAffordButton.Enabled = false;
             this.whenCanIAffordButton.FlatAppearance.BorderSize = 0;
             this.whenCanIAffordButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.whenCanIAffordButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.whenCanIAffordButton.Location = new System.Drawing.Point(138, 246);
+            this.whenCanIAffordButton.Location = new System.Drawing.Point(139, 246);
+            this.whenCanIAffordButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.whenCanIAffordButton.Name = "whenCanIAffordButton";
             this.whenCanIAffordButton.Size = new System.Drawing.Size(117, 43);
             this.whenCanIAffordButton.TabIndex = 17;
@@ -129,6 +136,7 @@
             this.projectCashBalancesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.projectCashBalancesButton.ForeColor = System.Drawing.SystemColors.Control;
             this.projectCashBalancesButton.Location = new System.Drawing.Point(15, 101);
+            this.projectCashBalancesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.projectCashBalancesButton.Name = "projectCashBalancesButton";
             this.projectCashBalancesButton.Size = new System.Drawing.Size(117, 43);
             this.projectCashBalancesButton.TabIndex = 19;
@@ -139,10 +147,12 @@
             // helpButton
             // 
             this.helpButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.helpButton.Enabled = false;
             this.helpButton.FlatAppearance.BorderSize = 0;
             this.helpButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.helpButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.helpButton.Location = new System.Drawing.Point(138, 101);
+            this.helpButton.Location = new System.Drawing.Point(139, 101);
+            this.helpButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(117, 43);
             this.helpButton.TabIndex = 20;
@@ -153,10 +163,12 @@
             // toolsButton
             // 
             this.toolsButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.toolsButton.Enabled = false;
             this.toolsButton.FlatAppearance.BorderSize = 0;
             this.toolsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.toolsButton.ForeColor = System.Drawing.SystemColors.Control;
             this.toolsButton.Location = new System.Drawing.Point(261, 150);
+            this.toolsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.toolsButton.Name = "toolsButton";
             this.toolsButton.Size = new System.Drawing.Size(117, 43);
             this.toolsButton.TabIndex = 21;
@@ -167,10 +179,12 @@
             // aboutButton
             // 
             this.aboutButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.aboutButton.Enabled = false;
             this.aboutButton.FlatAppearance.BorderSize = 0;
             this.aboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.aboutButton.ForeColor = System.Drawing.SystemColors.Control;
             this.aboutButton.Location = new System.Drawing.Point(261, 197);
+            this.aboutButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.aboutButton.Name = "aboutButton";
             this.aboutButton.Size = new System.Drawing.Size(117, 43);
             this.aboutButton.TabIndex = 22;
@@ -184,7 +198,8 @@
             this.settingsButton.FlatAppearance.BorderSize = 0;
             this.settingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.settingsButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.settingsButton.Location = new System.Drawing.Point(138, 150);
+            this.settingsButton.Location = new System.Drawing.Point(139, 150);
+            this.settingsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(117, 43);
             this.settingsButton.TabIndex = 23;
@@ -196,10 +211,12 @@
             // accountsButton
             // 
             this.accountsButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.accountsButton.Enabled = false;
             this.accountsButton.FlatAppearance.BorderSize = 0;
             this.accountsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.accountsButton.ForeColor = System.Drawing.SystemColors.Control;
             this.accountsButton.Location = new System.Drawing.Point(261, 101);
+            this.accountsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.accountsButton.Name = "accountsButton";
             this.accountsButton.Size = new System.Drawing.Size(117, 43);
             this.accountsButton.TabIndex = 24;
@@ -214,7 +231,8 @@
             this.entitiesButton.FlatAppearance.BorderSize = 0;
             this.entitiesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.entitiesButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.entitiesButton.Location = new System.Drawing.Point(138, 197);
+            this.entitiesButton.Location = new System.Drawing.Point(139, 197);
+            this.entitiesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.entitiesButton.Name = "entitiesButton";
             this.entitiesButton.Size = new System.Drawing.Size(117, 43);
             this.entitiesButton.TabIndex = 25;
@@ -225,7 +243,8 @@
             // entityComboBox
             // 
             this.entityComboBox.FormattingEnabled = true;
-            this.entityComboBox.Location = new System.Drawing.Point(102, 12);
+            this.entityComboBox.Location = new System.Drawing.Point(101, 12);
+            this.entityComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.entityComboBox.Name = "entityComboBox";
             this.entityComboBox.Size = new System.Drawing.Size(276, 24);
             this.entityComboBox.TabIndex = 26;
@@ -244,10 +263,12 @@
             // taxFormsButton
             // 
             this.taxFormsButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.taxFormsButton.Enabled = false;
             this.taxFormsButton.FlatAppearance.BorderSize = 0;
             this.taxFormsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.taxFormsButton.ForeColor = System.Drawing.SystemColors.Control;
             this.taxFormsButton.Location = new System.Drawing.Point(15, 197);
+            this.taxFormsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.taxFormsButton.Name = "taxFormsButton";
             this.taxFormsButton.Size = new System.Drawing.Size(117, 43);
             this.taxFormsButton.TabIndex = 28;
@@ -258,10 +279,12 @@
             // taxCategoriesButton
             // 
             this.taxCategoriesButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.taxCategoriesButton.Enabled = false;
             this.taxCategoriesButton.FlatAppearance.BorderSize = 0;
             this.taxCategoriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.taxCategoriesButton.ForeColor = System.Drawing.SystemColors.Control;
             this.taxCategoriesButton.Location = new System.Drawing.Point(15, 246);
+            this.taxCategoriesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.taxCategoriesButton.Name = "taxCategoriesButton";
             this.taxCategoriesButton.Size = new System.Drawing.Size(117, 43);
             this.taxCategoriesButton.TabIndex = 29;
@@ -272,10 +295,12 @@
             // categoriesButton
             // 
             this.categoriesButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.categoriesButton.Enabled = false;
             this.categoriesButton.FlatAppearance.BorderSize = 0;
             this.categoriesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.categoriesButton.ForeColor = System.Drawing.SystemColors.Control;
             this.categoriesButton.Location = new System.Drawing.Point(261, 246);
+            this.categoriesButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.categoriesButton.Name = "categoriesButton";
             this.categoriesButton.Size = new System.Drawing.Size(117, 43);
             this.categoriesButton.TabIndex = 30;
@@ -286,10 +311,12 @@
             // assetsButton
             // 
             this.assetsButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.assetsButton.Enabled = false;
             this.assetsButton.FlatAppearance.BorderSize = 0;
             this.assetsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.assetsButton.ForeColor = System.Drawing.SystemColors.Control;
             this.assetsButton.Location = new System.Drawing.Point(15, 295);
+            this.assetsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.assetsButton.Name = "assetsButton";
             this.assetsButton.Size = new System.Drawing.Size(117, 43);
             this.assetsButton.TabIndex = 31;
@@ -300,10 +327,12 @@
             // reportsButton
             // 
             this.reportsButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.reportsButton.Enabled = false;
             this.reportsButton.FlatAppearance.BorderSize = 0;
             this.reportsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.reportsButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.reportsButton.Location = new System.Drawing.Point(138, 295);
+            this.reportsButton.Location = new System.Drawing.Point(139, 295);
+            this.reportsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.reportsButton.Name = "reportsButton";
             this.reportsButton.Size = new System.Drawing.Size(117, 43);
             this.reportsButton.TabIndex = 32;
@@ -318,6 +347,7 @@
             this.ten99ContractorsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ten99ContractorsButton.ForeColor = System.Drawing.SystemColors.Control;
             this.ten99ContractorsButton.Location = new System.Drawing.Point(261, 295);
+            this.ten99ContractorsButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ten99ContractorsButton.Name = "ten99ContractorsButton";
             this.ten99ContractorsButton.Size = new System.Drawing.Size(117, 43);
             this.ten99ContractorsButton.TabIndex = 33;
@@ -329,10 +359,12 @@
             // quickCashAppTransButton
             // 
             this.quickCashAppTransButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.quickCashAppTransButton.Enabled = false;
             this.quickCashAppTransButton.FlatAppearance.BorderSize = 0;
             this.quickCashAppTransButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.quickCashAppTransButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.quickCashAppTransButton.Location = new System.Drawing.Point(15, 344);
+            this.quickCashAppTransButton.Location = new System.Drawing.Point(15, 345);
+            this.quickCashAppTransButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.quickCashAppTransButton.Name = "quickCashAppTransButton";
             this.quickCashAppTransButton.Size = new System.Drawing.Size(117, 43);
             this.quickCashAppTransButton.TabIndex = 34;
@@ -369,6 +401,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

@@ -29,7 +29,7 @@ namespace WealthBuilder
             DateTime endDate = DateTime.Today.AddYears(1).AddDays(-1);
             int interval = 6;
             var cashFlowForecast = new CashFlowForecast(endDate, interval);
-            cashFlowForecast.CalculateForOneEntity((long)CurrentEntity.Id);
+            cashFlowForecast.CalculateForOneEntity(CurrentEntity.Id);
 
             foreach (var r in cashFlowForecast.DailyBalances)
             {

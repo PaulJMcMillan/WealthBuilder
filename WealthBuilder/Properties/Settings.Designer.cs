@@ -45,5 +45,17 @@ namespace WealthBuilder.Properties {
                 return ((string)(this["WealthBuilderConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\mssqllocaldb;AttachDbFilename=\"C:\\Users\\PaulSr\\AppData\\Roam" +
+            "ing\\McMillan Financial Solutions\\Wealth Builder\\WealthBuilder.mdf\";Integrated Se" +
+            "curity=True")]
+        public string WealthBuilderConnectionString2 {
+            get {
+                return ((string)(this["WealthBuilderConnectionString2"]));
+            }
+        }
     }
 }

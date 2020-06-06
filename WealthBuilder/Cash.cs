@@ -11,19 +11,10 @@ namespace WealthBuilder
         public class CashTransaction
         {
             public DateTime Date { get; set; }
-            public double? Deposit { get; set; }
-            public double? Withdrawal { get; set; }
-            public long? AccountId { get; set; }
-            public long? EntityId { get; set; }
-        }
-
-        public class RawTransaction
-        {
-            public DateTime Date { get; set; }
-            public double? Deposit { get; set; }
-            public double? Withdrawal { get; set; }
-            public long? AccountId { get; set; }
-            public long? EntityId { get; set; }
+            public double Deposit { get; set; }
+            public double Withdrawal { get; set; }
+            public long AccountId { get; set; }
+            public long EntityId { get; set; }
         }
 
     public static decimal GetBalanceForOneAccount(long accountId, long entityId)
@@ -39,7 +30,7 @@ namespace WealthBuilder
                 {
                     var cashTransaction = new CashTransaction();
                     if (r.Date != null) cashTransaction.Date = (DateTime)r.Date;
-                    cashTransaction.Deposit = r.Deposit == null ? 0 : (double)r.Deposit;
+                    cashTransaction.Deposit = r.Deposit;
                     cashTransaction.Withdrawal = r.Withdrawal == null ? 0 : (double)r.Withdrawal;
                     cashTransaction.AccountId = r.AccountId;
                     cashTransaction.EntityId = r.EntityId;
@@ -53,7 +44,7 @@ namespace WealthBuilder
                 var transactionsFilteredLoaded = transactionsQuery.ToList();
                 decimal currentBalance;
                 var transactions = transactionsFilteredLoaded.Select(o => new { o.Date.Date, o.Deposit, o.Withdrawal });
-                currentBalance = (decimal)transactions.Sum(p => (p.Deposit ?? 0) - (p.Withdrawal ?? 0));
+                currentBalance = (decimal)transactions.Sum(p => (p.Deposit) - (p.Withdrawal));
                 return currentBalance;
             }
         }
@@ -80,7 +71,7 @@ namespace WealthBuilder
                     {
                         var cashTransaction = new CashTransaction();
                         if (r.Date != null) cashTransaction.Date = (DateTime)r.Date;
-                        cashTransaction.Deposit = r.Deposit == null ? 0 : (double)r.Deposit;
+                        cashTransaction.Deposit = r.Deposit;
                         cashTransaction.Withdrawal = r.Withdrawal == null ? 0 : (double)r.Withdrawal;
                         cashTransaction.AccountId = r.AccountId;
                         cashTransaction.EntityId = r.EntityId;

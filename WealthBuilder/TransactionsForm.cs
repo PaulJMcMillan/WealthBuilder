@@ -294,23 +294,6 @@ namespace WealthBuilder
             }
 
             dgv.FirstDisplayedScrollingRowIndex = dgv.SelectedRows[0].Index;
-            //using (var db = new WBEntities())
-            //{
-            //    var transaction = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
-            //    if (transaction == null) return;
-
-            //}
-            //int rowIndex = dgv.Rows.Add();
-            //DataGridViewRow row = dgv.Rows[rowIndex];
-            //row.Cells["Date"].Value = dateTimePicker.Value;
-            //row.Cells["Description"].Value = DescriptionTextBox.Text;
-            //row.Cells["deposit"].Value = string.IsNullOrWhiteSpace(DepositTextBox.Text) ? 0 : Convert.ToDecimal(DepositTextBox.Text);
-            //row.Cells["Withdrawal"].Value = string.IsNullOrWhiteSpace(WithdrawalTextBox.Text) ? 0 : Convert.ToDecimal(WithdrawalTextBox.Text);
-            //row.Cells["Cleared"].Value = ClearedCheckBox.Checked;
-            //row.Cells["Reconciled"].Value = ReconciledCheckBox.Checked;
-            //row.Cells["CheckNumber"].Value = CheckNumberTextBox.Text;
-            //row.Cells["Notes"].Value = NotesRichTextBox.Text;
-            //dgv.Rows.Add(row);
         }
 
         private void saveButton_Click(object sender, EventArgs e)
@@ -320,14 +303,14 @@ namespace WealthBuilder
             var transId = (int)row.Cells["Id"].Value;
             Transaction transaction = Save(transId);
             if (transaction == null) return;
-            dateTimePicker.Value = transaction.Date;
-            DescriptionTextBox.Text = transaction.Description;
-            DepositTextBox.Text = transaction.Deposit.ToString("C");
-            WithdrawalTextBox.Text = transaction.Withdrawal.ToString("C");
-            ClearedCheckBox.Checked = transaction.Cleared;
-            ReconciledCheckBox.Checked = transaction.Reconciled;
-            CheckNumberTextBox.Text = transaction.CheckNumber;
-            NotesRichTextBox.Text = transaction.Notes;
+            //dateTimePicker.Value = transaction.Date;
+            //DescriptionTextBox.Text = transaction.Description;
+            //DepositTextBox.Text = transaction.Deposit.ToString("C");
+            //WithdrawalTextBox.Text = transaction.Withdrawal.ToString("C");
+            //ClearedCheckBox.Checked = transaction.Cleared;
+            //ReconciledCheckBox.Checked = transaction.Reconciled;
+            //CheckNumberTextBox.Text = transaction.CheckNumber;
+            //NotesRichTextBox.Text = transaction.Notes;
 
             row.Cells["Date"].Value = transaction.Date;
             row.Cells["Description"].Value = transaction.Description;

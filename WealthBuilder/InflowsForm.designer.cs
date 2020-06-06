@@ -28,74 +28,57 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InflowsForm));
             this.dgv = new System.Windows.Forms.DataGridView();
-            this.frequenciesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet = new WealthBuilder.DataSet();
-            this.inflowsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.inflowsTableAdapter = new WealthBuilder.DataSetTableAdapters.InflowsTableAdapter();
-            this.frequenciesTableAdapter = new WealthBuilder.DataSetTableAdapters.FrequenciesTableAdapter();
             this.saveButton = new System.Windows.Forms.Button();
             this.deleteButton = new System.Windows.Forms.Button();
             this.addButton = new System.Windows.Forms.Button();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.frequencyIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.notesDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.entityIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.FrequencyComboBox = new System.Windows.Forms.ComboBox();
+            this.NotesRichTextBox = new System.Windows.Forms.RichTextBox();
+            this.AmountTextBox = new System.Windows.Forms.TextBox();
+            this.NameTextBox = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dateTimePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.frequenciesBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inflowsBindingSource)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgv
             // 
             this.dgv.AllowUserToAddRows = false;
             this.dgv.AllowUserToDeleteRows = false;
-            this.dgv.AutoGenerateColumns = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
-            this.nameDataGridViewTextBoxColumn,
-            this.Amount,
-            this.frequencyIdDataGridViewTextBoxColumn,
-            this.notesDataGridViewTextBoxColumn,
-            this.entityIdDataGridViewTextBoxColumn});
-            this.dgv.DataSource = this.inflowsBindingSource;
-            this.dgv.Location = new System.Drawing.Point(0, 0);
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv.Location = new System.Drawing.Point(289, 9);
+            this.dgv.Margin = new System.Windows.Forms.Padding(2);
             this.dgv.Name = "dgv";
-            this.dgv.Size = new System.Drawing.Size(1218, 344);
+            this.dgv.ReadOnly = true;
+            this.dgv.Size = new System.Drawing.Size(587, 193);
             this.dgv.TabIndex = 15;
+            this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             this.dgv.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.dgv_DataError);
-            // 
-            // frequenciesBindingSource
-            // 
-            this.frequenciesBindingSource.DataMember = "Frequencies";
-            this.frequenciesBindingSource.DataSource = this.dataSet;
-            // 
-            // dataSet
-            // 
-            this.dataSet.DataSetName = "DataSet";
-            this.dataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // inflowsBindingSource
-            // 
-            this.inflowsBindingSource.DataMember = "Inflows";
-            this.inflowsBindingSource.DataSource = this.dataSet;
-            this.inflowsBindingSource.Sort = "InflowDate";
-            // 
-            // inflowsTableAdapter
-            // 
-            this.inflowsTableAdapter.ClearBeforeFill = true;
-            // 
-            // frequenciesTableAdapter
-            // 
-            this.frequenciesTableAdapter.ClearBeforeFill = true;
             // 
             // saveButton
             // 
@@ -103,11 +86,12 @@
             this.saveButton.FlatAppearance.BorderSize = 0;
             this.saveButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.saveButton.Location = new System.Drawing.Point(135, 353);
+            this.saveButton.Location = new System.Drawing.Point(100, 206);
+            this.saveButton.Margin = new System.Windows.Forms.Padding(2);
             this.saveButton.Name = "saveButton";
-            this.saveButton.Size = new System.Drawing.Size(117, 30);
+            this.saveButton.Size = new System.Drawing.Size(88, 24);
             this.saveButton.TabIndex = 30;
-            this.saveButton.Text = "Save";
+            this.saveButton.Text = "Update";
             this.saveButton.UseVisualStyleBackColor = false;
             this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
@@ -117,9 +101,10 @@
             this.deleteButton.FlatAppearance.BorderSize = 0;
             this.deleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.deleteButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.deleteButton.Location = new System.Drawing.Point(258, 353);
+            this.deleteButton.Location = new System.Drawing.Point(193, 206);
+            this.deleteButton.Margin = new System.Windows.Forms.Padding(2);
             this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(117, 30);
+            this.deleteButton.Size = new System.Drawing.Size(88, 24);
             this.deleteButton.TabIndex = 37;
             this.deleteButton.Text = "Delete";
             this.deleteButton.UseVisualStyleBackColor = false;
@@ -131,114 +116,175 @@
             this.addButton.FlatAppearance.BorderSize = 0;
             this.addButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.addButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.addButton.Location = new System.Drawing.Point(12, 353);
+            this.addButton.Location = new System.Drawing.Point(8, 206);
+            this.addButton.Margin = new System.Windows.Forms.Padding(2);
             this.addButton.Name = "addButton";
-            this.addButton.Size = new System.Drawing.Size(117, 30);
+            this.addButton.Size = new System.Drawing.Size(88, 24);
             this.addButton.TabIndex = 35;
             this.addButton.Text = "Add";
             this.addButton.UseVisualStyleBackColor = false;
             this.addButton.Click += new System.EventHandler(this.addButton_Click);
             // 
-            // idDataGridViewTextBoxColumn
+            // groupBox1
             // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Visible = false;
+            this.groupBox1.BackColor = System.Drawing.Color.SkyBlue;
+            this.groupBox1.Controls.Add(this.FrequencyComboBox);
+            this.groupBox1.Controls.Add(this.NotesRichTextBox);
+            this.groupBox1.Controls.Add(this.AmountTextBox);
+            this.groupBox1.Controls.Add(this.NameTextBox);
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.dateTimePicker);
+            this.groupBox1.Location = new System.Drawing.Point(8, 9);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(277, 193);
+            this.groupBox1.TabIndex = 42;
+            this.groupBox1.TabStop = false;
             // 
-            // nameDataGridViewTextBoxColumn
+            // FrequencyComboBox
             // 
-            this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.MinimumWidth = 300;
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.Width = 300;
+            this.FrequencyComboBox.FormattingEnabled = true;
+            this.FrequencyComboBox.Location = new System.Drawing.Point(62, 70);
+            this.FrequencyComboBox.Margin = new System.Windows.Forms.Padding(2);
+            this.FrequencyComboBox.Name = "FrequencyComboBox";
+            this.FrequencyComboBox.Size = new System.Drawing.Size(92, 21);
+            this.FrequencyComboBox.TabIndex = 23;
             // 
-            // Amount
+            // NotesRichTextBox
             // 
-            this.Amount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Amount.DataPropertyName = "Amount";
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "C2";
-            this.Amount.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Amount.HeaderText = "Amount";
-            this.Amount.MinimumWidth = 100;
-            this.Amount.Name = "Amount";
+            this.NotesRichTextBox.Location = new System.Drawing.Point(50, 102);
+            this.NotesRichTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.NotesRichTextBox.Name = "NotesRichTextBox";
+            this.NotesRichTextBox.Size = new System.Drawing.Size(155, 66);
+            this.NotesRichTextBox.TabIndex = 20;
+            this.NotesRichTextBox.Text = "";
             // 
-            // frequencyIdDataGridViewTextBoxColumn
+            // AmountTextBox
             // 
-            this.frequencyIdDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.frequencyIdDataGridViewTextBoxColumn.DataPropertyName = "FrequencyId";
-            this.frequencyIdDataGridViewTextBoxColumn.DataSource = this.frequenciesBindingSource;
-            this.frequencyIdDataGridViewTextBoxColumn.DisplayMember = "Name";
-            this.frequencyIdDataGridViewTextBoxColumn.HeaderText = "Frequency";
-            this.frequencyIdDataGridViewTextBoxColumn.MinimumWidth = 100;
-            this.frequencyIdDataGridViewTextBoxColumn.Name = "frequencyIdDataGridViewTextBoxColumn";
-            this.frequencyIdDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.frequencyIdDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.frequencyIdDataGridViewTextBoxColumn.ValueMember = "Id";
+            this.AmountTextBox.Location = new System.Drawing.Point(50, 47);
+            this.AmountTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.AmountTextBox.Name = "AmountTextBox";
+            this.AmountTextBox.Size = new System.Drawing.Size(73, 20);
+            this.AmountTextBox.TabIndex = 13;
             // 
-            // notesDataGridViewTextBoxColumn
+            // NameTextBox
             // 
-            this.notesDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.notesDataGridViewTextBoxColumn.DataPropertyName = "Notes";
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.notesDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.notesDataGridViewTextBoxColumn.HeaderText = "Notes";
-            this.notesDataGridViewTextBoxColumn.MinimumWidth = 400;
-            this.notesDataGridViewTextBoxColumn.Name = "notesDataGridViewTextBoxColumn";
-            this.notesDataGridViewTextBoxColumn.Width = 400;
+            this.NameTextBox.Location = new System.Drawing.Point(50, 27);
+            this.NameTextBox.Margin = new System.Windows.Forms.Padding(2);
+            this.NameTextBox.Name = "NameTextBox";
+            this.NameTextBox.Size = new System.Drawing.Size(155, 20);
+            this.NameTextBox.TabIndex = 12;
             // 
-            // entityIdDataGridViewTextBoxColumn
+            // label11
             // 
-            this.entityIdDataGridViewTextBoxColumn.DataPropertyName = "EntityId";
-            this.entityIdDataGridViewTextBoxColumn.HeaderText = "EntityId";
-            this.entityIdDataGridViewTextBoxColumn.Name = "entityIdDataGridViewTextBoxColumn";
-            this.entityIdDataGridViewTextBoxColumn.Visible = false;
+            this.label11.AutoSize = true;
+            this.label11.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label11.Location = new System.Drawing.Point(4, 102);
+            this.label11.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(38, 13);
+            this.label11.TabIndex = 7;
+            this.label11.Text = "Notes:";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label8.Location = new System.Drawing.Point(3, 72);
+            this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(57, 13);
+            this.label8.TabIndex = 4;
+            this.label8.Text = "Frequency";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label7.Location = new System.Drawing.Point(3, 50);
+            this.label7.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(46, 13);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "Amount:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label6.Location = new System.Drawing.Point(3, 29);
+            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(38, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Name:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label5.Location = new System.Drawing.Point(3, 12);
+            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(33, 13);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Date:";
+            // 
+            // dateTimePicker
+            // 
+            this.dateTimePicker.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePicker.Location = new System.Drawing.Point(50, 7);
+            this.dateTimePicker.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimePicker.Name = "dateTimePicker";
+            this.dateTimePicker.Size = new System.Drawing.Size(88, 20);
+            this.dateTimePicker.TabIndex = 0;
             // 
             // InflowsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1220, 395);
+            this.ClientSize = new System.Drawing.Size(915, 241);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.addButton);
             this.Controls.Add(this.saveButton);
             this.Controls.Add(this.dgv);
-            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "InflowsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inflows";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.InflowsForm_FormClosing);
             this.Load += new System.EventHandler(this.InflowsForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.frequenciesBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.inflowsBindingSource)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.DataGridView dgv;
-        private WealthBuilder.DataSet dataSet;
-        private System.Windows.Forms.BindingSource inflowsBindingSource;
-        private WealthBuilder.DataSetTableAdapters.InflowsTableAdapter inflowsTableAdapter;
-        private System.Windows.Forms.BindingSource frequenciesBindingSource;
-        private WealthBuilder.DataSetTableAdapters.FrequenciesTableAdapter frequenciesTableAdapter;
         private System.Windows.Forms.Button saveButton;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button addButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-        private System.Windows.Forms.DataGridViewComboBoxColumn frequencyIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn notesDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn entityIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RichTextBox NotesRichTextBox;
+        private System.Windows.Forms.TextBox AmountTextBox;
+        private System.Windows.Forms.TextBox NameTextBox;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DateTimePicker dateTimePicker;
+        private System.Windows.Forms.ComboBox FrequencyComboBox;
     }
 }

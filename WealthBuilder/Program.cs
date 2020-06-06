@@ -76,8 +76,8 @@ namespace WealthBuilder
             {
                 AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
                 if (App.Mode == "Exit") return;
-                AutomaticBackup();
-                CleanUpOldBackupFiles();
+                //AutomaticBackup();
+                //CleanUpOldBackupFiles();
                 CleanupMsWord();
             }
             catch (Exception ex)

@@ -17,6 +17,7 @@ namespace WealthBuilder
         {
             if (!CurrentEntityIsSet()) return;
             Code.Form.Open("InflowsForm");
+            //Code.Form.Open("Form1");
         }
 
         private void budgetButton_Click(object sender, EventArgs e)
