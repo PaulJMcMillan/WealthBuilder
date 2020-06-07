@@ -21,7 +21,6 @@ namespace WealthBuilder
         {
             displayTransBackTo.Text = "1 Month";
             Text = Common.GetFormText(Text);
-            dataSet.Transactions.Columns["EntityId"].DefaultValue = CurrentEntity.Id;
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.ReadOnly = true;
@@ -32,10 +31,10 @@ namespace WealthBuilder
             PopulateForm();
             UpdateCurrentBalance();
 
-            foreach (DataGridViewColumn column in dgv.Columns)
-            {
-                column.SortMode = DataGridViewColumnSortMode.Automatic;
-            }
+            //foreach (DataGridViewColumn column in dgv.Columns)
+            //{
+            //    column.SortMode = DataGridViewColumnSortMode.Automatic;
+            //}
         }
 
         private void SelectDefaultAccount()
@@ -78,7 +77,6 @@ namespace WealthBuilder
             //Gets a fresh data source.
             if (accountComboBox.SelectedIndex == -1) return;
             if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
-            dataSet.Transactions.Columns["AccountId"].DefaultValue = accountId;
             DateTime displayTransactionsBackTo = DateTime.Now;
 
             switch (displayTransBackTo.Text)
@@ -120,7 +118,6 @@ namespace WealthBuilder
         {
             if (accountComboBox.SelectedIndex == -1) return;
             if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
-            dataSet.Transactions.Columns["AccountId"].DefaultValue = accountId;
             DateTime displayTransactionsBackTo = DateTime.Now;
 
             switch (displayTransBackTo.Text)
@@ -153,7 +150,6 @@ namespace WealthBuilder
                 if (excludeClearedTransactionsCheckBox.Checked)
                     transactions = transactions.Where(x => x.Cleared == false);
 
-                //transactions = transactions.OrderByDescending(x => x.Date);
                 dgv.DataSource = transactions.ToList();
             }
 
@@ -161,90 +157,68 @@ namespace WealthBuilder
 
         private Transaction Save(int transId)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            try
+            if (!ValidateData()) 
             {
-                if (!ValidateData()) 
-                {
-                    MessageBox.Show("Invalid data");
-                    return null;
-                }
-
-                using (var db = new WBEntities())
-                {
-                    var trans = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
-                    decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
-                    decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
-                    trans.Date = dateTimePicker.Value;
-                    trans.Description = DescriptionTextBox.Text;
-                    trans.Deposit = deposit;
-                    trans.Withdrawal = wd;
-                    trans.Cleared = ClearedCheckBox.Checked;
-                    trans.Reconciled = ReconciledCheckBox.Checked;
-                    trans.CheckNumber = CheckNumberTextBox.Text;
-                    trans.Notes = NotesRichTextBox.Text;
-                    db.SaveChanges();
-                    return trans;
-                }
-            }
-            catch (Exception ex)
-            {
-                Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
-                MessageBox.Show(WBResource.GenericErrorMessage, WBResource.GenericErrorTitle);
+                MessageBox.Show("Invalid data");
                 return null;
+            }
+
+            using (var db = new WBEntities())
+            {
+                var trans = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
+                decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
+                decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
+                trans.Date = dateTimePicker.Value;
+                trans.Description = DescriptionTextBox.Text;
+                trans.Deposit = deposit;
+                trans.Withdrawal = wd;
+                trans.Cleared = ClearedCheckBox.Checked;
+                trans.Reconciled = ReconciledCheckBox.Checked;
+                trans.CheckNumber = CheckNumberTextBox.Text;
+                trans.Notes = NotesRichTextBox.Text;
+                db.SaveChanges();
+                return trans;
             }
         }
 
         private int AddNewRecord()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
-            try
+            if (!ValidateData())
             {
-                if (!ValidateData())
-                {
-                    MessageBox.Show("Invalid data");
-                    return -1;
-                }
-
-                using (var db = new WBEntities())
-                {
-                    decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
-                    decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
-
-                    var trans = new Transaction()
-                    {
-                        Date = dateTimePicker.Value,
-                        Description = DescriptionTextBox.Text,
-                        Deposit = deposit,
-                        Withdrawal = wd,
-                        Cleared = ClearedCheckBox.Checked,
-                        Reconciled = ReconciledCheckBox.Checked,
-                        CheckNumber = CheckNumberTextBox.Text,
-                        Notes = NotesRichTextBox.Text,
-                        AccountId = (int)accountComboBox.SelectedValue,
-                        EntityId = CurrentEntity.Id
-                    };
-
-                    db.Transactions.Add(trans);
-                    db.SaveChanges();
-                    return trans.Id;
-                   
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
-                MessageBox.Show(WBResource.GenericErrorMessage, WBResource.GenericErrorTitle);
+                MessageBox.Show("Invalid data");
                 return -1;
             }
+
+            using (var db = new WBEntities())
+            {
+                decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
+                decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
+
+                var trans = new Transaction()
+                {
+                    Date = dateTimePicker.Value,
+                    Description = DescriptionTextBox.Text,
+                    Deposit = deposit,
+                    Withdrawal = wd,
+                    Cleared = ClearedCheckBox.Checked,
+                    Reconciled = ReconciledCheckBox.Checked,
+                    CheckNumber = CheckNumberTextBox.Text,
+                    Notes = NotesRichTextBox.Text,
+                    AccountId = (int)accountComboBox.SelectedValue,
+                    EntityId = CurrentEntity.Id
+                };
+
+                db.Transactions.Add(trans);
+                db.SaveChanges();
+                return trans.Id;
+                   
+            }
+
         }
 
         private bool ValidateData()
         {
-            if (DepositTextBox.Text == string.Empty && WithdrawalTextBox.Text == string.Empty) return false;
+            if (string.IsNullOrWhiteSpace(DepositTextBox.Text) || string.IsNullOrWhiteSpace(WithdrawalTextBox.Text)) return false;
             decimal deposit = 0;
             decimal wd = 0;
 
@@ -276,7 +250,6 @@ namespace WealthBuilder
             int transId = AddNewRecord();
             if (transId == -1) return;
             AddNewRowToDgv(transId);
-            //FilterDgv();
             UpdateCurrentBalance();
             MessageBox.Show("Added");
         }
@@ -291,6 +264,10 @@ namespace WealthBuilder
                 {
                     row.Selected = true;
                     break;
+                }
+                else
+                {
+                    row.Selected = false;
                 }
             }
 
@@ -373,7 +350,7 @@ namespace WealthBuilder
             decimal unclearedAmount;
             int accountId;
             if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
-            accountBalance = Cash.GetBalanceForOneAccount(accountId, (long)CurrentEntity.Id);
+            accountBalance = Cash.GetBalanceForOneAccount(accountId, CurrentEntity.Id);
             reconciliationReport.Append("Current Balance: " + accountBalance.ToString("C") + Environment.NewLine);
             reconciliationReport.Append("Available Bank Balance: " + availableBankBalance.ToString("C") + Environment.NewLine+Environment.NewLine);
             unclearedAmount = Reconciliation.CalculateUnclearedTransactions(accountId, reconciliationReport);
@@ -401,22 +378,13 @@ namespace WealthBuilder
 
         private void BalancedProcessing()
         {
-            try
+            using (var db = new WBEntities())
             {
-                using (var db = new WBEntities())
-                {
-                    string sql = "Update Transactions Set Reconciled = 1 "+
-                        "Where reconciled = 0 And Cleared = 1 And AccountId = " + 
-                        accountId.ToString() + " and EntityId = " + CurrentEntity.Id.ToString();
-                    db.Database.ExecuteSqlCommand(sql);
-                    //FilterAndSortDgv();
-                    MessageBox.Show("You balanced!  Cleared Transactions have been marked Reconciled.", Text);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("An error occurred while trying to mark reconciled transactions.  Please try again or contact Customer Care.");
-                Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
+                string sql = "Update Transactions Set Reconciled = 1 "+
+                    "Where reconciled = 0 And Cleared = 1 And AccountId = " + 
+                    accountId.ToString() + " and EntityId = " + CurrentEntity.Id.ToString();
+                db.Database.ExecuteSqlCommand(sql);
+                MessageBox.Show("You balanced!  Cleared Transactions have been marked Reconciled.", Text);
             }
         }
 

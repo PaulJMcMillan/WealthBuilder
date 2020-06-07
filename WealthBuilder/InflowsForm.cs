@@ -38,7 +38,9 @@ namespace WealthBuilder
             dgv.Columns["Id"].Visible = false;
             dgv.Columns.Add("Name", "Name");
             dgv.Columns.Add("Amount", "Amount");
+            dgv.Columns["Amount"].ValueType = typeof(decimal);
             dgv.Columns.Add("InflowDate", "Date");
+            dgv.Columns["InflowDate"].ValueType = typeof(DateTime);
             dgv.Columns.Add("Frequency", "Frequency");
             dgv.Columns.Add("Notes", "Notes");
            
@@ -49,14 +51,15 @@ namespace WealthBuilder
                 FrequencyComboBox.ValueMember = "Id";
                 FrequencyComboBox.DataSource = frequencies;
             }
-           
-           
+
             SortDgv();
             PopulateForm();
         }
 
         private void SortDgv()
         {
+            dgv.Rows.Clear();
+
             using (var db = new WBEntities())
             {
                 var inflows = db.Inflows.Where(x => x.EntityId == CurrentEntity.Id).OrderBy(x => x.InflowDate);
@@ -64,8 +67,7 @@ namespace WealthBuilder
                 foreach (var inflow in inflows)
                 {
                     string frequency = GetFrequencyName(inflow.FrequencyId);
-                    dgv.Rows.Add(inflow.Id, inflow.Name, inflow.Amount.ToString("C"),
-                        inflow.InflowDate.ToShortDateString(), frequency, inflow.Notes);
+                    dgv.Rows.Add(inflow.Id, inflow.Name, inflow.Amount, inflow.InflowDate, frequency, inflow.Notes);
 
                 }
             }
@@ -77,8 +79,10 @@ namespace WealthBuilder
             if (dgv.CurrentRow == null) return;
             var currentRow = dgv.CurrentRow;
             NameTextBox.Text = (string)currentRow.Cells["Name"].Value;
-            dateTimePicker.Value = DateTime.Parse((string)currentRow.Cells["InflowDate"].Value);
-            AmountTextBox.Text = (string)currentRow.Cells["Amount"].Value;
+            //dateTimePicker.Value = DateTime.Parse((string)currentRow.Cells["InflowDate"].Value);
+            dateTimePicker.Value = (DateTime)currentRow.Cells["InflowDate"].Value;
+            decimal amount = (decimal)currentRow.Cells["Amount"].Value;
+            AmountTextBox.Text = amount.ToString("C");
             FrequencyComboBox.Text = (string)currentRow.Cells["Frequency"].Value;
             NotesRichTextBox.Text = (string)currentRow.Cells["Notes"].Value;
         }
@@ -97,8 +101,6 @@ namespace WealthBuilder
 
         private Inflow Save(int id)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
             try
             {
                 if (!ValidateData())
@@ -116,6 +118,8 @@ namespace WealthBuilder
                     inflow.Amount = amount;
                     inflow.Notes = NotesRichTextBox.Text;
                     inflow.FrequencyId = (int)FrequencyComboBox.SelectedValue;
+                    db.Inflows.Add(inflow);
+                    db.Entry(inflow).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                     return inflow;
                 }
@@ -135,16 +139,14 @@ namespace WealthBuilder
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             var row = dgv.CurrentRow;
             if (row == null) return;
             var id = (int)row.Cells["Id"].Value;
             Inflow inflow = Save(id);
             if (inflow == null) return;
-            
             row.Cells["Name"].Value = inflow.Name;
             row.Cells["Amount"].Value = inflow.Amount;
-            row.Cells["InflowDate"].Value = inflow.InflowDate.ToShortDateString();
+            row.Cells["InflowDate"].Value = inflow.InflowDate;
             row.Cells["Frequency"].Value = new FrequencyRepository().GetName(inflow.FrequencyId);
             row.Cells["Notes"].Value = inflow.Notes;
             MessageBox.Show("Updated");
@@ -204,7 +206,8 @@ namespace WealthBuilder
         private void AddNewRowToDgv(int id)
         {
             string frequencyName = new FrequencyRepository().GetName((int)FrequencyComboBox.SelectedValue);
-            dgv.Rows.Add(id, NameTextBox.Text, AmountTextBox.Text, dateTimePicker.Value.ToShortDateString(),frequencyName,NotesRichTextBox.Text);
+            decimal amount = StringHelper.ConvertToDecimalWithEmptyString(AmountTextBox.Text);
+            dgv.Rows.Add(id, NameTextBox.Text, amount, dateTimePicker.Value,frequencyName,NotesRichTextBox.Text);
 
             foreach (DataGridViewRow row in dgv.Rows)
             {

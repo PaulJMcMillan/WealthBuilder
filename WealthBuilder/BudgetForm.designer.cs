@@ -298,7 +298,7 @@
             this.label5.Size = new System.Drawing.Size(56, 13);
             this.label5.TabIndex = 1;
             this.label5.Text = "Due Date:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
+        
             // 
             // dueDateTimePicker
             // 
@@ -327,7 +327,6 @@
             this.Name = "BudgetForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Budget";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BudgetForm_FormClosing);
             this.Load += new System.EventHandler(this.BudgetForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.frequenciesBindingSource)).EndInit();

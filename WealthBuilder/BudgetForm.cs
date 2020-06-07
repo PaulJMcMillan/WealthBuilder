@@ -29,8 +29,11 @@ namespace WealthBuilder
             dgv.Columns["Id"].Visible = false;
             dgv.Columns.Add("Name", "Name");
             dgv.Columns.Add("DueDate", "Due Date");
+            dgv.Columns["DueDate"].ValueType = typeof(DateTime);
             dgv.Columns.Add("PayDate", "Pay Date");
+            dgv.Columns["PayDate"].ValueType = typeof(DateTime);
             dgv.Columns.Add("Amount", "Amount");
+            dgv.Columns["Amount"].ValueType = typeof(decimal);
             dgv.Columns.Add("Frequency", "Frequency");
             dgv.Columns.Add("Notes", "Notes");
 
@@ -52,15 +55,17 @@ namespace WealthBuilder
             if (dgv.CurrentRow == null) return;
             var currentRow = dgv.CurrentRow;
             nameTextBox.Text = (string)currentRow.Cells["Name"].Value;
-            dueDateTimePicker.Value = DateTime.Parse((string)currentRow.Cells["DueDate"].Value);
-            payDateTimePicker.Value = DateTime.Parse((string)currentRow.Cells["PayDate"].Value);
-            amountTextBox.Text = (string)currentRow.Cells["Amount"].Value;
+            dueDateTimePicker.Value = (DateTime)currentRow.Cells["DueDate"].Value;
+            payDateTimePicker.Value = (DateTime)currentRow.Cells["PayDate"].Value;
+            amountTextBox.Text = ((decimal)currentRow.Cells["Amount"].Value).ToString("C");
             FrequencyComboBox.Text = (string)currentRow.Cells["Frequency"].Value;
             NotesRichTextBox.Text = (string)currentRow.Cells["Notes"].Value;
         }
 
         private void SortDgv()
         {
+            dgv.Rows.Clear();
+
             using (var db = new WBEntities())
             {
                 var budgets = db.Budgets.Where(x => x.EntityId == CurrentEntity.Id).OrderBy(x => x.PayDate);
@@ -68,46 +73,29 @@ namespace WealthBuilder
                 foreach (var budget in budgets)
                 {
                     string frequency = new FrequencyRepository().GetName(budget.FrequencyId);
-                    dgv.Rows.Add(budget.Id, budget.Name, budget.DueDate.ToShortDateString(), budget.PayDate.ToShortDateString(),
-                        budget.Amount.ToString("C"), frequency, budget.Notes);
+                    dgv.Rows.Add(budget.Id, budget.Name, budget.DueDate, budget.PayDate, budget.Amount, frequency, budget.Notes);
                 }
             }
         }
 
         private Budget Save(int id)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            if (!ValidateData()) return null;
 
-            try
+            using (var db = new WBEntities())
             {
-                if (!ValidateData()) return null;
-
-                using (var db = new WBEntities())
-                {
-                    var budget = db.Budgets.Where(x => x.Id == id).FirstOrDefault();
-                    budget.Name = nameTextBox.Text;
-                    budget.DueDate = dueDateTimePicker.Value;
-                    budget.PayDate = payDateTimePicker.Value;
-                    budget.Amount = StringHelper.ConvertToDecimalWithEmptyString(amountTextBox.Text);
-                    budget.FrequencyId = (int)FrequencyComboBox.SelectedValue;
-                    budget.Notes = NotesRichTextBox.Text;
-                    db.SaveChanges();
-                    return budget;
-                }
-            }
-            catch (Exception ex)
-            {
-                Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
-                MessageBox.Show(WBResource.GenericErrorMessage, WBResource.GenericErrorTitle);
-                return null;
+                var budget = db.Budgets.Where(x => x.Id == id).FirstOrDefault();
+                budget.Name = nameTextBox.Text;
+                budget.DueDate = dueDateTimePicker.Value;
+                budget.PayDate = payDateTimePicker.Value;
+                budget.Amount = StringHelper.ConvertToDecimalWithEmptyString(amountTextBox.Text);
+                budget.FrequencyId = (int)FrequencyComboBox.SelectedValue;
+                budget.Notes = NotesRichTextBox.Text;
+                db.SaveChanges();
+                return budget;
             }
         }
 
-
-        private void BudgetForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-          
-        }
 
         private void addButton_Click(object sender, EventArgs e)
         {
@@ -120,8 +108,8 @@ namespace WealthBuilder
         private void AddNewRowToDgv(int id)
         {
             string frequencyName = new FrequencyRepository().GetName((int)FrequencyComboBox.SelectedValue);
-            dgv.Rows.Add(id, nameTextBox.Text, dueDateTimePicker.Value.ToShortDateString(), payDateTimePicker.Value.ToShortDateString(),
-                amountTextBox.Text, frequencyName, NotesRichTextBox.Text);
+            decimal amount = StringHelper.ConvertToDecimalWithEmptyString(amountTextBox.Text);
+            dgv.Rows.Add(id, nameTextBox.Text, dueDateTimePicker.Value, payDateTimePicker.Value, amount, frequencyName, NotesRichTextBox.Text);
 
             foreach (DataGridViewRow row in dgv.Rows)
             {
@@ -138,41 +126,29 @@ namespace WealthBuilder
         }
         private int AddNewRecord()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            if (!ValidateData()) return -1;
 
-            try
+            using (var db = new WBEntities())
             {
-                if (!ValidateData()) return -1;
+                decimal amount = StringHelper.ConvertToDecimalWithEmptyString(amountTextBox.Text);
 
-                using (var db = new WBEntities())
+                var budget = new Budget()
                 {
-                    decimal amount = StringHelper.ConvertToDecimalWithEmptyString(amountTextBox.Text);
+                    Name=nameTextBox.Text,
+                    DueDate = dueDateTimePicker.Value,
+                    PayDate = payDateTimePicker.Value,
+                    Amount  = amount,
+                    FrequencyId = (int)FrequencyComboBox.SelectedValue,
+                    Notes = NotesRichTextBox.Text,
+                    EntityId = CurrentEntity.Id,
+                    StartDate = new DateTime(1900, 01, 01),
+                    EndDate = new DateTime(1900, 1, 1)
+                };
 
-                    var budget = new Budget()
-                    {
-                        Name=nameTextBox.Text,
-                        DueDate = dueDateTimePicker.Value,
-                        PayDate = payDateTimePicker.Value,
-                        Amount  = amount,
-                        FrequencyId = (int)FrequencyComboBox.SelectedValue,
-                        Notes = NotesRichTextBox.Text,
-                        EntityId = CurrentEntity.Id,
-                        StartDate = new DateTime(1900, 01, 01),
-                        EndDate = new DateTime(1900, 1, 1)
-                    };
+                db.Budgets.Add(budget);
+                db.SaveChanges();
+                return budget.Id;
 
-                    db.Budgets.Add(budget);
-                    db.SaveChanges();
-                    return budget.Id;
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
-                MessageBox.Show(WBResource.GenericErrorMessage, WBResource.GenericErrorTitle);
-                return -1;
             }
         }
 
@@ -208,9 +184,9 @@ namespace WealthBuilder
             Budget budget = Save(id);
             if (budget == null) return;
             row.Cells["Name"].Value = budget.Name;
-            row.Cells["DueDate"].Value = budget.DueDate.ToShortDateString();
-            row.Cells["PayDate"].Value = budget.PayDate.ToShortDateString();
-            row.Cells["Amount"].Value = budget.Amount.ToString("C");
+            row.Cells["DueDate"].Value = budget.DueDate;
+            row.Cells["PayDate"].Value = budget.PayDate;
+            row.Cells["Amount"].Value = budget.Amount;
             row.Cells["Frequency"].Value = new FrequencyRepository().GetName(budget.FrequencyId);
             row.Cells["Notes"].Value = budget.Notes;
             MessageBox.Show("Updated");
@@ -234,10 +210,17 @@ namespace WealthBuilder
             dgv.Rows.Remove(row);
             ClearFormFields();
 
-            if (rowIndex > -1 && rowIndex < dgv.Rows.Count)
+            for(int i=0;i<dgv.Rows.Count;i++)
             {
-                dgv.Rows[rowIndex].Selected = true;
-                dgv.FirstDisplayedScrollingRowIndex = rowIndex;
+                if (i == rowIndex)
+                {
+                    dgv.Rows[rowIndex].Selected = true;
+                    dgv.FirstDisplayedScrollingRowIndex = rowIndex;
+                }
+                else
+                {
+                    dgv.Rows[i].Selected = false;
+                }
             }
 
             MessageBox.Show("Deleted");
@@ -253,11 +236,7 @@ namespace WealthBuilder
             FrequencyComboBox.SelectedIndex = -1;
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             PopulateForm();
