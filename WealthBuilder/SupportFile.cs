@@ -24,8 +24,8 @@ namespace WealthBuilder
                 AppendSystemInfo();
                 AppendAppInfo();
                 string tf = Constants.DataFolder + "Troubleshooting.txt";
-                TextFile.AppendFile("Error.log", tf);
-                TextFile.AppendFile("Trace.log", tf);
+                //TextFile.AppendFile("Error.log", tf);
+                //TextFile.AppendFile("Trace.log", tf);
                 if (!GetTargetPath()) return false;
                 if (!CopyFile()) return false;
                 return true;
@@ -66,7 +66,7 @@ namespace WealthBuilder
             string exePath = "EXE Path: " + Environment.CurrentDirectory;
             string version = "App Version: " + Application.ProductVersion;
             string info = exePath = version;
-            TextFile.AppendInfo("Troubleshooting.txt", info);
+            //TextFile.AppendInfo(Constants.DataFolder + "Troubleshooting.txt", info);
         }
 
         private static bool CreateTroubleShootingFile()
@@ -74,9 +74,7 @@ namespace WealthBuilder
             try
             {
                 using (Stream troubleShootingFile = File.Open(Constants.DataFolder + "TroubleShooting.txt", 
-                       FileMode.Create, FileAccess.Write))
-                {
-                }
+                       FileMode.Create, FileAccess.Write)) {}
 
                 return true;
             }
@@ -117,7 +115,7 @@ namespace WealthBuilder
                   totalPhysicalMemory + Environment.NewLine + availablePhysicalMemory + Environment.NewLine +
                   totalVirtualMemory + Environment.NewLine + availableVirtualMemory + Environment.NewLine + diskSpace;
 
-            TextFile.AppendInfo("TroubleShooting.txt", systemInfo);
+            //TextFile.AppendInfo(Constants.DataFolder + "TroubleShooting.txt", systemInfo);
         }
     }
 }

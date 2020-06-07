@@ -1,8 +1,10 @@
 ﻿//Copyright 2017 McMillan Financial Solutions, LLC.  All rights reserved.
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Windows.Forms;
 
 namespace WealthBuilder
@@ -30,31 +32,44 @@ namespace WealthBuilder
 
         public void Compute(decimal accountBalance)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             CreateForecastEntry(DateTime.Today, accountBalance);
             CreateBudgetEntries();
             CreateInflowEntries();
             CreateReminderEntries();
             AddFutureTransactions();
+            DateTime startDateTime = new DateTime(2020, 6, 6);
+            DateTime endDateTime = new DateTime(2021, 6, 6);
+            OutputCashFlowEntries(startDateTime,endDateTime);
             AggregateAmountsByDate();
             CreateDailyAmounts();
             PopulateReportTable();
         }
 
+        private void OutputCashFlowEntries(DateTime startDateTime,DateTime endDateTime)
+        {
+            //This method is used for troubleshooting.
+            var outputs = cashFlowForecastList.Where(x=>x.Date.Date>=startDateTime.Date && x.Date.Date <=endDateTime).OrderBy(x=>x.Date.Date).ToList();
+            string fileName = Constants.DataFolder + "CashFlowForecastEntries.log";
+            if (File.Exists(fileName)) File.Delete(fileName);
+            List<string> contents = new List<string>();
+
+            foreach (var output in outputs)
+            {
+                string msg = string.Format("{0}, {1}",output.Date.Date, output.Amount.ToString("C"));
+                contents.Add(msg);
+                //TextFile.AppendInfo(fileName, string.Format(msg,output.Date.Date,output.Amount));
+            }
+
+            File.AppendAllLines(fileName, contents);
+        }
+
         private void AddFutureTransactions()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
             Account cashFlowForecastAccount = new AccountRepository().GetCashFlowForecastAccount();
             if (cashFlowForecastAccount == null) return;
 
             using (var db = new WBEntities())
             {
-                //var transactions = from transaction in db.Transactions.Where(x => x.Date > DateTime.Today.Date)
-                //         join entity in db.Entities.Where(x => x.Active == true && (x.Id == entityId || entityId == -1)) on transaction.EntityId equals entity.Id
-                //         join account in db.Accounts.Where(x=>x.Active == true) on transaction.AccountId equals account.Id
-                //         select transaction;
-
                 var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == cashFlowForecastAccount.Id);
 
                 foreach (var transaction in transactions)
@@ -70,11 +85,8 @@ namespace WealthBuilder
 
         private void CreateReminderEntries()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
             using (var db = new WBEntities())
             {
-                //var reminders = from reminder in db.Reminders join entity in db.Entities.Where(x => x.Active == true && x.Id == entityId) on reminder.EntityId equals entity.Id select reminder;
                 var reminders = db.Reminders.Where(x => x.EntityId == CurrentEntity.Id);
 
                 foreach (var reminder in reminders)
@@ -91,7 +103,6 @@ namespace WealthBuilder
 
         private void CreateForecastEntry(DateTime date, decimal amount)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             date = date.Date;
             if (date > endDate) return;
             cashFlowForecastList.Add(new CashFlowForecastEntry(date, amount));
@@ -99,11 +110,8 @@ namespace WealthBuilder
 
         private void CreateBudgetEntries()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
             using (var db = new WBEntities())
             {
-                //var rs = from budget in db.Budgets join entity in db.Entities.Where(x=>x.Active == true && (x.Id == entityId || entityId == -1)) on budget.EntityId equals entity.Id select budget;
                 var budgets = db.Budgets.Where(x => x.EntityId == CurrentEntity.Id);
                 
                 foreach (var budget in budgets)
@@ -113,43 +121,29 @@ namespace WealthBuilder
             }
         }
 
-        private void CreateEntriesForBudgetItem(Budget r)
+        private void CreateEntriesForBudgetItem(Budget budget)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            if (r == null) return;
-            if (!decimal.TryParse(r.Amount.ToString(), out decimal amount)) return;
-            DateTime date;
-            if (r.PayDate == null) return;
-            date = r.PayDate.Date;
-            string frequencyCode = FrequencyCode.GetById(r.FrequencyId);
+            DateTime date = budget.PayDate.Date;
+            string frequencyCode = FrequencyCode.GetById(budget.FrequencyId);
 
             if (frequencyCode == FrequencyCode.Once)
             {
-                CreateForecastEntry(date, -amount);
+                CreateForecastEntry(date, -budget.Amount);
                 return;
             }
 
             while (date <= endDate)
             {
-                DateTime startDate = r.StartDate == null ? DateTime.MinValue : (DateTime)r.StartDate;
-                DateTime endDate = r.EndDate == null ? DateTime.MaxValue : (DateTime)r.EndDate;
-
-                if (startDate < endDate)
-                {
-                    if (date >= startDate && date <= endDate) CreateForecastEntry(date, -amount);
-                }
-
-                date = Date.IncrementDate(date, (int)r.FrequencyId).Date;
+                CreateForecastEntry(date, -budget.Amount);
+                date = Date.IncrementDate(date, budget.FrequencyId).Date;
             }
         }
 
         private void CreateInflowEntries()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
+         
             using (var db = new WBEntities())
             {
-                //var rs = from inflow in db.Inflows join entity in db.Entities.Where(x => x.Active == true && (x.Id == entityId || entityId == -1)) on inflow.EntityId equals entity.Id select inflow;
                 var inflows = db.Inflows.Where(x => x.EntityId == CurrentEntity.Id);
 
                 foreach (var inflow in inflows)
@@ -159,15 +153,12 @@ namespace WealthBuilder
             }
         }
 
-        private void CreateEntriesForInflow(Inflow r)
+        private void CreateEntriesForInflow(Inflow inflow)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-            if (r == null || r.FrequencyId == null || r.Amount == null || r.InflowDate == null) return;
-            decimal amount = (decimal)r.Amount;
-            DateTime date = (DateTime)r.InflowDate;
-            date = date.Date;
+            decimal amount = inflow.Amount;
+            DateTime date = inflow.InflowDate.Date;
 
-            string frequencyCode = FrequencyCode.GetById((int)r.FrequencyId);
+            string frequencyCode = FrequencyCode.GetById((int)inflow.FrequencyId);
 
             if (frequencyCode == FrequencyCode.Once)
             {
@@ -177,22 +168,13 @@ namespace WealthBuilder
 
             while (date <= endDate)
             {
-                DateTime startDate = r.StartDate == null ? DateTime.MinValue : (DateTime)r.StartDate;
-                DateTime endDate = r.EndDate == null ? DateTime.MaxValue : (DateTime)r.EndDate;
-
-                if (startDate < endDate)
-                {
-                    if (date >= startDate && date <= endDate) CreateForecastEntry(date, amount);
-                }
-
-                date = Date.IncrementDate(date, (int)r.FrequencyId).Date;
+                CreateForecastEntry(date, amount);
+                date = Date.IncrementDate(date, inflow.FrequencyId).Date;
             }
         }
 
         private void PopulateReportTable()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
             using (var db = new WBEntities())
             {
                 db.Database.ExecuteSqlCommand("Delete From CashFlowForecastData");
@@ -208,30 +190,21 @@ namespace WealthBuilder
                     int oaDate = (int)dt.ToOADate();
                     cashFlowForecastData.Date = oaDate;
                     cashFlowForecastData.DateString = dt.ToString("M/d/y");
-                    cashFlowForecastData.Balance = (decimal)balance;
+                    cashFlowForecastData.Balance = balance;
                     rs.Add(cashFlowForecastData);
-                    Console.WriteLine("Balance: " + cashFlowForecastData.Balance.ToString());
                 }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("An error occurred in the Cash Flow Forecaster.  Please try again or contact Customer Care.");
-                    Error.Log(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name, ex);
-                }
+                db.SaveChanges();
+
             }
         }
 
         private void CreateDailyAmounts()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             decimal balance = 0;
             dailyAmounts = new SortedDictionary<DateTime, decimal>();
             var rs = summarizedEntries.OrderBy(x => x.Key).First();
-            DateTime startDate = (DateTime)rs.Key;
+            DateTime startDate = rs.Key;
               
             for (DateTime dt = startDate.Date; dt <= endDate; dt = dt.AddDays(1).Date)
             {
@@ -245,8 +218,6 @@ namespace WealthBuilder
 
         private void AggregateAmountsByDate()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
-
             var rs = cashFlowForecastList
                 .GroupBy(l => l.Date.Date)
                 .Select(cl => new AggregateEntry
@@ -256,43 +227,12 @@ namespace WealthBuilder
                 });
 
             summarizedEntries = new SortedDictionary<DateTime, decimal>();
-            foreach (var r in rs) summarizedEntries.Add(r.Date, r.Amount);
+            
+            foreach (var r in rs)
+            {
+                summarizedEntries.Add(r.Date, r.Amount);
+            }
         }
-
-        //public void CalculateAllEntities()
-        //{
-        //    using (var db = new WBEntities())
-        //    {
-        //        var entities = db.Entities.Where(x => x.Active == true);
-        //        List<string> lowestBalances = new List<string>();
-
-        //        foreach(var entity in entities)
-        //        {
-        //            ResetData();
-        //            cashFlowForecastList.Clear();
-        //            CalculateForOneEntity(entity.Id);
-        //            string s, msg;
-
-        //            if (BalanceBelowThresholdDate != DateTime.MinValue)
-        //            {
-        //                s = "Your balance of {0} will drop below {1} on {2}.";
-        //                string cb = BalanceBelowThreshold.ToString("C");
-        //                string t = MinimumBalanceThreshold.ToString("C");
-        //                string d = BalanceBelowThresholdDate.ToShortDateString();
-        //                msg = string.Format(s, cb, t, d);
-        //                MessageBox.Show(msg, "Cash Balance Alert for " + entity.Name + "!");
-        //            }
-
-        //            string lowestBalanceString = MinimumBalance.ToString("C");
-        //            string lowestBalanceDateString = MinimumBalanceDate.ToShortDateString();
-        //            s = "The lowest balance for " + entity.Name + " is {0} on {1}.";
-        //            msg = string.Format(s, lowestBalanceString, lowestBalanceDateString);
-        //            lowestBalances.Add(msg);
-        //        }
-
-        //        new LowestBalancesNotificationsForm(lowestBalances).Show();
-        //    }
-        //}
 
         public void CalculateForDefaultEntity()
         {

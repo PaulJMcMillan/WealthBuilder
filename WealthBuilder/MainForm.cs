@@ -132,10 +132,10 @@ namespace WealthBuilder
         private void MainForm_Shown(object sender, EventArgs e)
         {
             DataBackupNotice();
-            DateTime endDate = DateTime.Today.AddYears(1).AddDays(-1);
-            int interval = 6;
-            var cashFlowForecast = new CashFlowForecast(endDate, interval);
-            cashFlowForecast.CalculateForDefaultEntity();
+            //DateTime endDate = DateTime.Today.AddYears(1).AddDays(-1);
+            //int interval = 6;
+            //var cashFlowForecast = new CashFlowForecast(endDate, interval);
+            //cashFlowForecast.CalculateForDefaultEntity();
             Reminders.Load();
             if (Reminders.Exist()) Code.Form.Open("RemindersForm");
 

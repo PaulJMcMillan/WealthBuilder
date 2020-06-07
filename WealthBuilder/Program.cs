@@ -49,8 +49,6 @@ namespace WealthBuilder
             //Data folder points to User/AppData\Roaming\McMillanFinancialSolutions\WealthBuilder
             if (!Directory.Exists(Constants.DataFolder)) Directory.CreateDirectory(Constants.DataFolder);
             AppExecution.Trace(_className, _methodName);
-            //AppDomain currentDomain = AppDomain.CurrentDomain;
-            //currentDomain.UnhandledException += new UnhandledExceptionEventHandler(MyHandler);
 
             try
             {

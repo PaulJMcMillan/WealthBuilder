@@ -54,11 +54,9 @@ namespace WealthBuilder
         {
             using (var db = new WBEntities())
             {
-                //List<Account> accountsLoaded;
                 Account account;
-                List<CashTransaction> cashTransactions = new List<CashTransaction>();
-                var cashFlowForecastAccounts = db.Accounts.Where(x => x.EntityId == CurrentEntity.Id && x.Active == true && x.CashFlowForeCast == true);
-                int count = cashFlowForecastAccounts.Count();
+                var accounts = db.Accounts.Where(x => x.EntityId == CurrentEntity.Id && x.Active == true && x.CashFlowForeCast == true);
+                int count = accounts.Count();
 
                 if(count == 0)
                 {
@@ -72,38 +70,11 @@ namespace WealthBuilder
                     return -1;
                 }
 
-                account = cashFlowForecastAccounts.FirstOrDefault();
-                //var startingRs = db.Transactions.Where(x => x.EntityId == entityId).Join(db.Accounts.Where(x => x.Active == true && x.CashFlowForeCast == true),
-                //                    t => t.AccountId, a => a.Id, (t, a) => new { t.Date, t.Deposit, t.Withdrawal, t.AccountId, t.EntityId }).ToList();
-                var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == account.Id);
-
-                //var rs = startingRs.Join(db.Entities.Where(x => x.Active == true), t => t.EntityId, a => a.Id, (t, a) => new { t.Date, t.Deposit, t.Withdrawal, t.AccountId, t.EntityId }).ToList();
-
-                foreach (var transaction in transactions)
-                {
-                    if (transaction.Date.Date > DateTime.Today) continue;
-
-                    var cashTransaction = new CashTransaction()
-                    {
-                        Date = transaction.Date.Date,
-                        Deposit = transaction.Deposit,
-                        Withdrawal = transaction.Withdrawal,
-                        AccountId = transaction.AccountId,
-                        EntityId = transaction.EntityId
-
-                    };
-
-                    cashTransactions.Add(cashTransaction);
-                }
-
-                //transactionsLoaded = cashTransactions.Where(x => x.Date <= DateTime.Today).ToList();
-                //var transactionsQuery = from transaction in transactionsLoaded
-                //                        join account in accountsLoaded on transaction.AccountId equals account.Id into transactionsFiltered
-                //                        select new { transaction.Date, transaction.Deposit, transaction.Withdrawal, transaction.AccountId };
-                //var transactionsFilteredLoaded = transactionsQuery.ToList();
-                decimal currentBalance=0;
-                //var transactions = transactionsFilteredLoaded.Select(o => new { o.Date.Date, o.Deposit, o.Withdrawal });
-                currentBalance = transactions.Sum(p => p.Deposit - p.Withdrawal);
+                account = accounts.FirstOrDefault();
+                DateTime cutOffDateTime = DateTime.Today.AddDays(1);
+                var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == account.Id && x.Date < cutOffDateTime).ToList();
+                if (transactions.Count == 0) return 0;
+                decimal currentBalance= transactions.Sum(p => p.Deposit - p.Withdrawal);
                 return currentBalance;
             }
         }

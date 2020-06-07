@@ -209,7 +209,7 @@ namespace WealthBuilder
             row.Cells["Name"].Value = budget.Name;
             row.Cells["DueDate"].Value = budget.DueDate.ToShortDateString();
             row.Cells["PayDate"].Value = budget.PayDate.ToShortDateString();
-            row.Cells["Amount"].Value = budget.Amount;
+            row.Cells["Amount"].Value = budget.Amount.ToString("C");
             row.Cells["Frequency"].Value = new FrequencyRepository().GetName(budget.FrequencyId);
             row.Cells["Notes"].Value = budget.Notes;
         }
