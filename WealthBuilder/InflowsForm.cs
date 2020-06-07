@@ -147,7 +147,7 @@ namespace WealthBuilder
             row.Cells["InflowDate"].Value = inflow.InflowDate.ToShortDateString();
             row.Cells["Frequency"].Value = new FrequencyRepository().GetName(inflow.FrequencyId);
             row.Cells["Notes"].Value = inflow.Notes;
-            return;
+            MessageBox.Show("Updated");
         }
 
         private void addButton_Click(object sender, EventArgs e)
@@ -155,7 +155,7 @@ namespace WealthBuilder
             int id = AddNewRecord();
             if (id == -1) return;
             AddNewRowToDgv(id);
-            //FilterDgv();
+            MessageBox.Show("Added");
         }
 
         private int AddNewRecord()
@@ -244,7 +244,7 @@ namespace WealthBuilder
                 dgv.FirstDisplayedScrollingRowIndex = rowIndex;
             }
 
-            return;
+            MessageBox.Show("Deleted");
         }
 
         private void ClearFormFields()

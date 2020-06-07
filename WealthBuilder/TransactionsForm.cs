@@ -278,6 +278,7 @@ namespace WealthBuilder
             AddNewRowToDgv(transId);
             //FilterDgv();
             UpdateCurrentBalance();
+            MessageBox.Show("Added");
         }
 
         private void AddNewRowToDgv(int transId)
@@ -303,15 +304,7 @@ namespace WealthBuilder
             var transId = (int)row.Cells["Id"].Value;
             Transaction transaction = Save(transId);
             if (transaction == null) return;
-            //dateTimePicker.Value = transaction.Date;
-            //DescriptionTextBox.Text = transaction.Description;
-            //DepositTextBox.Text = transaction.Deposit.ToString("C");
-            //WithdrawalTextBox.Text = transaction.Withdrawal.ToString("C");
-            //ClearedCheckBox.Checked = transaction.Cleared;
-            //ReconciledCheckBox.Checked = transaction.Reconciled;
-            //CheckNumberTextBox.Text = transaction.CheckNumber;
-            //NotesRichTextBox.Text = transaction.Notes;
-
+           
             row.Cells["Date"].Value = transaction.Date;
             row.Cells["Description"].Value = transaction.Description;
             row.Cells["deposit"].Value = transaction.Deposit;
@@ -322,7 +315,7 @@ namespace WealthBuilder
             row.Cells["Notes"].Value = transaction.Notes;
 
             UpdateCurrentBalance();
-            return;
+            MessageBox.Show("Updated");
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -350,7 +343,7 @@ namespace WealthBuilder
 
             
             UpdateCurrentBalance();
-            return;
+            MessageBox.Show("Deleted");
         }
 
         private void includeClearedTransactions_CheckedChanged(object sender, EventArgs e)

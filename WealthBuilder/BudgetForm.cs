@@ -114,6 +114,7 @@ namespace WealthBuilder
             int id = AddNewRecord();
             if (id == -1) return;
             AddNewRowToDgv(id);
+            MessageBox.Show("Added");
         }
 
         private void AddNewRowToDgv(int id)
@@ -212,6 +213,7 @@ namespace WealthBuilder
             row.Cells["Amount"].Value = budget.Amount.ToString("C");
             row.Cells["Frequency"].Value = new FrequencyRepository().GetName(budget.FrequencyId);
             row.Cells["Notes"].Value = budget.Notes;
+            MessageBox.Show("Updated");
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
@@ -238,7 +240,7 @@ namespace WealthBuilder
                 dgv.FirstDisplayedScrollingRowIndex = rowIndex;
             }
 
-            return;
+            MessageBox.Show("Deleted");
         }
 
         private void ClearFormFields()
