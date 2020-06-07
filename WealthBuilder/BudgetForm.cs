@@ -28,6 +28,7 @@ namespace WealthBuilder
             dgv.Columns.Add("Id", "");
             dgv.Columns["Id"].Visible = false;
             dgv.Columns.Add("Name", "Name");
+            dgv.Columns["Name"].Width = 200;
             dgv.Columns.Add("DueDate", "Due Date");
             dgv.Columns["DueDate"].ValueType = typeof(DateTime);
             dgv.Columns.Add("PayDate", "Pay Date");
@@ -36,6 +37,7 @@ namespace WealthBuilder
             dgv.Columns["Amount"].ValueType = typeof(decimal);
             dgv.Columns.Add("Frequency", "Frequency");
             dgv.Columns.Add("Notes", "Notes");
+            dgv.Columns["Notes"].Width = 200;
 
             using (var db = new WBEntities())
             {
