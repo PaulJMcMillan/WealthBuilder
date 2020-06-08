@@ -1,7 +1,7 @@
 ﻿//Copyright 2017 McMillan Financial Solutions, LLC.  All rights reserved.
 using System;
 using System.Data.SqlClient;
-using System.Reflection;
+using System.Windows.Forms;
 
 namespace WealthBuilder
 {
@@ -9,29 +9,47 @@ namespace WealthBuilder
     {
         public static void Backup(string targetFile)
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
+            string connectionString;
 
-            try
+            using (var db = new WBEntities())
             {
-                string connectionString = string.Empty;
+                connectionString = db.Database.Connection.ConnectionString;
+            }
 
-               using (var db = new WBEntities())
+            string dbName = ParseDbNameFromConnStr(connectionString);
+
+            if (dbName == string.Empty)
+            {
+                MessageBox.Show("Error: Cannot determine the database file name.");
+                return;
+            }
+
+            using (var connection = new SqlConnection { ConnectionString = connectionString })
+            {
+                connection.Open();
+                var sql = $@"Backup Database " + dbName + " To Disk='" + targetFile + "'";
+
+                using (var command = new SqlCommand(sql, connection))
                 {
-                    connectionString = db.Database.Connection.ConnectionString;
+                    command.ExecuteNonQuery(); 
                 }
 
-                var connection = new SqlConnection { ConnectionString = connectionString};
-                connection.Open();
-                var s = $@"BACKUP DATABASE WealthBuilder TO DISK='{targetFile}'";
-                var command = new SqlCommand(s, connection);
-                command.ExecuteNonQuery();
-                connection.Close();
+                connection.Close(); 
             }
-            catch (Exception ex)
-            {
-                Error.Log("DB", "Backup", ex);
-                throw ex;
-            }
+        }
+
+        private static string ParseDbNameFromConnStr(string connectionString)
+        {
+            int attachDbFileNamePos = connectionString.ToLower().IndexOf("attachdbfilename");
+            if (attachDbFileNamePos == -1) return string.Empty;
+            int equalSignPos = connectionString.ToLower().IndexOf("=", attachDbFileNamePos);
+            if (equalSignPos == -1) return string.Empty;
+            int startPos = equalSignPos + 1;
+            int semicolonPos = connectionString.ToLower().IndexOf(";", equalSignPos);
+            if (semicolonPos == -1) return string.Empty;
+            int endPos = semicolonPos - 1;
+            string dbName = connectionString.Substring(startPos, endPos - startPos + 1);
+            return dbName;
         }
     }
 }

@@ -12,15 +12,8 @@ namespace WealthBuilder
             InitializeComponent();
         }
 
-        private void backupButton_Click(object sender, EventArgs e)
-        {
-            Data.Backup();
-        }
-
         private void ToolsForm_Load(object sender, EventArgs e)
         {
-            backupButton.Location = new Point(Constants.x1, 15);
-            backupButton.TabIndex = 0;
             createSupportFileButton.Location = new Point(Constants.x2, 15);
             createSupportFileButton.TabIndex = 1;
         }

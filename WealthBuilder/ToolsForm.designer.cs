@@ -29,23 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ToolsForm));
-            this.backupButton = new System.Windows.Forms.Button();
             this.createSupportFileButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // backupButton
-            // 
-            this.backupButton.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.backupButton.FlatAppearance.BorderSize = 0;
-            this.backupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.backupButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.backupButton.Location = new System.Drawing.Point(12, 12);
-            this.backupButton.Name = "backupButton";
-            this.backupButton.Size = new System.Drawing.Size(117, 43);
-            this.backupButton.TabIndex = 16;
-            this.backupButton.Text = "Backup Data";
-            this.backupButton.UseVisualStyleBackColor = false;
-            this.backupButton.Click += new System.EventHandler(this.backupButton_Click);
             // 
             // createSupportFileButton
             // 
@@ -67,7 +52,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(267, 70);
             this.Controls.Add(this.createSupportFileButton);
-            this.Controls.Add(this.backupButton);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ToolsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -78,7 +62,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button backupButton;
         private System.Windows.Forms.Button createSupportFileButton;
     }
 }

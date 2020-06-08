@@ -10,7 +10,6 @@ namespace WealthBuilder
     {
         public static void Backup()
         {
-            AppExecution.Trace(MethodBase.GetCurrentMethod().DeclaringType.Name, MethodBase.GetCurrentMethod().Name);
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             folderBrowserDialog.ShowNewFolderButton = true;
             folderBrowserDialog.Description = "Where do you want to save your data?";

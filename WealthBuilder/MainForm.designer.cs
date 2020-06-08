@@ -50,6 +50,7 @@
             this.reportsButton = new System.Windows.Forms.Button();
             this.ten99ContractorsButton = new System.Windows.Forms.Button();
             this.quickCashAppTransButton = new System.Windows.Forms.Button();
+            this.backupButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // inflowsButton
@@ -372,11 +373,26 @@
             this.quickCashAppTransButton.UseVisualStyleBackColor = false;
             this.quickCashAppTransButton.Click += new System.EventHandler(this.QuickCashAppTransButton_Click);
             // 
+            // backupButton
+            // 
+            this.backupButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.backupButton.FlatAppearance.BorderSize = 0;
+            this.backupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.backupButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.backupButton.Location = new System.Drawing.Point(138, 345);
+            this.backupButton.Name = "backupButton";
+            this.backupButton.Size = new System.Drawing.Size(117, 43);
+            this.backupButton.TabIndex = 35;
+            this.backupButton.Text = "Backup Data";
+            this.backupButton.UseVisualStyleBackColor = false;
+            this.backupButton.Click += new System.EventHandler(this.backupButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 396);
+            this.Controls.Add(this.backupButton);
             this.Controls.Add(this.quickCashAppTransButton);
             this.Controls.Add(this.ten99ContractorsButton);
             this.Controls.Add(this.reportsButton);
@@ -436,5 +452,6 @@
         private System.Windows.Forms.Button reportsButton;
         private System.Windows.Forms.Button ten99ContractorsButton;
         private System.Windows.Forms.Button quickCashAppTransButton;
+        private System.Windows.Forms.Button backupButton;
     }
 }

@@ -71,10 +71,12 @@ namespace WealthBuilder
             assetsButton.TabIndex = 15;
             reportsButton.Location = new Point(Constants.x1, Constants.y6);
             reportsButton.TabIndex = 16;
-            ten99ContractorsButton.Location = new Point(Constants.x2, Constants.y6);
-            ten99ContractorsButton.TabIndex = 17;
-            quickCashAppTransButton.Location = new Point(Constants.x1, Constants.y7);
-            quickCashAppTransButton.TabIndex = 18;
+            //ten99ContractorsButton.Location = new Point(Constants.x2, Constants.y6);
+            //ten99ContractorsButton.TabIndex = 17;
+            quickCashAppTransButton.Location = new Point(Constants.x2, Constants.y6);
+            quickCashAppTransButton.TabIndex = 17;
+            backupButton.Location = new Point(Constants.x3, Constants.y6);
+            backupButton.TabIndex = 18;
             SelectDefaultEntity();
             SetCurrentEntityData();
         }
@@ -257,6 +259,11 @@ namespace WealthBuilder
         private void QuickCashAppTransButton_Click(object sender, EventArgs e)
         {
             Code.Form.Open("QuickCashAppTransForm");
+        }
+
+        private void backupButton_Click(object sender, EventArgs e)
+        {
+            Data.Backup();
         }
     }
 }
