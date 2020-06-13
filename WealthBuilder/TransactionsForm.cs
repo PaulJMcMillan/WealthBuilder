@@ -28,13 +28,10 @@ namespace WealthBuilder
             SelectDefaultAccount();
             FilterDgv();
             SortDgv();
-            PopulateForm();
+            ClearFormFields();
             UpdateCurrentBalance();
-
-            //foreach (DataGridViewColumn column in dgv.Columns)
-            //{
-            //    column.SortMode = DataGridViewColumnSortMode.Automatic;
-            //}
+            dgv.ClearSelection();
+          
         }
 
         private void SelectDefaultAccount()
@@ -218,7 +215,6 @@ namespace WealthBuilder
 
         private bool ValidateData()
         {
-            if (string.IsNullOrWhiteSpace(DepositTextBox.Text) || string.IsNullOrWhiteSpace(WithdrawalTextBox.Text)) return false;
             decimal deposit = 0;
             decimal wd = 0;
 
@@ -251,6 +247,7 @@ namespace WealthBuilder
             if (transId == -1) return;
             AddNewRowToDgv(transId);
             UpdateCurrentBalance();
+            ClearFormFields();
             MessageBox.Show("Added");
         }
 
@@ -292,6 +289,7 @@ namespace WealthBuilder
             row.Cells["Notes"].Value = transaction.Notes;
 
             UpdateCurrentBalance();
+            ClearFormFields();
             MessageBox.Show("Updated");
         }
 
@@ -320,6 +318,7 @@ namespace WealthBuilder
 
             
             UpdateCurrentBalance();
+            ClearFormFields();
             MessageBox.Show("Deleted");
         }
 
@@ -366,12 +365,24 @@ namespace WealthBuilder
             if (difference == 0)
             {
                 BalancedProcessing();
+                UpdateGrid();
                 return;
             }
 
             string msg = "You did not balance.  You are off by " + difference.ToString("C") + ".  Click OK to display the reconciliation report.";
             MessageBox.Show(msg, Text);
             Code.Form.Open("ReconciliationReportForm");
+        }
+
+        private void UpdateGrid()
+        {
+            foreach(DataGridViewRow row in dgv.Rows)
+            {
+                if((bool)row.Cells["Reconciled"].Value == false && (bool)row.Cells["Cleared"].Value)
+                {
+                    row.Cells["Reconciled"].Value = true;
+                }
+            }
         }
 
         private StringBuilder reconciliationReport;
@@ -446,6 +457,11 @@ namespace WealthBuilder
             ReconciledCheckBox.Checked = (bool)currentRow.Cells["Reconciled"].Value;
             NotesRichTextBox.Text = (string)currentRow.Cells["Notes"].Value;
             CheckNumberTextBox.Text = (string)currentRow.Cells["CheckNumber"].Value;
+        }
+
+        private void dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            //dgv.Rows[0].Selected = false;
         }
     }
 }

@@ -79,6 +79,7 @@ namespace WealthBuilder
             backupButton.TabIndex = 18;
             SelectDefaultEntity();
             SetCurrentEntityData();
+            
         }
 
         private void PopulateEntityComboBox()
