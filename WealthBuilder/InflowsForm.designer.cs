@@ -263,6 +263,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Inflows";
             this.Load += new System.EventHandler(this.InflowsForm_Load);
+            this.Shown += new System.EventHandler(this.InflowsForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

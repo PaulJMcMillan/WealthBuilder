@@ -47,9 +47,9 @@ namespace WealthBuilder
                 FrequencyComboBox.DataSource = frequencies;
             }
 
-
             SortDgv();
-            PopulateForm();
+            
+            
         }
 
         private void PopulateForm()
@@ -104,6 +104,8 @@ namespace WealthBuilder
             int id = AddNewRecord();
             if (id == -1) return;
             AddNewRowToDgv(id);
+            ClearFormFields();
+            Common.ClearSelection(dgv);
             MessageBox.Show("Added");
         }
 
@@ -191,6 +193,9 @@ namespace WealthBuilder
             row.Cells["Amount"].Value = budget.Amount;
             row.Cells["Frequency"].Value = new FrequencyRepository().GetName(budget.FrequencyId);
             row.Cells["Notes"].Value = budget.Notes;
+            ClearFormFields();
+            
+            Common.ClearSelection(dgv);
             MessageBox.Show("Updated");
         }
 
@@ -210,7 +215,6 @@ namespace WealthBuilder
             }
 
             dgv.Rows.Remove(row);
-            ClearFormFields();
 
             for(int i=0;i<dgv.Rows.Count;i++)
             {
@@ -225,8 +229,13 @@ namespace WealthBuilder
                 }
             }
 
+            ClearFormFields();
+            
+            Common.ClearSelection(dgv);
             MessageBox.Show("Deleted");
         }
+
+       
 
         private void ClearFormFields()
         {
@@ -242,6 +251,11 @@ namespace WealthBuilder
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             PopulateForm();
+        }
+
+        private void BudgetForm_Shown(object sender, EventArgs e)
+        {
+            Common.ClearSelection(dgv);
         }
     }
 }

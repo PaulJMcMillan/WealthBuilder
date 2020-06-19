@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace WealthBuilder
 {
@@ -21,9 +22,14 @@ namespace WealthBuilder
             return text + " (" + CurrentEntity.Name + ")";
         }
 
-       
+        internal static void ClearSelection(DataGridView dgv)
+        {
+            dgv.ClearSelection();
+            dgv.Focus();
+            dgv.CurrentCell = null;
+        }
 
-       
+
     }
 
 

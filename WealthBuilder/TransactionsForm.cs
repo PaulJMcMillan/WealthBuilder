@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using WealthBuilder.Helpers;
@@ -30,8 +29,8 @@ namespace WealthBuilder
             SortDgv();
             ClearFormFields();
             UpdateCurrentBalance();
-            dgv.ClearSelection();
-          
+            Common.ClearSelection(dgv);
+
         }
 
         private void SelectDefaultAccount()
@@ -217,20 +216,29 @@ namespace WealthBuilder
         {
             decimal deposit = 0;
             decimal wd = 0;
+            bool displayMsg = false;
 
             if (!string.IsNullOrWhiteSpace(DepositTextBox.Text))
             {
                 if (!decimal.TryParse(StringHelper.StripDollarSignAndCommas(DepositTextBox.Text)
-                    , out deposit)) return false;
+                    , out deposit)) displayMsg = true;
             }
 
             if (!string.IsNullOrWhiteSpace(WithdrawalTextBox.Text))
             {
                 if (!decimal.TryParse(StringHelper.StripDollarSignAndCommas(WithdrawalTextBox.Text)
-                    , out wd)) return false;
+                    , out wd)) displayMsg = true;
             }
 
-            if (deposit != 0 && wd != 0) return false;
+            if (deposit != 0 && wd != 0) displayMsg = true;
+            if (deposit == 0 && wd == 0) displayMsg = true;
+
+            if (displayMsg)
+            {
+                MessageBox.Show("Invalid");
+                return false;
+            }
+
             return true;
         }
 
@@ -243,11 +251,13 @@ namespace WealthBuilder
 
         private void addButton_Click(object sender, EventArgs e)
         {
+            if (!ValidateData()) return;
             int transId = AddNewRecord();
             if (transId == -1) return;
             AddNewRowToDgv(transId);
             UpdateCurrentBalance();
             ClearFormFields();
+            Common.ClearSelection(dgv);
             MessageBox.Show("Added");
         }
 
@@ -273,6 +283,7 @@ namespace WealthBuilder
 
         private void saveButton_Click(object sender, EventArgs e)
         {
+            if (!ValidateData()) return;
             var row = dgv.CurrentRow;
             if (row == null) return;
             var transId = (int)row.Cells["Id"].Value;
@@ -290,6 +301,7 @@ namespace WealthBuilder
 
             UpdateCurrentBalance();
             ClearFormFields();
+            Common.ClearSelection(dgv);
             MessageBox.Show("Updated");
         }
 
@@ -307,7 +319,6 @@ namespace WealthBuilder
                 db.SaveChanges();
             }
 
-            ClearFormFields();
             FilterDgv();
             
             if(rowIndex > -1 && rowIndex < dgv.Rows.Count)
@@ -319,6 +330,7 @@ namespace WealthBuilder
             
             UpdateCurrentBalance();
             ClearFormFields();
+            Common.ClearSelection(dgv);
             MessageBox.Show("Deleted");
         }
 
@@ -461,7 +473,12 @@ namespace WealthBuilder
 
         private void dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            //dgv.Rows[0].Selected = false;
+            
+        }
+
+        private void TransactionsForm_Shown(object sender, EventArgs e)
+        {
+            Common.ClearSelection(dgv);
         }
     }
 }

@@ -53,7 +53,6 @@ namespace WealthBuilder
             }
 
             SortDgv();
-            PopulateForm();
         }
 
         private void SortDgv()
@@ -149,6 +148,8 @@ namespace WealthBuilder
             row.Cells["InflowDate"].Value = inflow.InflowDate;
             row.Cells["Frequency"].Value = new FrequencyRepository().GetName(inflow.FrequencyId);
             row.Cells["Notes"].Value = inflow.Notes;
+            Common.ClearSelection(dgv);
+            ClearFormFields();
             MessageBox.Show("Updated");
         }
 
@@ -157,6 +158,8 @@ namespace WealthBuilder
             int id = AddNewRecord();
             if (id == -1) return;
             AddNewRowToDgv(id);
+            Common.ClearSelection(dgv);
+            ClearFormFields();
             MessageBox.Show("Added");
         }
 
@@ -246,6 +249,8 @@ namespace WealthBuilder
                 dgv.Rows[rowIndex].Selected = true;
                 dgv.FirstDisplayedScrollingRowIndex = rowIndex;
             }
+            
+            Common.ClearSelection(dgv);
 
             MessageBox.Show("Deleted");
         }
@@ -270,6 +275,11 @@ namespace WealthBuilder
         private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             PopulateForm();
+        }
+
+        private void InflowsForm_Shown(object sender, EventArgs e)
+        {
+            Common.ClearSelection(dgv);
         }
     }
 }

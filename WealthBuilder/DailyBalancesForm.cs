@@ -33,6 +33,7 @@ namespace WealthBuilder
 
             foreach (var dailyBalance in cashFlowForecast.DailyBalances)
             {
+                if (dailyBalance.Key < DateTime.Today) continue;
                 string date = dailyBalance.Key.ToShortDateString();
                 string balance = dailyBalance.Value.ToString("C");
                 dgv.Rows.Add(date, balance);
