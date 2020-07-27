@@ -10,6 +10,16 @@ namespace WealthBuilder
     public partial class TransactionsForm : Form
     {
         private int accountId;
+        WBEntities db = new WBEntities();
+
+        enum SortDirection
+        {
+            Ascending,
+            Descending
+        };
+
+        private SortDirection sortDirection;
+        private IQueryable<Transaction> transactions;
 
         public TransactionsForm()
         {
@@ -23,6 +33,7 @@ namespace WealthBuilder
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.ReadOnly = true;
+            sortDirection = SortDirection.Descending;
             LoadAccountsComboBox();
             SelectDefaultAccount();
             FilterDgv();
@@ -35,12 +46,12 @@ namespace WealthBuilder
 
         private void SelectDefaultAccount()
         {
-            using (var db = new WBEntities())
-            {
+            //using (var db = new WBEntities())
+            //{
                 var r = db.Accounts.Where(x => x.Active == true && x.DefaultAccount == true && x.EntityId == CurrentEntity.Id).FirstOrDefault();
                 if (r == null) return;
                 accountComboBox.Text = r.Name;
-            }
+            //}
         }
 
         public void UpdateCurrentBalance()
@@ -53,68 +64,90 @@ namespace WealthBuilder
 
         private void LoadAccountsComboBox()
         {
-            using (var db = new WBEntities())
-            {
+            //using (var db = new WBEntities())
+            //{
                 var accounts = db.Accounts.Where(x => x.EntityId == CurrentEntity.Id && x.Active == true).OrderBy(x => x.Name).ToList();
                 accountComboBox.DisplayMember = "Name";
                 accountComboBox.ValueMember = "Id";
                 accountComboBox.DataSource = accounts;
-            }
+            //}
         }
 
         private void includeReconciledTransactionsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             FilterDgv();
+            SortDgv();
             UpdateCurrentBalance();
         }
 
         public void SortDgv()
         {
-            //Gets a fresh data source.
-            if (accountComboBox.SelectedIndex == -1) return;
-            if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
-            DateTime displayTransactionsBackTo = DateTime.Now;
+            if (transactions == null || transactions.Count() == 0) return;
 
-            switch (displayTransBackTo.Text)
+            if (sortDirection == SortDirection.Ascending)
             {
-                case "1 Month":
-                    displayTransactionsBackTo = DateTime.Now.AddMonths(-1).Date;
-                    break;
-                case "1 Quarter":
-                    displayTransactionsBackTo = DateTime.Now.AddMonths(-3).Date;
-                    break;
-                case "6 Months":
-                    displayTransactionsBackTo = DateTime.Now.AddMonths(-6).Date;
-                    break;
-                case "1 Year":
-                    displayTransactionsBackTo = DateTime.Now.AddYears(-1).Date;
-                    break;
-                default:
-                    displayTransactionsBackTo = DateTime.Now.AddMonths(-1).Date;
-                    break;
+                transactions = transactions.OrderBy(x => x.Date);
             }
-
-            using (var db = new WBEntities())
+            else
             {
-                var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == accountId &&
-                    x.Date >= displayTransactionsBackTo);
-
-                if (excludeReconciledTransactionsCheckBox.Checked)
-                    transactions = transactions.Where(x => x.Reconciled == false);
-
-                if (excludeClearedTransactionsCheckBox.Checked)
-                    transactions = transactions.Where(x => x.Cleared == false);
-
                 transactions = transactions.OrderByDescending(x => x.Date);
-                dgv.DataSource = transactions.ToList();
             }
+
+            dgv.DataSource = transactions.ToList();
+
+            ////Gets a fresh data source.
+            //if (accountComboBox.SelectedIndex == -1) return;
+            //if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
+            //DateTime displayTransactionsBackTo = DateTime.Now;
+
+            //switch (displayTransBackTo.Text)
+            //{
+            //    case "1 Month":
+            //        displayTransactionsBackTo = DateTime.Now.AddMonths(-1).Date;
+            //        break;
+            //    case "1 Quarter":
+            //        displayTransactionsBackTo = DateTime.Now.AddMonths(-3).Date;
+            //        break;
+            //    case "6 Months":
+            //        displayTransactionsBackTo = DateTime.Now.AddMonths(-6).Date;
+            //        break;
+            //    case "1 Year":
+            //        displayTransactionsBackTo = DateTime.Now.AddYears(-1).Date;
+            //        break;
+            //    default:
+            //        displayTransactionsBackTo = DateTime.Now.AddMonths(-1).Date;
+            //        break;
+            //}
+
+            //using (var db = new WBEntities())
+            //{
+            //    var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == accountId &&
+            //        x.Date >= displayTransactionsBackTo);
+
+            //    if (excludeReconciledTransactionsCheckBox.Checked)
+            //        transactions = transactions.Where(x => x.Reconciled == false);
+
+            //    if (excludeClearedTransactionsCheckBox.Checked)
+            //        transactions = transactions.Where(x => x.Cleared == false);
+
+            //if (sortDirection == SortDirection.Ascending)
+            //    {
+            //        transactions = transactions.OrderBy(x => x.Date);
+            //    }
+            //    else
+            //    {
+            //        transactions = transactions.OrderByDescending(x => x.Date);
+            //    }
+                
+            //    dgv.DataSource = transactions.ToList();
+            //}
         }
 
         public void FilterDgv()
         {
             if (accountComboBox.SelectedIndex == -1) return;
             if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return;
-            DateTime displayTransactionsBackTo = DateTime.Now;
+            DateTime displayTransactionsBackTo;
 
             switch (displayTransBackTo.Text)
             {
@@ -135,9 +168,9 @@ namespace WealthBuilder
                     break;
             }
 
-            using (var db = new WBEntities())
-            {
-                var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == accountId &&
+            //using (var db = new WBEntities())
+            //{
+                transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == accountId &&
                     x.Date >= displayTransactionsBackTo);
 
                 if (excludeReconciledTransactionsCheckBox.Checked)
@@ -147,68 +180,76 @@ namespace WealthBuilder
                     transactions = transactions.Where(x => x.Cleared == false);
 
                 dgv.DataSource = transactions.ToList();
-            }
+            //}
 
         }
 
         private Transaction Save(int transId)
         {
+            if (transactions == null || transactions.Count() == 0) return null;
+
             if (!ValidateData()) 
             {
                 MessageBox.Show("Invalid data");
                 return null;
             }
 
-            using (var db = new WBEntities())
-            {
-                var trans = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
-                decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
-                decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
-                trans.Date = dateTimePicker.Value;
-                trans.Description = DescriptionTextBox.Text;
-                trans.Deposit = deposit;
-                trans.Withdrawal = wd;
-                trans.Cleared = ClearedCheckBox.Checked;
-                trans.Reconciled = ReconciledCheckBox.Checked;
-                trans.CheckNumber = CheckNumberTextBox.Text;
-                trans.Notes = NotesRichTextBox.Text;
-                db.SaveChanges();
-                return trans;
-            }
+            //using (var db = new WBEntities())
+            //{
+            //var trans = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
+            var trans = transactions.Where(x => x.Id == transId);
+            if (trans == null) return null;
+            var tran = trans.FirstOrDefault();
+            decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
+            decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
+            tran.Date = dateTimePicker.Value;
+            tran.Description = DescriptionTextBox.Text;
+            tran.Deposit = deposit;
+            tran.Withdrawal = wd;
+            tran.Cleared = ClearedCheckBox.Checked;
+            tran.Reconciled = ReconciledCheckBox.Checked;
+            tran.CheckNumber = CheckNumberTextBox.Text;
+            tran.Notes = NotesRichTextBox.Text;
+            db.SaveChanges();
+            return tran;
+            //}
         }
 
         private int AddNewRecord()
         {
+            if (transactions == null) return -1;
+
             if (!ValidateData())
             {
                 MessageBox.Show("Invalid data");
                 return -1;
             }
 
-            using (var db = new WBEntities())
+            //using (var db = new WBEntities())
+            //{
+            decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
+            decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
+
+            var tran = new Transaction()
             {
-                decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
-                decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
+                Date = dateTimePicker.Value,
+                Description = DescriptionTextBox.Text,
+                Deposit = deposit,
+                Withdrawal = wd,
+                Cleared = ClearedCheckBox.Checked,
+                Reconciled = ReconciledCheckBox.Checked,
+                CheckNumber = CheckNumberTextBox.Text,
+                Notes = NotesRichTextBox.Text,
+                AccountId = (int)accountComboBox.SelectedValue,
+                EntityId = CurrentEntity.Id
+            };
 
-                var trans = new Transaction()
-                {
-                    Date = dateTimePicker.Value,
-                    Description = DescriptionTextBox.Text,
-                    Deposit = deposit,
-                    Withdrawal = wd,
-                    Cleared = ClearedCheckBox.Checked,
-                    Reconciled = ReconciledCheckBox.Checked,
-                    CheckNumber = CheckNumberTextBox.Text,
-                    Notes = NotesRichTextBox.Text,
-                    AccountId = (int)accountComboBox.SelectedValue,
-                    EntityId = CurrentEntity.Id
-                };
-
-                db.Transactions.Add(trans);
-                db.SaveChanges();
-                return trans.Id;
+            //db.Transactions.Add(tran);
+            db.Transactions.Add(tran);
+            db.SaveChanges();
+            return tran.Id;
                    
-            }
+            //}
 
         }
 
@@ -245,6 +286,7 @@ namespace WealthBuilder
         private void accountComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             FilterDgv();
+            SortDgv();
             UpdateCurrentBalance();
             availableBankBalanceTextBox.Text = string.Empty;
         }
@@ -312,14 +354,18 @@ namespace WealthBuilder
             int transId = (int)row.Cells["Id"].Value;
             int rowIndex = row.Index;
 
-            using (var db = new WBEntities())
-            {
-                var trans = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
-                db.Transactions.Remove(trans);
-                db.SaveChanges();
-            }
+            //using (var db = new WBEntities())
+            //{
+            //    //var trans = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
+            var trans = transactions.Where(x => x.Id == transId);
+            if (trans == null) return;
+            var tran = trans.FirstOrDefault();
+            db.Transactions.Remove(tran);
+            db.SaveChanges();
+            //}
 
             FilterDgv();
+            SortDgv();
             
             if(rowIndex > -1 && rowIndex < dgv.Rows.Count)
             {
@@ -337,6 +383,7 @@ namespace WealthBuilder
         private void includeClearedTransactions_CheckedChanged(object sender, EventArgs e)
         {
             FilterDgv();
+            SortDgv();
             UpdateCurrentBalance();
         }
 
@@ -366,7 +413,8 @@ namespace WealthBuilder
             reconciliationReport.Append("Available Bank Balance: " + availableBankBalance.ToString("C") + Environment.NewLine+Environment.NewLine);
             unclearedAmount = Reconciliation.CalculateUnclearedTransactions(accountId, reconciliationReport);
             decimal adjustedBankBalance = availableBankBalance + unclearedAmount;
-            reconciliationReport.Append("Adjusted Available Bank Balance: " + adjustedBankBalance.ToString("C")+" (Available Bank Balance minus the sum of Uncleared Amounts)"+ Environment.NewLine + Environment.NewLine);
+            reconciliationReport.Append("Adjusted Available Bank Balance: " + adjustedBankBalance.ToString("C")+" (Available Bank Balance minus the sum of Uncleared Amounts)"+ 
+                                 Environment.NewLine + Environment.NewLine);
             decimal difference = adjustedBankBalance - accountBalance;
             reconciliationReport.Append("Difference: " + difference.ToString("C")+" (Adjusted Available Bank Balance minus Current Balance)"+ Environment.NewLine + Environment.NewLine);
             reconciliationReport.Append("* If the Difference is positive, it means the bank thinks you have more money than your checkbook says you do." + Environment.NewLine);
@@ -401,14 +449,13 @@ namespace WealthBuilder
 
         private void BalancedProcessing()
         {
-            using (var db = new WBEntities())
-            {
-                string sql = "Update Transactions Set Reconciled = 1 "+
-                    "Where reconciled = 0 And Cleared = 1 And AccountId = " + 
-                    accountId.ToString() + " and EntityId = " + CurrentEntity.Id.ToString();
-                db.Database.ExecuteSqlCommand(sql);
-                MessageBox.Show("You balanced!  Cleared Transactions have been marked Reconciled.", Text);
-            }
+            //using (var db = new WBEntities())
+            //{
+            string sql = "Update Transactions Set Reconciled = 1 Where reconciled = 0 And Cleared = 1 And AccountId = " + 
+                accountId.ToString() + " and EntityId = " + CurrentEntity.Id.ToString();
+            db.Database.ExecuteSqlCommand(sql);
+            MessageBox.Show("You balanced!  Cleared Transactions have been marked Reconciled.", Text);
+            //}
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
@@ -435,6 +482,7 @@ namespace WealthBuilder
         {
             if (displayTransBackTo.SelectedIndex == -1) return;
             FilterDgv();
+            SortDgv();
         }
 
         private void ClearFormFields()
@@ -479,6 +527,28 @@ namespace WealthBuilder
         private void TransactionsForm_Shown(object sender, EventArgs e)
         {
             Common.ClearSelection(dgv);
+        }
+
+        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+            {
+                if(sortDirection==SortDirection.Ascending)
+                {
+                    sortDirection = SortDirection.Descending;
+                }
+                else
+                {
+                    sortDirection = SortDirection.Ascending;
+                }
+
+                SortDgv();
+            }
+        }
+
+        private void TransactionsForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            db.Dispose();
         }
     }
 }

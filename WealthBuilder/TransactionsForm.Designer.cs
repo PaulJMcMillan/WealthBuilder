@@ -148,6 +148,7 @@
             this.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv.Size = new System.Drawing.Size(1044, 423);
             this.dgv.TabIndex = 0;
+            this.dgv.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellClick);
             this.dgv.DataBindingComplete += new System.Windows.Forms.DataGridViewBindingCompleteEventHandler(this.dgv_DataBindingComplete);
             this.dgv.DataError += new System.Windows.Forms.DataGridViewDataErrorEventHandler(this.Dgv_DataError);
             this.dgv.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgv_MouseClick);
@@ -787,6 +788,7 @@
             this.Name = "TransactionsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Transactions";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TransactionsForm_FormClosing);
             this.Load += new System.EventHandler(this.TransactionsForm_Load);
             this.Shown += new System.EventHandler(this.TransactionsForm_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
