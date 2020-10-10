@@ -107,7 +107,7 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Account.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="AccountRepository.cs" />
     <Compile Include="AccountsForm.cs">
@@ -122,7 +122,7 @@
     <Compile Include="App.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="Asset.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="AssetsForm.cs">
       <SubType>Form</SubType>
@@ -131,7 +131,7 @@
       <DependentUpon>AssetsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Budget.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="BudgetForm.cs">
       <SubType>Form</SubType>
@@ -140,7 +140,7 @@
       <DependentUpon>BudgetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="C1099Contractors.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Cash.cs" />
     <Compile Include="CashFlowChartCriteriaForm.cs">
@@ -154,7 +154,7 @@
     </Compile>
     <Compile Include="CashFlowForecast.cs" />
     <Compile Include="CashFlowForecastData.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="CashFlowForecastEntry.cs" />
     <Compile Include="CategoriesForm.cs">
@@ -164,7 +164,7 @@
       <DependentUpon>CategoriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Code\Entities.cs" />
     <Compile Include="Code\Entity.cs" />
@@ -186,7 +186,7 @@
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Entity.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -195,11 +195,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Frequency.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Inflow.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="InflowViewModel.cs" />
     <Compile Include="Model1.Context.cs">
@@ -228,7 +228,7 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="ProjectedCashBalance.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ReconciliationReportForm.cs">
       <SubType>Form</SubType>
@@ -237,7 +237,7 @@
       <DependentUpon>ReconciliationReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Reminder.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="ReportsForm.cs">
       <SubType>Form</SubType>
@@ -247,7 +247,7 @@
     </Compile>
     <Compile Include="Repositories\FrequencyRepository.cs" />
     <Compile Include="Store.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="SupportFile.cs" />
     <Compile Include="TaxCategoriesForm.cs">
@@ -257,10 +257,10 @@
       <DependentUpon>TaxCategoriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TaxCategory.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TaxForm.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TaxFormsForm.cs">
       <SubType>Form</SubType>
@@ -288,7 +288,7 @@
       <DependentUpon>ToolsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Transaction.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="TransactionsForm.cs">
       <SubType>Form</SubType>

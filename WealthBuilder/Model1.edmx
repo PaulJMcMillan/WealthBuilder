@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WealthBuilderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WealthBuilderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="1099Contractors">
           <Key>
             <PropertyRef Name="id" />
@@ -134,7 +134,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TaxCategoryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TaxCategoryName" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="TaxForms">
@@ -159,7 +159,6 @@
           <Property Name="Reconciled" Type="bit" Nullable="false" />
           <Property Name="Notes" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="AccountId" Type="int" Nullable="false" />
-          <Property Name="EntityId" Type="int" Nullable="false" />
           <Property Name="TaxFormId" Type="int" Nullable="false" />
           <Property Name="TaxCategoryId" Type="int" Nullable="false" />
           <Property Name="CategoryId" Type="int" Nullable="false" />
@@ -183,8 +182,7 @@
           <EntitySet Name="TaxForms" EntityType="Self.TaxForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WealthBuilderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -317,7 +315,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaxCategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TaxCategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="TaxForm">
@@ -342,7 +340,6 @@
           <Property Name="Reconciled" Type="Boolean" Nullable="false" />
           <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AccountId" Type="Int32" Nullable="false" />
-          <Property Name="EntityId" Type="Int32" Nullable="false" />
           <Property Name="TaxFormId" Type="Int32" Nullable="false" />
           <Property Name="TaxCategoryId" Type="Int32" Nullable="false" />
           <Property Name="CategoryId" Type="Int32" Nullable="false" />
@@ -539,7 +536,6 @@
                 <ScalarProperty Name="Reconciled" ColumnName="Reconciled" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="AccountId" ColumnName="AccountId" />
-                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
                 <ScalarProperty Name="TaxFormId" ColumnName="TaxFormId" />
                 <ScalarProperty Name="TaxCategoryId" ColumnName="TaxCategoryId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />

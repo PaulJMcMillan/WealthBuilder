@@ -61,7 +61,8 @@ namespace WealthBuilder
 
             using (var db = new WBEntities())
             {
-                var transactions = db.Transactions.Where(x => x.Date >= startDate && x.Date <= endDate && x.EntityId == entityId && x.TaxFormId == taxFormId).ToList();
+                //todo: 
+                var transactions = db.Transactions.Where(x => x.Date >= startDate && x.Date <= endDate && x.TaxFormId == taxFormId).ToList();
                 var result =     from t in transactions
                                   join tc in db.TaxCategories on t.TaxCategoryId equals tc.Id
                                   group t by t.TaxCategoryId into a

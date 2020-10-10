@@ -16,7 +16,7 @@ namespace WealthBuilder.Code
                 if (account == null) return transactionsList;
                 var entity = db.Entities.Where(x => x.Id == account.EntityId && x.Active == true);
                 if (entity == null) return transactionsList;
-                return db.Transactions.Where(x => (x.Cleared == null || x.Cleared == false) && x.AccountId == accountId).ToList();
+                return db.Transactions.Where(x => (x.Cleared == false) && x.AccountId == accountId).ToList();
             }
         }
     }

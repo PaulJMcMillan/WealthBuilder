@@ -70,7 +70,7 @@ namespace WealthBuilder
 
             using (var db = new WBEntities())
             {
-                var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == cashFlowForecastAccount.Id);
+                var transactions = db.Transactions.Where(x => x.AccountId == cashFlowForecastAccount.Id);
 
                 foreach (var transaction in transactions)
                 {

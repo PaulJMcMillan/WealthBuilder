@@ -6,7 +6,13 @@
         {
             if (string.IsNullOrWhiteSpace(text)) return 0;
             string t = text.Replace("$", string.Empty).Replace(",", string.Empty);
-            return decimal.Parse(t);
+
+            if(decimal.TryParse(t, out decimal convertedVal))
+            {
+                return convertedVal;
+            }
+
+            return 0;
         }
 
         internal static string StripDollarSignAndCommas(string text)

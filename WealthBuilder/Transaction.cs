@@ -24,7 +24,6 @@ namespace WealthBuilder
         public bool Reconciled { get; set; }
         public string Notes { get; set; }
         public int AccountId { get; set; }
-        public int EntityId { get; set; }
         public int TaxFormId { get; set; }
         public int TaxCategoryId { get; set; }
         public int CategoryId { get; set; }

@@ -18,34 +18,12 @@ namespace WealthBuilder
             public long EntityId { get; set; }
         }
 
-    public static decimal GetBalanceForOneAccount(long accountId, long entityId)
+    public static decimal GetAccountBalance(long accountId)
         {
             using (var db = new WBEntities())
             {
-                var accountsLoaded = db.Accounts.Where(x => x.EntityId == entityId && x.Id == accountId && x.Active == true).ToList();
-                List<CashTransaction> transactionsLoaded;
-                var rs = db.Transactions.Where(x => x.EntityId == entityId).Join(db.Accounts.Where(x => x.Active == true), t => t.AccountId, a => a.Id, (t, a) => new { t.Date, t.Deposit, t.Withdrawal, t.AccountId, t.EntityId });
-                List<CashTransaction> tQuery = new List<CashTransaction>();
-
-                foreach (var r in rs)
-                {
-                    var cashTransaction = new CashTransaction();
-                    if (r.Date != null) cashTransaction.Date = (DateTime)r.Date;
-                    cashTransaction.Deposit = r.Deposit;
-                    cashTransaction.Withdrawal = r.Withdrawal == null ? 0 : (decimal)r.Withdrawal;
-                    cashTransaction.AccountId = r.AccountId;
-                    cashTransaction.EntityId = r.EntityId;
-                    tQuery.Add(cashTransaction);
-                }
-
-                transactionsLoaded = tQuery.Where(x => x.AccountId == accountId).ToList();
-                var transactionsQuery = from transaction in transactionsLoaded
-                                        join account in accountsLoaded on transaction.AccountId equals account.Id into transactionsFiltered
-                                        select new { transaction.Date, transaction.Deposit, transaction.Withdrawal, transaction.AccountId };
-                var transactionsFilteredLoaded = transactionsQuery.ToList();
-                decimal currentBalance;
-                var transactions = transactionsFilteredLoaded.Select(o => new { o.Date.Date, o.Deposit, o.Withdrawal });
-                currentBalance = transactions.Sum(p => (p.Deposit) - (p.Withdrawal));
+                var rs = db.Transactions.Where(x => x.AccountId == accountId).ToList();
+                decimal currentBalance = rs.Sum(p => p.Deposit - p.Withdrawal);
                 return currentBalance;
             }
         }
@@ -72,8 +50,7 @@ namespace WealthBuilder
 
                 account = accounts.FirstOrDefault();
                 DateTime cutOffDateTime = DateTime.Today.AddDays(1);
-                var transactions = db.Transactions.Where(x => x.EntityId == CurrentEntity.Id && x.AccountId == account.Id && x.Date < cutOffDateTime).ToList();
-                if (transactions.Count == 0) return 0;
+                var transactions = db.Transactions.Where(x=>x.AccountId == account.Id && x.Date < cutOffDateTime).ToList();
                 decimal currentBalance= transactions.Sum(p => p.Deposit - p.Withdrawal);
                 return currentBalance;
             }

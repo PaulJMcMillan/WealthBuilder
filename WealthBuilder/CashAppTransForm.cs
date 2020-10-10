@@ -80,7 +80,6 @@ namespace WealthBuilder
 
             trans.Description = description;
             trans.Cleared = true;
-            trans.EntityId = (int)CurrentEntity.Id;
             db.Transactions.Add(trans);
             db.SaveChanges();
         }

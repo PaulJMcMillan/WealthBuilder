@@ -16,18 +16,10 @@ namespace WealthBuilder
                 connectionString = db.Database.Connection.ConnectionString;
             }
 
-            string dbName = ParseDbNameFromConnStr(connectionString);
-
-            if (dbName == string.Empty)
-            {
-                MessageBox.Show("Error: Cannot determine the database file name.");
-                return;
-            }
-
             using (var connection = new SqlConnection { ConnectionString = connectionString })
             {
                 connection.Open();
-                var sql = $@"Backup Database " + dbName + " To Disk='" + targetFile + "'";
+                var sql = $@"Backup Database WealthBuilder To Disk='" + targetFile + "'";
 
                 using (var command = new SqlCommand(sql, connection))
                 {
@@ -38,18 +30,6 @@ namespace WealthBuilder
             }
         }
 
-        private static string ParseDbNameFromConnStr(string connectionString)
-        {
-            int attachDbFileNamePos = connectionString.ToLower().IndexOf("attachdbfilename");
-            if (attachDbFileNamePos == -1) return string.Empty;
-            int equalSignPos = connectionString.ToLower().IndexOf("=", attachDbFileNamePos);
-            if (equalSignPos == -1) return string.Empty;
-            int startPos = equalSignPos + 1;
-            int semicolonPos = connectionString.ToLower().IndexOf(";", equalSignPos);
-            if (semicolonPos == -1) return string.Empty;
-            int endPos = semicolonPos - 1;
-            string dbName = connectionString.Substring(startPos, endPos - startPos + 1);
-            return dbName;
-        }
+        
     }
 }

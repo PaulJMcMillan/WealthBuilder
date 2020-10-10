@@ -124,7 +124,7 @@ namespace WealthBuilder
             {
                 int currentRowAccountId = (int)currentRow.Cells[0].Value;
                 int currentRowEntityId = (int)currentRow.Cells["entityIdDataGridViewTextBoxColumn"].Value;
-                if (TransactionsExistForThisAccount(currentRowAccountId, currentRowEntityId)) return true;
+                if (TransactionsExistForThisAccount(currentRowAccountId)) return true;
             }
 
             //Check Entities in any selected rows.
@@ -133,17 +133,17 @@ namespace WealthBuilder
                 int accountId = (int)row.Cells[0].Value;
                 int entityId = (int)row.Cells["entityIdDataGridViewTextBoxColumn"].Value;
 
-                if (TransactionsExistForThisAccount(accountId, entityId)) return true;
+                if (TransactionsExistForThisAccount(accountId)) return true;
             }
 
             return false;
         }
 
-        private bool TransactionsExistForThisAccount(int accountId, int entityId)
+        private bool TransactionsExistForThisAccount(int accountId)
         {
             using (var db = new WBEntities())
             {
-                var rs = db.Transactions.Where(x => x.AccountId == accountId && x.EntityId == entityId);
+                var rs = db.Transactions.Where(x => x.AccountId == accountId);
                 return rs.Count() > 0;
             }
         }
