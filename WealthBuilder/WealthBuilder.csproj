@@ -185,6 +185,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="DisplayMessageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DisplayMessageForm.Designer.cs">
+      <DependentUpon>DisplayMessageForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Entity.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -395,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CategoriesForm.resx">
       <DependentUpon>CategoriesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DisplayMessageForm.resx">
+      <DependentUpon>DisplayMessageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EntitiesForm.resx">
       <DependentUpon>EntitiesForm.cs</DependentUpon>

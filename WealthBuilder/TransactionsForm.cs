@@ -368,24 +368,10 @@ namespace WealthBuilder
                 string sql = "Update Transactions Set Reconciled = 1 Where reconciled = 0 And Cleared = 1 And AccountId = " + 
                              accountId.ToString();
                 db.Database.ExecuteSqlCommand(sql);
-                MessageBox.Show("You balanced!", Text);
+                var displayMessageForm = new DisplayMessageForm("You balanced!");
+                displayMessageForm.Show();
             }
         }
-
-        //private void SearchButton_Click(object sender, EventArgs e)
-        //{
-        //    if (string.IsNullOrWhiteSpace(searchTextBox.Text)) return;
-
-        //    foreach(DataGridViewRow row in dgv.Rows)
-        //    {
-        //        foreach (DataGridViewCell cell in row.Cells)
-        //        {
-        //            if (cell.ColumnIndex == 0) continue;
-        //            string content = cell.Value.ToString();
-        //            if (content.Contains(searchTextBox.Text)) dgv.CurrentCell = dgv[cell.ColumnIndex, cell.RowIndex];
-        //        }
-        //    }
-        //}
 
         private void Dgv_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
