@@ -23,7 +23,7 @@ namespace WealthBuilder
                 string d = cashFlowForecast.BalanceBelowThresholdDate.ToShortDateString();
                 long lowestBalanceThreshold;
 
-                using (var db = new WBEntities())
+                using (var db = new WealthBuilderEntities1())
                 {
                     var entity = db.Entities.Where(x => x.Active == true && CurrentEntity.Id == x.Id).FirstOrDefault();
                     if (entity == null) return;

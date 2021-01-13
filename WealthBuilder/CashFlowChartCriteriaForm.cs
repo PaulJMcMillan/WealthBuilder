@@ -17,7 +17,7 @@ namespace WealthBuilder
             DataRow myNewRow;
             DataTable myTable = MakeDataTable();
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var rs = db.Entities.Where(x => x.Active == true).OrderBy(x=>x.Name);
                 myNewRow = myTable.NewRow();

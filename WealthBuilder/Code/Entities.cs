@@ -7,7 +7,7 @@ namespace WealthBuilder.Code
     {
         public static List<WealthBuilder.Entity> GetActive()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var rs = db.Entities.Where(x => x.Active == true).OrderBy(x => x.Name).ToList();
                 var entities = new List<WealthBuilder.Entity>();

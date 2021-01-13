@@ -11,6 +11,7 @@ namespace WealthBuilder
     public partial class TransactionsForm : Form
     {
         private int accountId;
+        private List<TaxCategory> _taxCategories;
 
         public enum SortDirection
         {
@@ -28,6 +29,8 @@ namespace WealthBuilder
 
         private void TransactionsForm_Load(object sender, EventArgs e)
         {
+            GetTaxCategories();
+            LoadTaxCategoriesComboBox();
             showAllTransactionsCheckBox.Checked = false;
             sortDirection = SortDirection.Descending;
             Text = Common.GetFormText(Text);
@@ -43,9 +46,28 @@ namespace WealthBuilder
             Common.ClearSelection(dgv);
         }
 
+        private void LoadTaxCategoriesComboBox()
+        {
+            using (var db = new WealthBuilderEntities1())
+            {
+                var taxCategories = db.TaxCategories.OrderBy(x => x.TaxCategoryName).ToList();
+                taxCategoryIdComboBox.DisplayMember = "TaxCategoryName";
+                taxCategoryIdComboBox.ValueMember = "Id";
+                taxCategoryIdComboBox.DataSource = taxCategories;
+            }
+        }
+
+        private void GetTaxCategories()
+        {
+            using (var db = new WealthBuilderEntities1())
+            {
+                _taxCategories = db.TaxCategories.ToList();
+            }
+        }
+
         private void SelectDefaultAccount()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var r = db.Accounts.Where(x => x.Active == true && x.DefaultAccount == true && x.EntityId == CurrentEntity.Id).FirstOrDefault();
                 if (r == null) return;
@@ -67,7 +89,7 @@ namespace WealthBuilder
 
         private void LoadAccountsComboBox()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var accounts = db.Accounts.Where(x => x.EntityId == CurrentEntity.Id && x.Active == true).OrderBy(x => x.Name).ToList();
                 accountComboBox.DisplayMember = "Name";
@@ -76,13 +98,23 @@ namespace WealthBuilder
             }
         }
 
-        public List<Transaction> GetTransactions(SortDirection sortDirection)
+        public List<YearEndTaxViewModel> GetTransactions(SortDirection sortDirection)
         {
-            if (accountComboBox.SelectedIndex == -1) return new List<Transaction>();
-            if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId)) return new List<Transaction>();
+            var yearEndViewModels = new List<YearEndTaxViewModel>();
+
+            if (accountComboBox.SelectedIndex == -1)
+            {
+                return yearEndViewModels;
+            }
+
+            if (!int.TryParse(accountComboBox.SelectedValue.ToString(), out accountId))
+            {
+                return yearEndViewModels;
+            }
+
             List<Transaction> transactions;
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 if (showAllTransactionsCheckBox.Checked)
                 {
@@ -95,7 +127,8 @@ namespace WealthBuilder
                         transactions = db.Transactions.Where(x => x.AccountId == accountId).OrderBy(x => x.Date).ToList();
                     }
 
-                    return transactions;
+                    yearEndViewModels = WrapTransactionData(transactions);
+                    return yearEndViewModels;
                 }
           
                 if(sortDirection == SortDirection.Descending)
@@ -109,12 +142,54 @@ namespace WealthBuilder
                         (x.Reconciled == false || x.Cleared == false)).OrderBy(x => x.Date).ToList();
                 }
 
-                return transactions;
+                yearEndViewModels = WrapTransactionData(transactions);
+                return yearEndViewModels;
             }
         }
+
+        private List<YearEndTaxViewModel> WrapTransactionData(List<Transaction> transactions)
+        {
+            var yearEndViewModels = new List<YearEndTaxViewModel>();
+
+            foreach (var transaction in transactions)
+            {
+                var yearEndViewModel = new YearEndTaxViewModel()
+                {
+                    Id = transaction.Id,
+                    Date = transaction.Date,
+                    Description = transaction.Description,
+                    Deposit = transaction.Deposit,
+                    Withdrawal = transaction.Withdrawal,
+                    Notes = transaction.Notes,
+                    AccountId = transaction.AccountId,
+                    TaxCategoryId = transaction.TaxCategoryId,
+                    TaxCategoryName = GetTaxCategoryName(transaction.TaxCategoryId),
+                    Cleared=transaction.Cleared,
+                    CheckNumber=transaction.CheckNumber,
+                    Reconciled=transaction.Reconciled,
+                };
+
+                yearEndViewModels.Add(yearEndViewModel);
+            }
+
+            return yearEndViewModels;
+        }
+
+        private string GetTaxCategoryName(int taxCategoryId)
+        {
+            var taxCategory = _taxCategories.Where(x => x.Id == taxCategoryId).FirstOrDefault();
+
+            if (taxCategory == null)
+            {
+                return string.Empty;
+            }
+
+            return taxCategory.TaxCategoryName;
+        }
+
         private Transaction Save(int transId)
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var tran = db.Transactions.Where(x => x.Id == transId).FirstOrDefault();
                 decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
@@ -127,6 +202,7 @@ namespace WealthBuilder
                 tran.Reconciled = ReconciledCheckBox.Checked;
                 tran.CheckNumber = CheckNumberTextBox.Text;
                 tran.Notes = NotesRichTextBox.Text;
+                tran.TaxCategoryId = (int)taxCategoryIdComboBox.SelectedValue;
                 db.SaveChanges();
                 return tran; 
             }
@@ -134,7 +210,7 @@ namespace WealthBuilder
 
         private int AddNewRecord()
         {
-            using ( var db = new WBEntities())
+            using ( var db = new WealthBuilderEntities1())
             {
                 decimal deposit = StringHelper.ConvertToDecimalWithEmptyString(DepositTextBox.Text);
                 decimal wd = StringHelper.ConvertToDecimalWithEmptyString(WithdrawalTextBox.Text);
@@ -149,7 +225,8 @@ namespace WealthBuilder
                     Reconciled = ReconciledCheckBox.Checked,
                     CheckNumber = CheckNumberTextBox.Text,
                     Notes = NotesRichTextBox.Text,
-                    AccountId = (int)accountComboBox.SelectedValue
+                    AccountId = (int)accountComboBox.SelectedValue,
+                    TaxCategoryId=(int)taxCategoryIdComboBox.SelectedValue
                 };
 
                 db.Transactions.Add(transaction);
@@ -256,6 +333,7 @@ namespace WealthBuilder
             row.Cells["Reconciled"].Value = transaction.Reconciled;
             row.Cells["CheckNumber"].Value = transaction.CheckNumber;
             row.Cells["Notes"].Value = transaction.Notes;
+            row.Cells["TaxCategoryName"].Value = GetTaxCategoryName(transaction.TaxCategoryId);
 
             UpdateCurrentBalance();
             ClearFormFields();
@@ -265,7 +343,7 @@ namespace WealthBuilder
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var row = dgv.CurrentRow;
                 if (row == null) return;
@@ -363,7 +441,7 @@ namespace WealthBuilder
 
         private void BalancedProcessing()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 string sql = "Update Transactions Set Reconciled = 1 Where reconciled = 0 And Cleared = 1 And AccountId = " + 
                              accountId.ToString();
@@ -388,6 +466,7 @@ namespace WealthBuilder
             ReconciledCheckBox.Checked = false;
             NotesRichTextBox.Text = string.Empty;
             CheckNumberTextBox.Text = string.Empty;
+            taxCategoryIdComboBox.SelectedIndex = -1;
         }
 
         private void dgv_MouseClick(object sender, MouseEventArgs e)
@@ -410,6 +489,7 @@ namespace WealthBuilder
             ReconciledCheckBox.Checked = (bool)currentRow.Cells["Reconciled"].Value;
             NotesRichTextBox.Text = (string)currentRow.Cells["Notes"].Value;
             CheckNumberTextBox.Text = (string)currentRow.Cells["CheckNumber"].Value;
+            taxCategoryIdComboBox.Text = (string)currentRow.Cells["TaxCategoryName"].Value;
         }
 
         private void dgv_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)

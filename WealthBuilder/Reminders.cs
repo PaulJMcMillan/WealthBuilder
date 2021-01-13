@@ -16,7 +16,7 @@ namespace WealthBuilder
 
         internal static void Load()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var entities = db.Entities.Where(x => x.Active == true);
 
@@ -32,7 +32,7 @@ namespace WealthBuilder
         private static void LoadInflows(long entityId)
         {
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 string entityName = db.Entities.Where(x => x.Id == entityId).FirstOrDefault().Name;
                 var inflows = db.Inflows.Where(x => x.EntityId == entityId);
@@ -73,7 +73,7 @@ namespace WealthBuilder
 
         private static void LoadBudget( int entityId)
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var budgets = db.Budgets.Where(x => x.EntityId == entityId);
                 if (budgets.Count() == 0) return;
@@ -102,6 +102,12 @@ namespace WealthBuilder
                     DateTime nextDueDate = budget.DueDate.Date;
                     reminder.DueDate = nextDueDate;
                     reminder.EntityId = entityId;
+
+                    if(reminder.Description.Length > 255)
+                    {
+                        reminder.Description = reminder.Description.Substring(0, 255);
+                    }
+
                     reminders.Add(reminder);
 
                     if (FrequencyCode.GetById(budget.FrequencyId) == FrequencyCode.Once)
@@ -126,7 +132,7 @@ namespace WealthBuilder
         {
             try
             {
-                using (var db = new WBEntities())
+                using (var db = new WealthBuilderEntities1())
                 {
                     var reminders = db.Reminders;
                     return reminders.Count() > 0;

@@ -13,10 +13,10 @@ namespace WealthBuilder
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class WealthBuilderEntities : DbContext
+    public partial class WealthBuilderEntities1 : DbContext
     {
-        public WealthBuilderEntities()
-            : base("name=WealthBuilderEntities")
+        public WealthBuilderEntities1()
+            : base("name=WealthBuilderEntities1")
         {
         }
     
@@ -40,5 +40,6 @@ namespace WealthBuilder
         public virtual DbSet<TaxCategory> TaxCategories { get; set; }
         public virtual DbSet<TaxForm> TaxForms { get; set; }
         public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Transactions060220> Transactions060220 { get; set; }
     }
 }

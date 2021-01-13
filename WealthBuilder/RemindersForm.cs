@@ -9,7 +9,7 @@ namespace WealthBuilder
 {
     public partial class RemindersForm : Form
     {
-        private WBEntities db = new WBEntities();
+        private WealthBuilderEntities1 db = new WealthBuilderEntities1();
         private BindingSource bs = new BindingSource();
 
         public RemindersForm()

@@ -33,7 +33,7 @@ namespace WealthBuilder
 
         private bool EntitiesExist()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var rs = db.Entities.ToList();
                 return rs.Count > 0;

@@ -43,8 +43,8 @@ namespace WealthBuilder
             transactionsButton.TabIndex = 1;
             accountsButton.Location = new Point(Constants.x2, Constants.y1);
             accountsButton.TabIndex = 2;
-            cashFlowChartButton.Location = new Point(Constants.x3, Constants.y1);
-            cashFlowChartButton.TabIndex = 3;
+            yearEndTaxesButton.Location = new Point(Constants.x3, Constants.y1);
+            yearEndTaxesButton.TabIndex = 3;
             whenCanIAffordButton.Location = new Point(Constants.x1, Constants.y2);
             whenCanIAffordButton.TabIndex = 4;
             inflowsButton.Location = new Point(Constants.x2, Constants.y2);
@@ -84,7 +84,7 @@ namespace WealthBuilder
 
         private void PopulateEntityComboBox()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var entities = db.Entities.Where(x => x.Active == true).ToList();
 
@@ -104,7 +104,8 @@ namespace WealthBuilder
             if (entityComboBox.SelectedIndex == -1) return;
             int id = (int)entityComboBox.SelectedValue;
 
-            using (var db = new WBEntities())
+
+            using (var db = new WealthBuilderEntities1())
             {
                 var r = db.Entities.Where(x => x.Id == id).FirstOrDefault();
                 CurrentEntity.Id = r.Id;
@@ -147,7 +148,7 @@ namespace WealthBuilder
 
         private void SelectDefaultEntity()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var r = db.Entities.Where(x => x.Active == true && x.DefaultEntity == true).FirstOrDefault();
                 if (r == null) return;
@@ -204,7 +205,7 @@ namespace WealthBuilder
 
         private bool AccountsSetup()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var rs = db.Accounts.Where(x=>x.EntityId == CurrentEntity.Id).ToList();
                 return rs.Count > 0;
@@ -265,6 +266,11 @@ namespace WealthBuilder
         private void backupButton_Click(object sender, EventArgs e)
         {
             Data.Backup();
+        }
+
+        private void yearEndTaxesButton_Click(object sender, EventArgs e)
+        {
+            Code.Form.Open("YearEndTaxesForm");
         }
     }
 }

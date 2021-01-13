@@ -39,7 +39,7 @@ namespace WealthBuilder
             app.Selection.Text = "Year: " + year.ToString(); 
             Word.Table table = doc.Tables[1];
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 DateTime startDate = new DateTime(year, 1, 1);
                 DateTime endDate = new DateTime(year, 12, 31, 23, 59, 59);

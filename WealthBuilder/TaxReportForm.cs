@@ -59,7 +59,7 @@ namespace WealthBuilder
             doc.Tables[1].Cell(2, 2).Range.Text = "End Date: " + endDate.ToShortDateString();
             Word.Table table = doc.Tables[2];
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 //todo: 
                 var transactions = db.Transactions.Where(x => x.Date >= startDate && x.Date <= endDate && x.TaxFormId == taxFormId).ToList();

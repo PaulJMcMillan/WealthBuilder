@@ -68,7 +68,7 @@ namespace WealthBuilder
             Account cashFlowForecastAccount = new AccountRepository().GetCashFlowForecastAccount();
             if (cashFlowForecastAccount == null) return;
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var transactions = db.Transactions.Where(x => x.AccountId == cashFlowForecastAccount.Id);
 
@@ -85,7 +85,7 @@ namespace WealthBuilder
 
         private void CreateReminderEntries()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var reminders = db.Reminders.Where(x => x.EntityId == CurrentEntity.Id);
 
@@ -110,7 +110,7 @@ namespace WealthBuilder
 
         private void CreateBudgetEntries()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var budgets = db.Budgets.Where(x => x.EntityId == CurrentEntity.Id);
                 
@@ -142,7 +142,7 @@ namespace WealthBuilder
         private void CreateInflowEntries()
         {
          
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var inflows = db.Inflows.Where(x => x.EntityId == CurrentEntity.Id);
 
@@ -175,7 +175,7 @@ namespace WealthBuilder
 
         private void PopulateReportTable()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 db.Database.ExecuteSqlCommand("Delete From CashFlowForecastData");
                 db.SaveChanges();
@@ -236,7 +236,7 @@ namespace WealthBuilder
 
         public void CalculateForDefaultEntity()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var entities = db.Entities.Where(x => x.Active == true);
                 var defaultEntity = db.Entities.Where(x => x.DefaultEntity == true && x.Active == true).FirstOrDefault();
@@ -278,7 +278,7 @@ namespace WealthBuilder
 
         public void Calculate()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 decimal cashBalance = Cash.GetStartingBalanceForCashFlow();
                 Compute(cashBalance);

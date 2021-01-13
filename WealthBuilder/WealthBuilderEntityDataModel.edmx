@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="WealthBuilderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="WealthBuilderModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="1099Contractors">
           <Key>
             <PropertyRef Name="id" />
@@ -165,6 +165,29 @@
           <Property Name="AssetId" Type="int" Nullable="false" />
           <Property Name="ContractorId" Type="int" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WealthBuilder.dbo.Transactions060220' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Transactions060220">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Deposit" Type="money" />
+          <Property Name="Withdrawal" Type="money" />
+          <Property Name="Cleared" Type="bit" />
+          <Property Name="CheckNumber" Type="int" />
+          <Property Name="Reconciled" Type="bit" />
+          <Property Name="Notes" Type="varchar" MaxLength="255" />
+          <Property Name="AccountId" Type="int" />
+          <Property Name="EntityId" Type="int" />
+          <Property Name="TaxFormId" Type="int" />
+          <Property Name="TaxCategoryId" Type="int" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="AssetId" Type="int" />
+          <Property Name="ContractorId" Type="int" />
+        </EntityType>
         <EntityContainer Name="WealthBuilderModelStoreContainer">
           <EntitySet Name="1099Contractors" EntityType="Self.1099Contractors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
@@ -181,8 +204,29 @@
           <EntitySet Name="TaxCategories" EntityType="Self.TaxCategories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TaxForms" EntityType="Self.TaxForms" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions060220" EntityType="Self.Transactions060220" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Transactions060220].[Id] AS [Id], 
+    [Transactions060220].[Date] AS [Date], 
+    [Transactions060220].[Description] AS [Description], 
+    [Transactions060220].[Deposit] AS [Deposit], 
+    [Transactions060220].[Withdrawal] AS [Withdrawal], 
+    [Transactions060220].[Cleared] AS [Cleared], 
+    [Transactions060220].[CheckNumber] AS [CheckNumber], 
+    [Transactions060220].[Reconciled] AS [Reconciled], 
+    [Transactions060220].[Notes] AS [Notes], 
+    [Transactions060220].[AccountId] AS [AccountId], 
+    [Transactions060220].[EntityId] AS [EntityId], 
+    [Transactions060220].[TaxFormId] AS [TaxFormId], 
+    [Transactions060220].[TaxCategoryId] AS [TaxCategoryId], 
+    [Transactions060220].[CategoryId] AS [CategoryId], 
+    [Transactions060220].[AssetId] AS [AssetId], 
+    [Transactions060220].[ContractorId] AS [ContractorId]
+    FROM [dbo].[Transactions060220] AS [Transactions060220]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WealthBuilderModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -346,7 +390,28 @@
           <Property Name="AssetId" Type="Int32" Nullable="false" />
           <Property Name="ContractorId" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="WealthBuilderEntities" annotation:LazyLoadingEnabled="true">
+        <EntityType Name="Transactions060220">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Deposit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Withdrawal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Cleared" Type="Boolean" />
+          <Property Name="CheckNumber" Type="Int32" />
+          <Property Name="Reconciled" Type="Boolean" />
+          <Property Name="Notes" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AccountId" Type="Int32" />
+          <Property Name="EntityId" Type="Int32" />
+          <Property Name="TaxFormId" Type="Int32" />
+          <Property Name="TaxCategoryId" Type="Int32" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="AssetId" Type="Int32" />
+          <Property Name="ContractorId" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="WealthBuilderEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C1099Contractors" EntityType="Self.C1099Contractors" />
           <EntitySet Name="Accounts" EntityType="Self.Account" />
           <EntitySet Name="Assets" EntityType="Self.Asset" />
@@ -362,13 +427,14 @@
           <EntitySet Name="TaxCategories" EntityType="Self.TaxCategory" />
           <EntitySet Name="TaxForms" EntityType="Self.TaxForm" />
           <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="Transactions060220" EntityType="Self.Transactions060220" />
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="WealthBuilderModelStoreContainer" CdmEntityContainer="WealthBuilderEntities">
+        <EntityContainerMapping StorageEntityContainer="WealthBuilderModelStoreContainer" CdmEntityContainer="WealthBuilderEntities1">
           <EntitySetMapping Name="C1099Contractors">
             <EntityTypeMapping TypeName="WealthBuilderModel.C1099Contractors">
               <MappingFragment StoreEntitySet="1099Contractors">
@@ -536,6 +602,28 @@
                 <ScalarProperty Name="Reconciled" ColumnName="Reconciled" />
                 <ScalarProperty Name="Notes" ColumnName="Notes" />
                 <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="TaxFormId" ColumnName="TaxFormId" />
+                <ScalarProperty Name="TaxCategoryId" ColumnName="TaxCategoryId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="AssetId" ColumnName="AssetId" />
+                <ScalarProperty Name="ContractorId" ColumnName="ContractorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions060220">
+            <EntityTypeMapping TypeName="WealthBuilderModel.Transactions060220">
+              <MappingFragment StoreEntitySet="Transactions060220">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Deposit" ColumnName="Deposit" />
+                <ScalarProperty Name="Withdrawal" ColumnName="Withdrawal" />
+                <ScalarProperty Name="Cleared" ColumnName="Cleared" />
+                <ScalarProperty Name="CheckNumber" ColumnName="CheckNumber" />
+                <ScalarProperty Name="Reconciled" ColumnName="Reconciled" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="AccountId" ColumnName="AccountId" />
+                <ScalarProperty Name="EntityId" ColumnName="EntityId" />
                 <ScalarProperty Name="TaxFormId" ColumnName="TaxFormId" />
                 <ScalarProperty Name="TaxCategoryId" ColumnName="TaxCategoryId" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />

@@ -79,7 +79,7 @@ namespace WealthBuilder
             // if there's no data, it crashes; or
             // if you enter $100 per week income with no expenses.
 
-            //using (var db = new WBEntities())
+            //using (var db = new WealthBuilderEntities1())
             //{
             //    var rs = db.CashFlowForecastDatas;
             //    long? maxBalance = (long?)(from b in rs select b.Balance).Max();
@@ -113,7 +113,7 @@ namespace WealthBuilder
             c.Series[0].BorderWidth = 4;
             c.ChartAreas[0].AxisY.LabelStyle.Format = "C0";
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var rs = db.CashFlowForecastDatas;
                 long? maxBalance = (long?)(from b in rs select b.Balance).Max();

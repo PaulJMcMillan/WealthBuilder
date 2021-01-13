@@ -15,7 +15,7 @@ namespace WealthBuilder
 
         private int spendAccountId=0;
         private int standardAccountId=0;
-        private WBEntities db = new WBEntities();
+        private WealthBuilderEntities1 db = new WealthBuilderEntities1();
 
         public CashAppTransForm()
         {

@@ -98,7 +98,7 @@ namespace WealthBuilder
             comboBox.ValueMember = "Id";
             comboBox.DataSource = entities;
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var r = db.Entities.Where(x => x.Name == CurrentEntity.Name && x.Active == true).FirstOrDefault();
                 if (r == null) return;
@@ -133,7 +133,7 @@ namespace WealthBuilder
             var row = dgv.CurrentRow;
             int id = (int)row.Cells["Id"].Value;
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var table = db.Entities;
                 var entity = table.Where(x => x.Id == id).FirstOrDefault();
@@ -197,7 +197,7 @@ namespace WealthBuilder
 
         private bool AccountsExistForThisEntity(int entityId)
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var rs = db.Accounts.Where(x => x.EntityId == entityId);
                 return rs.Count() > 0;

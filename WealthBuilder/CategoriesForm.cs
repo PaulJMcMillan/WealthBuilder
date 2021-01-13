@@ -66,7 +66,7 @@ namespace WealthBuilder
             var row = dgv.CurrentRow;
             int id = (int)row.Cells["Id"].Value;
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var table = db.Categories;
                 var entity = table.Where(x => x.Id == id).FirstOrDefault();
@@ -84,7 +84,7 @@ namespace WealthBuilder
             {
                 int id = (int)currentRow.Cells[0].Value;
 
-                using (var db = new WBEntities())
+                using (var db = new WealthBuilderEntities1())
                 {
                     var rs = db.Transactions.Where(x => x.CategoryId == id);
                     return rs.Count() > 0;

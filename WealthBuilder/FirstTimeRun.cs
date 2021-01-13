@@ -57,7 +57,7 @@ namespace WealthBuilder
             tables.Add("Reminders");
             tables.Add("Transactions");
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 foreach (string table in tables)
                 {

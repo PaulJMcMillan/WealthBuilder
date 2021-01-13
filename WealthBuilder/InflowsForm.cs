@@ -44,7 +44,7 @@ namespace WealthBuilder
             dgv.Columns.Add("Frequency", "Frequency");
             dgv.Columns.Add("Notes", "Notes");
            
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 frequencies = db.Frequencies.OrderBy(x => x.Name).ToList();
                 FrequencyComboBox.DisplayMember = "Name";
@@ -59,7 +59,7 @@ namespace WealthBuilder
         {
             dgv.Rows.Clear();
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var inflows = db.Inflows.Where(x => x.EntityId == CurrentEntity.Id).OrderBy(x => x.InflowDate);
 
@@ -108,7 +108,7 @@ namespace WealthBuilder
                     return null;
                 }
 
-                using (var db = new WBEntities())
+                using (var db = new WealthBuilderEntities1())
                 {
                     var inflow = db.Inflows.Where(x => x.Id == id).FirstOrDefault();
                     decimal amount = StringHelper.ConvertToDecimalWithEmptyString(AmountTextBox.Text);
@@ -175,7 +175,7 @@ namespace WealthBuilder
                     return -1;
                 }
 
-                using (var db = new WBEntities())
+                using (var db = new WealthBuilderEntities1())
                 {
                     decimal amount = StringHelper.ConvertToDecimalWithEmptyString(AmountTextBox.Text);
 
@@ -233,7 +233,7 @@ namespace WealthBuilder
             int rowIndex = row.Index;
             int id = (int)row.Cells["Id"].Value;
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var table = db.Inflows;
                 var entity = table.Where(x => x.Id == id).FirstOrDefault();

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="88612088e83745b7bd33cc34c26c3a8c" Name="Diagram1">
+      <Diagram DiagramId="008b3df78ae24af4bb94f977ae0b6f4d" Name="Diagram1">
         <EntityTypeShape EntityType="WealthBuilderModel.C1099Contractors" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WealthBuilderModel.Account" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WealthBuilderModel.Asset" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
@@ -20,6 +20,7 @@
         <EntityTypeShape EntityType="WealthBuilderModel.TaxCategory" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WealthBuilderModel.TaxForm" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="WealthBuilderModel.Transaction" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WealthBuilderModel.Transactions060220" Width="1.5" PointX="2.75" PointY="10.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

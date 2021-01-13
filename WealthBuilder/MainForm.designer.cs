@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.inflowsButton = new System.Windows.Forms.Button();
             this.budgetButton = new System.Windows.Forms.Button();
-            this.cashFlowChartButton = new System.Windows.Forms.Button();
             this.transactionsButton = new System.Windows.Forms.Button();
             this.whenCanIAffordButton = new System.Windows.Forms.Button();
             this.projectCashBalancesButton = new System.Windows.Forms.Button();
@@ -51,6 +50,7 @@
             this.ten99ContractorsButton = new System.Windows.Forms.Button();
             this.quickCashAppTransButton = new System.Windows.Forms.Button();
             this.backupButton = new System.Windows.Forms.Button();
+            this.yearEndTaxesButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // inflowsButton
@@ -82,22 +82,6 @@
             this.budgetButton.Text = "Budget";
             this.budgetButton.UseVisualStyleBackColor = false;
             this.budgetButton.Click += new System.EventHandler(this.budgetButton_Click);
-            // 
-            // cashFlowChartButton
-            // 
-            this.cashFlowChartButton.BackColor = System.Drawing.SystemColors.HotTrack;
-            this.cashFlowChartButton.Enabled = false;
-            this.cashFlowChartButton.FlatAppearance.BorderSize = 0;
-            this.cashFlowChartButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cashFlowChartButton.ForeColor = System.Drawing.SystemColors.Control;
-            this.cashFlowChartButton.Location = new System.Drawing.Point(261, 52);
-            this.cashFlowChartButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.cashFlowChartButton.Name = "cashFlowChartButton";
-            this.cashFlowChartButton.Size = new System.Drawing.Size(117, 43);
-            this.cashFlowChartButton.TabIndex = 8;
-            this.cashFlowChartButton.Text = "Cash Flow Chart";
-            this.cashFlowChartButton.UseVisualStyleBackColor = false;
-            this.cashFlowChartButton.Click += new System.EventHandler(this.cashFlowChartButton_Click);
             // 
             // transactionsButton
             // 
@@ -387,11 +371,26 @@
             this.backupButton.UseVisualStyleBackColor = false;
             this.backupButton.Click += new System.EventHandler(this.backupButton_Click);
             // 
+            // yearEndTaxesButton
+            // 
+            this.yearEndTaxesButton.BackColor = System.Drawing.SystemColors.HotTrack;
+            this.yearEndTaxesButton.FlatAppearance.BorderSize = 0;
+            this.yearEndTaxesButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.yearEndTaxesButton.ForeColor = System.Drawing.SystemColors.Control;
+            this.yearEndTaxesButton.Location = new System.Drawing.Point(261, 345);
+            this.yearEndTaxesButton.Name = "yearEndTaxesButton";
+            this.yearEndTaxesButton.Size = new System.Drawing.Size(117, 43);
+            this.yearEndTaxesButton.TabIndex = 36;
+            this.yearEndTaxesButton.Text = "Year-End Taxes";
+            this.yearEndTaxesButton.UseVisualStyleBackColor = false;
+            this.yearEndTaxesButton.Click += new System.EventHandler(this.yearEndTaxesButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(520, 396);
+            this.Controls.Add(this.yearEndTaxesButton);
             this.Controls.Add(this.backupButton);
             this.Controls.Add(this.quickCashAppTransButton);
             this.Controls.Add(this.ten99ContractorsButton);
@@ -413,7 +412,6 @@
             this.Controls.Add(this.transactionsButton);
             this.Controls.Add(this.inflowsButton);
             this.Controls.Add(this.budgetButton);
-            this.Controls.Add(this.cashFlowChartButton);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -433,7 +431,6 @@
 
         private System.Windows.Forms.Button inflowsButton;
         private System.Windows.Forms.Button budgetButton;
-        private System.Windows.Forms.Button cashFlowChartButton;
         private System.Windows.Forms.Button transactionsButton;
         private System.Windows.Forms.Button whenCanIAffordButton;
         private System.Windows.Forms.Button projectCashBalancesButton;
@@ -453,5 +450,6 @@
         private System.Windows.Forms.Button ten99ContractorsButton;
         private System.Windows.Forms.Button quickCashAppTransButton;
         private System.Windows.Forms.Button backupButton;
+        private System.Windows.Forms.Button yearEndTaxesButton;
     }
 }

@@ -20,7 +20,7 @@ namespace WealthBuilder
 
     public static decimal GetAccountBalance(long accountId)
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var rs = db.Transactions.Where(x => x.AccountId == accountId).ToList();
                 decimal currentBalance = rs.Sum(p => p.Deposit - p.Withdrawal);
@@ -30,7 +30,7 @@ namespace WealthBuilder
 
         internal static decimal GetStartingBalanceForCashFlow()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 Account account;
                 var accounts = db.Accounts.Where(x => x.EntityId == CurrentEntity.Id && x.Active == true && x.CashFlowForeCast == true);

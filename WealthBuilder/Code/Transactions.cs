@@ -10,7 +10,7 @@ namespace WealthBuilder.Code
         {
             List<WealthBuilder.Transaction> transactionsList = new List<WealthBuilder.Transaction>();
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var account = db.Accounts.Where(x => x.Id == accountId && x.Active == true).FirstOrDefault();
                 if (account == null) return transactionsList;

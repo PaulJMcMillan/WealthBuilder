@@ -15,7 +15,7 @@ namespace WealthBuilder
 
         public static string GetById(int Id)
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var r = db.Frequencies.Where(x => x.Id == Id).FirstOrDefault();
                 if (r == null || r.Code == null) return string.Empty;

@@ -11,7 +11,7 @@ namespace WealthBuilder
         {
             string connectionString;
 
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 connectionString = db.Database.Connection.ConnectionString;
             }

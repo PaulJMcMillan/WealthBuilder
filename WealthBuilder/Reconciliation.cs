@@ -9,7 +9,7 @@ namespace WealthBuilder
     {
         internal static decimal CalculateUnclearedTransactions(int accountId, StringBuilder reconciliationReport)
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var rs = Code.Transactions.GetUnclearedTransactionsByAccountId(accountId);
                 decimal totalUnclearedDeposits = CreateUnclearedTransactionReportEntries(reconciliationReport, "deposits", rs);

@@ -12,7 +12,7 @@ namespace WealthBuilder
 
         internal Account GetCashFlowForecastAccount()
         {
-            using (var db = new WBEntities())
+            using (var db = new WealthBuilderEntities1())
             {
                 var account = db.Accounts.Where(x => x.EntityId == CurrentEntity.Id && x.Active == true && x.CashFlowForeCast == true).FirstOrDefault();
                 //todo: check for multiple cash flow accounts.  if so, tell the user only one can be setup.

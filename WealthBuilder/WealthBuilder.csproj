@@ -107,7 +107,7 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Account.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AccountRepository.cs" />
     <Compile Include="AccountsForm.cs">
@@ -122,7 +122,7 @@
     <Compile Include="App.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="Asset.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="AssetsForm.cs">
       <SubType>Form</SubType>
@@ -131,7 +131,7 @@
       <DependentUpon>AssetsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Budget.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="BudgetForm.cs">
       <SubType>Form</SubType>
@@ -140,7 +140,7 @@
       <DependentUpon>BudgetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="C1099Contractors.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Cash.cs" />
     <Compile Include="CashFlowChartCriteriaForm.cs">
@@ -154,7 +154,7 @@
     </Compile>
     <Compile Include="CashFlowForecast.cs" />
     <Compile Include="CashFlowForecastData.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="CashFlowForecastEntry.cs" />
     <Compile Include="CategoriesForm.cs">
@@ -164,7 +164,7 @@
       <DependentUpon>CategoriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Category.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Code\Entities.cs" />
     <Compile Include="Code\Entity.cs" />
@@ -192,7 +192,7 @@
       <DependentUpon>DisplayMessageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Entity.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -201,40 +201,15 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Frequency.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Inflow.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="InflowViewModel.cs" />
-    <Compile Include="Model1.Context.cs">
-      <DependentUpon>Model1.Context.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Model1.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Model1.Designer.cs">
-      <DependentUpon>Model1.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Model2.cs">
-      <DependentUpon>Model2.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="Model2.Designer.cs">
-      <DependentUpon>Model2.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
     <Compile Include="ProjectedCashBalance.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReconciliationReportForm.cs">
       <SubType>Form</SubType>
@@ -243,7 +218,7 @@
       <DependentUpon>ReconciliationReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Reminder.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ReportsForm.cs">
       <SubType>Form</SubType>
@@ -253,7 +228,7 @@
     </Compile>
     <Compile Include="Repositories\FrequencyRepository.cs" />
     <Compile Include="Store.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SupportFile.cs" />
     <Compile Include="TaxCategoriesForm.cs">
@@ -263,10 +238,10 @@
       <DependentUpon>TaxCategoriesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TaxCategory.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TaxForm.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TaxFormsForm.cs">
       <SubType>Form</SubType>
@@ -294,7 +269,31 @@
       <DependentUpon>ToolsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Transaction.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transactions060220.cs">
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WealthBuilderEntityDataModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WealthBuilderEntityDataModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WealthBuilderEntityDataModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WealthBuilderEntityDataModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WealthBuilderEntityDataModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WealthBuilderEntityDataModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="YearEndTaxesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="YearEndTaxesForm.Designer.cs">
+      <DependentUpon>YearEndTaxesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TransactionsForm.cs">
       <SubType>Form</SubType>
@@ -375,12 +374,12 @@
       <DependentUpon>SplashScreenForm.cs</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
-    <Compile Include="WBEntities.cs" />
     <Compile Include="WBResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>WBResource.resx</DependentUpon>
     </Compile>
+    <Compile Include="YearEndTaxViewModel.cs" />
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -434,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ToolsForm.resx">
       <DependentUpon>ToolsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="YearEndTaxesForm.resx">
+      <DependentUpon>YearEndTaxesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransactionsForm.resx">
       <DependentUpon>TransactionsForm.cs</DependentUpon>
@@ -517,6 +519,13 @@
     <None Include="Tax Summary Report.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <EntityDeploy Include="WealthBuilderEntityDataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WealthBuilderEntityDataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="WealthBuilderEntityDataModel.edmx.diagram">
+      <DependentUpon>WealthBuilderEntityDataModel.edmx</DependentUpon>
+    </None>
     <None Include="WealthBuilder_TemporaryKey.pfx" />
     <None Include="WorkingFile.docx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -534,20 +543,15 @@
     <Content Include="coins.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Model1.Context.tt">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="WealthBuilderEntityDataModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
+      <DependentUpon>WealthBuilderEntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>WealthBuilderEntityDataModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model1.tt">
-      <DependentUpon>Model1.edmx</DependentUpon>
+    <Content Include="WealthBuilderEntityDataModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.cs</LastGenOutput>
-    </Content>
-    <Content Include="Model2.tt">
-      <DependentUpon>Model2.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model2.cs</LastGenOutput>
+      <DependentUpon>WealthBuilderEntityDataModel.edmx</DependentUpon>
+      <LastGenOutput>WealthBuilderEntityDataModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -566,16 +570,6 @@
       <ProductName>SQL Server 2012 Express LocalDB</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <EntityDeploy Include="Model2.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model2.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
