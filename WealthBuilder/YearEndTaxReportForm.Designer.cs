@@ -1,6 +1,6 @@
 ﻿namespace WealthBuilder
 {
-    partial class YearEndTaxesForm
+    partial class YearEndTaxReportForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(YearEndTaxesForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(YearEndTaxReportForm));
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,6 +40,9 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yearTextBox = new System.Windows.Forms.TextBox();
+            this.viewReportButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // dataGridViewTextBoxColumn1
@@ -112,18 +115,47 @@
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.Visible = false;
             // 
-            // YearEndTaxesForm
+            // yearTextBox
+            // 
+            this.yearTextBox.Location = new System.Drawing.Point(51, 12);
+            this.yearTextBox.Name = "yearTextBox";
+            this.yearTextBox.Size = new System.Drawing.Size(52, 20);
+            this.yearTextBox.TabIndex = 0;
+            // 
+            // viewReportButton
+            // 
+            this.viewReportButton.Location = new System.Drawing.Point(51, 38);
+            this.viewReportButton.Name = "viewReportButton";
+            this.viewReportButton.Size = new System.Drawing.Size(75, 23);
+            this.viewReportButton.TabIndex = 1;
+            this.viewReportButton.Text = "View Report";
+            this.viewReportButton.UseVisualStyleBackColor = true;
+            this.viewReportButton.Click += new System.EventHandler(this.viewReportButton_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(32, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Year:";
+            // 
+            // YearEndTaxReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 114);
+            this.ClientSize = new System.Drawing.Size(294, 78);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.viewReportButton);
+            this.Controls.Add(this.yearTextBox);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "YearEndTaxesForm";
+            this.Name = "YearEndTaxReportForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Year-End Tax Form";
-           
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -137,5 +169,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.TextBox yearTextBox;
+        private System.Windows.Forms.Button viewReportButton;
+        private System.Windows.Forms.Label label1;
     }
 }

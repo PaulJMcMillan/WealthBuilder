@@ -226,7 +226,7 @@ namespace WealthBuilder
                     CheckNumber = CheckNumberTextBox.Text,
                     Notes = NotesRichTextBox.Text,
                     AccountId = (int)accountComboBox.SelectedValue,
-                    TaxCategoryId=(int)taxCategoryIdComboBox.SelectedValue
+                    TaxCategoryId = taxCategoryIdComboBox.SelectedValue != null ? (int)taxCategoryIdComboBox.SelectedValue : -1
                 };
 
                 db.Transactions.Add(transaction);

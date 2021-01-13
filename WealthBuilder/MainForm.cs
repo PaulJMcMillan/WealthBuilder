@@ -270,7 +270,7 @@ namespace WealthBuilder
 
         private void yearEndTaxesButton_Click(object sender, EventArgs e)
         {
-            Code.Form.Open("YearEndTaxesForm");
+            Code.Form.Open("YearEndTaxReportForm");
         }
     }
 }

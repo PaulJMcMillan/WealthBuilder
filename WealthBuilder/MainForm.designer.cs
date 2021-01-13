@@ -381,7 +381,7 @@
             this.yearEndTaxesButton.Name = "yearEndTaxesButton";
             this.yearEndTaxesButton.Size = new System.Drawing.Size(117, 43);
             this.yearEndTaxesButton.TabIndex = 36;
-            this.yearEndTaxesButton.Text = "Year-End Taxes";
+            this.yearEndTaxesButton.Text = "Year-End Tax Report";
             this.yearEndTaxesButton.UseVisualStyleBackColor = false;
             this.yearEndTaxesButton.Click += new System.EventHandler(this.yearEndTaxesButton_Click);
             // 

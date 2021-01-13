@@ -289,11 +289,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WealthBuilderEntityDataModel.edmx</DependentUpon>
     </Compile>
-    <Compile Include="YearEndTaxesForm.cs">
+    <Compile Include="YearEndTaxReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="YearEndTaxesForm.Designer.cs">
-      <DependentUpon>YearEndTaxesForm.cs</DependentUpon>
+    <Compile Include="YearEndTaxReportForm.Designer.cs">
+      <DependentUpon>YearEndTaxReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TransactionsForm.cs">
       <SubType>Form</SubType>
@@ -434,8 +434,8 @@
     <EmbeddedResource Include="ToolsForm.resx">
       <DependentUpon>ToolsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="YearEndTaxesForm.resx">
-      <DependentUpon>YearEndTaxesForm.cs</DependentUpon>
+    <EmbeddedResource Include="YearEndTaxReportForm.resx">
+      <DependentUpon>YearEndTaxReportForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TransactionsForm.resx">
       <DependentUpon>TransactionsForm.cs</DependentUpon>
